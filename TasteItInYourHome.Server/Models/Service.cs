@@ -3,13 +3,15 @@ using System.Collections.Generic;
 
 namespace TasteItInYourHome.Server.Models;
 
-public partial class Category
+public partial class Service
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 
     public string Name { get; set; } = null!;
 
     public string? Description { get; set; }
 
-    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+    public string? ImageUrl { get; set; }
+
+    public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 }

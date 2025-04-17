@@ -5,13 +5,13 @@ namespace TasteItInYourHome.Server.Models;
 
 public partial class ContactU
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 
-    public long? UserId { get; set; }
+    public string FullName { get; set; } = null!;
 
-    public string Message { get; set; } = null!;
+    public string Email { get; set; } = null!;
 
-    public DateTime? CreatedAt { get; set; }
+    public string? Message { get; set; }
 
-    public virtual User? User { get; set; }
+    public DateTime? SubmittedAt { get; set; }
 }
