@@ -1,0 +1,6 @@
+@TasteItInYourHome.Server_HostAddress = http://localhost:5261
+
+GET {{TasteItInYourHome.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
