@@ -11,6 +11,11 @@ import { SaraComponent } from './Sara/sara/sara.component';
 import { SofyanComponent } from './Sofyan/sofyan/sofyan.component';
 import { SondosComponent } from './Sondos/sondos/sondos.component';
 import { SuleimanComponent } from './Suleiman/suleiman/suleiman.component';
+import { FooterComponent } from './Suleiman/footer/footer.component';
+import { HeaderComponent } from './Suleiman/header/header.component';
+import { HomeComponent } from './Suleiman/home/home.component';
+import { AboutusComponent } from './Suleiman/aboutus/aboutus.component';
+import { ContactusComponent } from './Suleiman/contactus/contactus.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,12 @@ import { SuleimanComponent } from './Suleiman/suleiman/suleiman.component';
     SaraComponent,
     SofyanComponent,
     SondosComponent,
-    SuleimanComponent
+    SuleimanComponent,
+    FooterComponent,
+    HeaderComponent,
+    HomeComponent,
+    AboutusComponent,
+    ContactusComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,
