@@ -8,5 +8,6 @@ namespace TasteItInYourHome.Server.IDataService
         public bool login(loginUserDTO user);
 
         Task<string> Register(addUserDTO user);
+        Task<object?> GoogleLogin(string token);
     }
 }

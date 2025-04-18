@@ -81,5 +81,50 @@ namespace TasteItInYourHome.Server.DataService
         }
 
 
+
+
+
+
+
+
+
+        public async Task<object?> GoogleLogin(string token)
+        {
+            try
+            {
+                var payload = await Google.Apis.Auth.GoogleJsonWebSignature.ValidateAsync(token, new Google.Apis.Auth.GoogleJsonWebSignature.ValidationSettings
+                {
+                    Audience = new[] { "YOUR_GOOGLE_CLIENT_ID" }
+                });
+
+                var userEmail = payload.Email;
+                var userName = payload.Name;
+
+                var existUser = db.Users.FirstOrDefault(u => u.Email == userEmail);
+
+                if (existUser == null)
+                {
+                    var NewUser = new User
+                    {
+                        Email = userEmail,
+                        FullName = userName,
+                        PasswordHash = "",
+                        CreatedAt = DateTime.UtcNow
+                    };
+
+                    db.Users.Add(NewUser);
+                    db.SaveChanges();
+                }
+
+                return new { email = userEmail, name = userName };
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
+
     }
 }

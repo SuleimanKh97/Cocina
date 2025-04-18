@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using TasteItInYourHome.Server.DTOs;
 using TasteItInYourHome.Server.IDataService;
+using Google.Apis.Auth;
+using TasteItInYourHome.Server.Models;
 
 namespace TasteItInYourHome.Server.Controllers.Sally
 {
@@ -59,6 +61,18 @@ namespace TasteItInYourHome.Server.Controllers.Sally
                 return BadRequest(result);
 
             return StatusCode(StatusCodes.Status201Created, result);
+        }
+
+
+
+        [HttpPost("GoogleLogin")]
+        public async Task<IActionResult> GoogleLogin([FromBody] string token)
+        {
+            var result = await _data.GoogleLogin(token);
+            if (result == null)
+                return BadRequest("Invalid Google token");
+
+            return Ok(result);
         }
 
     }
