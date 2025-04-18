@@ -1,0 +1,90 @@
+<div class="chef-list-container">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1>Our Chefs</h1>
+      <p>Meet the culinary artists who will transform your dining experience</p>
+    </div>
+  </div>
+
+  <div class="content-container">
+    <div class="page-header">
+      <h1>Our Professional Chefs</h1>
+      <p class="subtitle">Discover our talented chefs ready to create an unforgettable culinary experience</p>
+    </div>
+
+    <!-- Loading state -->
+    <div *ngIf="loading" class="loading-container">
+      <div class="spinner"></div>
+      <p>Loading chefs...</p>
+    </div>
+
+    <!-- Error message -->
+    <div *ngIf="error" class="error-message">
+      <p>{{ error }}</p>
+      <button class="retry-button" (click)="loadChefs()">Try Again</button>
+    </div>
+
+    <!-- Chefs grid -->
+    <div *ngIf="!loading && !error && chefs.length > 0" class="chefs-grid">
+      <div *ngFor="let chef of paginatedChefs" class="chef-card">
+        <div class="chef-image" [style.backgroundImage]="'url(' + (chef.imageUrl || 'assets/images/chef-placeholder.jpg') + ')'"></div>
+        <div class="chef-details">
+          <h3 class="chef-name">{{ chef.fullName }}</h3>
+          <p *ngIf="chef.experienceYears" class="chef-experience">
+            <i class="fas fa-star"></i> {{ chef.experienceYears }} years of experience
+          </p>
+          <p class="chef-bio">{{ chef.bio || 'No additional information available about this chef.' }}</p>
+          <div class="chef-contact">
+            <div *ngIf="chef.email" class="contact-item">
+              <i class="fas fa-envelope"></i> {{ chef.email }}
+            </div>
+            <div *ngIf="chef.phoneNumber" class="contact-item">
+              <i class="fas fa-phone"></i> {{ chef.phoneNumber }}
+            </div>
+          </div>
+          <button class="book-btn">Book this Chef</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div *ngIf="!loading && !error && chefs.length > 0" class="pagination">
+      <button 
+        [disabled]="currentPage === 1" 
+        (click)="setPage(currentPage - 1)" 
+        class="pagination-btn prev"
+        [class.disabled]="currentPage === 1"
+      >
+        <i class="fas fa-chevron-left"></i> Previous
+      </button>
+      
+      <div class="page-numbers">
+        <button 
+          *ngFor="let page of getPageNumbers()" 
+          class="page-number"
+          [class.active]="page === currentPage"
+          (click)="setPage(page)"
+        >
+          {{ page }}
+        </button>
+      </div>
+      
+      <button 
+        [disabled]="currentPage === totalPages" 
+        (click)="setPage(currentPage + 1)" 
+        class="pagination-btn next"
+        [class.disabled]="currentPage === totalPages"
+      >
+        Next <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <!-- No chefs found -->
+    <div *ngIf="!loading && !error && chefs.length === 0" class="no-results">
+      <i class="fas fa-user-chef"></i>
+      <h3>No Chefs Found</h3>
+      <p>We couldn't find any chefs in our database. Please check back later.</p>
+    </div>
+  </div>
+</div>

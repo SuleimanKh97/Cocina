@@ -36,7 +36,6 @@
     <Folder Include="Controllers\Ammar\" />
     <Folder Include="Controllers\Sara\" />
     <Folder Include="Controllers\Sondos\" />
-    <Folder Include="Controllers\Sofyan\" />
     <Folder Include="Controllers\Sajeda\" />
     <Folder Include="Controllers\Sally\" />
   </ItemGroup>

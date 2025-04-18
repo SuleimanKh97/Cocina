@@ -16,6 +16,7 @@ import { HeaderComponent } from './Suleiman/header/header.component';
 import { HomeComponent } from './Suleiman/home/home.component';
 import { AboutusComponent } from './Suleiman/aboutus/aboutus.component';
 import { ContactusComponent } from './Suleiman/contactus/contactus.component';
+import { ChefListComponent } from './Sofyan/chef-list/chef-list.component';
 
 @NgModule({
   declarations: [
@@ -31,10 +32,12 @@ import { ContactusComponent } from './Suleiman/contactus/contactus.component';
     HeaderComponent,
     HomeComponent,
     AboutusComponent,
-    ContactusComponent
+    ContactusComponent,
+    ChefListComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule,
+    BrowserModule, 
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [],
