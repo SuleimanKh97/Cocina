@@ -32,6 +32,8 @@ builder.Services.AddScoped<SajedaIDataService, SajedaDataService>();
 builder.Services.AddScoped<AmmarIDataService, AmmarDataService>();
 
 
+
+
 var app = builder.Build();
 app.UseCors("AllowAllOrigins");
 app.UseDefaultFiles();
