@@ -33,13 +33,11 @@
 
   <ItemGroup>
     <Folder Include="Controllers\Ammar\" />
-    <Folder Include="Controllers\Suleiman\" />
     <Folder Include="Controllers\Sara\" />
     <Folder Include="Controllers\Sondos\" />
     <Folder Include="Controllers\Sofyan\" />
     <Folder Include="Controllers\Sajeda\" />
     <Folder Include="Controllers\Sally\" />
-    <Folder Include="DTOs\" />
   </ItemGroup>
 
 </Project>
