@@ -19,6 +19,7 @@ import { SignUpComponent } from './Sally/sign-up/sign-up.component';
 import { SignInComponent } from './Sally/sign-in/sign-in.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms'; 
+import { ChefListComponent } from './Sofyan/chef-list/chef-list.component';
 
 @NgModule({
   declarations: [
@@ -36,11 +37,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     ContactusComponent,
     SignUpComponent,
     SignInComponent
+    ContactusComponent,
+    ChefListComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,
     AppRoutingModule, FormsModule,
     ReactiveFormsModule
+    BrowserModule, 
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
