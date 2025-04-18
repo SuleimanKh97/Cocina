@@ -1,0 +1,70 @@
+:root {
+  --primary-color: #C5705D;
+  --secondary-color: #D0B8A8;
+  --light-color: #F8EDE3;
+  --medium-color: #DFD3C3;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #F8EDE3;
+  color: #333;
+}
+
+
+
+.contact-header {
+  background-color: #D0B8A8;
+  padding: 80px 0;
+  margin-bottom: 50px;
+}
+
+.contact-form {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+  border: 1px solid #DFD3C3;
+  padding: 12px;
+  margin-bottom: 20px;
+}
+
+  .form-control:focus {
+    border-color: #C5705D;
+    box-shadow: 0 0 0 0.25rem rgba(197, 112, 93, 0.25);
+  }
+
+.btn-primary {
+  background-color: #C5705D;
+  border-color: #C5705D;
+  padding: 12px 30px;
+  font-weight: 600;
+}
+
+  .btn-primary:hover {
+    background-color: #b55c4a;
+    border-color: #b55c4a;
+  }
+
+.contact-info {
+  background-color: #DFD3C3;
+  padding: 40px;
+  border-radius: 10px;
+  height: 100%;
+}
+
+  .contact-info i {
+    color: #C5705D;
+    font-size: 24px;
+    margin-right: 15px;
+  }
+
+.footer {
+  background-color: #C5705D;
+  color: white;
+  padding: 30px 0;
+  margin-top: 80px;
+}
