@@ -1,0 +1,475 @@
+/* Global reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #F8EDE3;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.home-page {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+/* Slider styles */
+.slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #666;
+}
+
+.slider {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.slide-overlay {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-content {
+    max-width: 600px;
+    padding: 40px;
+    text-align: center;
+    color: white;
+}
+
+.slide-content h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.slide-content p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.service-btn {
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.service-btn:hover {
+    background-color: #e74c3c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 2;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-arrow:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.prev {
+    left: 20px;
+}
+
+.next {
+    right: 20px;
+}
+
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Section styles */
+section {
+    padding: 80px 0;
+    width: 100%;
+}
+
+.section-title {
+    font-size: 32px;
+    color: #C5705D;
+    text-align: center;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.section-subtitle {
+    font-size: 18px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 50px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* How It Works Section */
+.how-it-works {
+    background-color: #fff;
+}
+
+.process-steps {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.step {
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+    padding: 30px;
+    background-color: #F8EDE3;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.step:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.step-icon {
+    width: 80px;
+    height: 80px;
+    background-color: #C5705D;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.step-icon i {
+    font-size: 32px;
+    color: white;
+}
+
+.step h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.step p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Featured Chefs Section */
+.featured-chefs {
+    background-color: #F8EDE3;
+}
+
+.chefs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.chef-card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.chef-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.chef-img {
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+}
+
+.chef-info {
+    padding: 25px;
+}
+
+.chef-info h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.chef-specialty {
+    color: #C5705D;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.view-btn {
+    margin-top: 15px;
+    background-color: transparent;
+    color: #C5705D;
+    border: 2px solid #C5705D;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.view-btn:hover {
+    background-color: #C5705D;
+    color: white;
+}
+
+/* Testimonials Section */
+.testimonials {
+    background-color: #fff;
+}
+
+.testimonial-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.testimonial {
+    flex: 1;
+    min-width: 280px;
+    background-color: #F8EDE3;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.testimonial-content {
+    margin-bottom: 20px;
+}
+
+.testimonial-content p {
+    font-style: italic;
+    color: #555;
+    line-height: 1.7;
+    position: relative;
+}
+
+.testimonial-content p::before {
+    content: "" ";
+ font-size: 60px;
+    color: #C5705D;
+    position: absolute;
+    top: -20px;
+    left: -15px;
+    opacity: 0.2;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+}
+
+.author-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    background-size: cover;
+    background-position: center;
+}
+
+.author-info h4 {
+    font-size: 18px;
+    margin-bottom: 0;
+    color: #333;
+}
+
+.author-info p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* CTA Section */
+.cta-section {
+    background-color: #C5705D;
+    color: white;
+    text-align: center;
+    padding: 80px 0;
+}
+
+.cta-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.cta-content h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.cta-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.cta-btn {
+    background-color: white;
+    color: #C5705D;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .slider {
+        height: 500px;
+    }
+
+    .slide-content {
+        max-width: 100%;
+        padding: 20px;
+    }
+
+    .slide-content h2 {
+        font-size: 28px;
+    }
+
+    .slide-content p {
+        font-size: 16px;
+    }
+
+    .service-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    section {
+        padding: 50px 0;
+    }
+
+    .process-steps,
+    .testimonial-cards {
+        flex-direction: column;
+    }
+
+    .step,
+    .testimonial {
+        margin-bottom: 20px;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
+
+    .cta-content h2 {
+        font-size: 28px;
+    }
+}

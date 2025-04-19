@@ -1,0 +1,203 @@
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #fff9f8 0%, #f8e9e6 100%);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #333;
+}
+
+.login-container {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(197, 112, 93, 0.15);
+  width: 400px;
+  padding: 40px;
+  text-align: center;
+  border: 1px solid #f0d8d4;
+}
+
+.logo {
+  color: #C5705D;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+h1 {
+  color: #C5705D;
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 500;
+}
+
+input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #f0d8d4;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s;
+  background-color: #fffbfa;
+}
+
+  input:focus {
+    border-color: #C5705D;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(197, 112, 93, 0.2);
+  }
+
+.btn {
+  background-color: #C5705D;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+  .btn:hover {
+    background-color: #b05a4a;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(197, 112, 93, 0.3);
+  }
+
+.links {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+  .links a {
+    color: #C5705D;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s;
+  }
+
+    .links a:hover {
+      color: #b05a4a;
+      text-decoration: underline;
+    }
+
+.divider {
+  margin: 25px 0;
+  height: 1px;
+  background-color: #f0d8d4;
+  position: relative;
+}
+
+  .divider::after {
+    content: "OR";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 0 10px;
+    color: #C5705D;
+    font-size: 14px;
+  }
+
+.social-login {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff9f8;
+  border: 1px solid #f0d8d4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: #C5705D;
+}
+
+  .social-icon:hover {
+    background-color: #f8e9e6;
+    transform: scale(1.1);
+  }
+
+/* Animations */
+.login-container {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+  .btn::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+    transition: all 0.3s;
+  }
+
+  .btn:hover::after {
+    left: 100%;
+  }
+
+
+/* تخصيص زر جوجل */
+.custom-google-btn {
+  margin: 20px 0;
+}
+
+  .custom-google-btn iframe {
+    width: 100% !important;
+    height: 50px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    border: 1px solid #ddd !important;
+  }
+
+/* تعديلات إضافية حسب الحاجة */
+.g_id_signin {
+  width: 100% !important;
+}

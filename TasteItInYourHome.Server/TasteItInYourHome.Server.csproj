@@ -10,6 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.69.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
       <Version>8.*-*</Version>
     </PackageReference>
@@ -35,9 +37,9 @@
     <Folder Include="Controllers\Ammar\" />
     <Folder Include="Controllers\Sara\" />
     <Folder Include="Controllers\Sondos\" />
-    <Folder Include="Controllers\Sofyan\" />
     <Folder Include="Controllers\Sajeda\" />
     <Folder Include="Controllers\Sally\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
