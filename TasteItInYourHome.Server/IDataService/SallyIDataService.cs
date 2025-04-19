@@ -5,9 +5,9 @@ namespace TasteItInYourHome.Server.IDataService
     public interface SallyIDataService
     {
 
-        public bool login(loginUserDTO user);
+        public int? LoginAndGetId(loginUserDTO user);
 
         Task<string> Register(addUserDTO user);
-        Task<object?> GoogleLogin(string token);
+        public  Task<GoogleLoginResponseDTO?> GoogleLogin(string token);
     }
 }

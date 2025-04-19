@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Google.Apis.Auth;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Win32;
 using TasteItInYourHome.Server.DTOs;
 using TasteItInYourHome.Server.IDataService;
 using TasteItInYourHome.Server.Models;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
 
 namespace TasteItInYourHome.Server.DataService
 {
@@ -20,14 +24,17 @@ namespace TasteItInYourHome.Server.DataService
             this.db = db;
             _hostingEnvironment = hostingEnvironment;
         }
-
-        public bool login(loginUserDTO user)
+        public int? LoginAndGetId(loginUserDTO user)
         {
             var existUser = db.Users.FirstOrDefault(u => u.Email == user.Email);
 
-            if (existUser == null) return false;
+            if (existUser == null) return null;
 
-            return BCrypt.Net.BCrypt.Verify(user.Password, existUser.PasswordHash);
+            bool isPasswordCorrect = BCrypt.Net.BCrypt.Verify(user.Password, existUser.PasswordHash);
+
+            if (!isPasswordCorrect) return null;
+
+            return existUser.Id;
         }
 
 
@@ -88,38 +95,39 @@ namespace TasteItInYourHome.Server.DataService
 
 
 
-        public async Task<object?> GoogleLogin(string token)
+        public async Task<GoogleLoginResponseDTO?> GoogleLogin(string token)
         {
             try
             {
-                var payload = await Google.Apis.Auth.GoogleJsonWebSignature.ValidateAsync(token, new Google.Apis.Auth.GoogleJsonWebSignature.ValidationSettings
+                var payload = await GoogleJsonWebSignature.ValidateAsync(token);
+
+                var user = db.Users.FirstOrDefault(u => u.Email == payload.Email) ?? new User
                 {
-                    Audience = new[] { "YOUR_GOOGLE_CLIENT_ID" }
-                });
+                    Email = payload.Email,
+                    FullName = payload.Name,
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(Guid.NewGuid().ToString()),
+                    IsGoogleUser = true,
+                    GoogleId = payload.Subject,
+                    CreatedAt = DateTime.UtcNow
+                };
 
-                var userEmail = payload.Email;
-                var userName = payload.Name;
-
-                var existUser = db.Users.FirstOrDefault(u => u.Email == userEmail);
-
-                if (existUser == null)
+                if (user.Id == 0) // New user
                 {
-                    var NewUser = new User
-                    {
-                        Email = userEmail,
-                        FullName = userName,
-                        PasswordHash = "",
-                        CreatedAt = DateTime.UtcNow
-                    };
-
-                    db.Users.Add(NewUser);
-                    db.SaveChanges();
+                    db.Users.Add(user);
+                    await db.SaveChangesAsync();
                 }
 
-                return new { email = userEmail, name = userName };
+                return new GoogleLoginResponseDTO
+                {
+                    Email = user.Email,
+                    FullName = user.FullName,
+                    IsGoogleUser = true
+                    // لا يوجد JwtToken هنا
+                };
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine($"Google login error: {ex.Message}");
                 return null;
             }
         }
