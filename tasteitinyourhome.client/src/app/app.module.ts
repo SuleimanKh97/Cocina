@@ -23,7 +23,8 @@ import { SuleimanComponent } from './Suleiman/suleiman/suleiman.component';
   ],
   imports: [
     BrowserModule, HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
