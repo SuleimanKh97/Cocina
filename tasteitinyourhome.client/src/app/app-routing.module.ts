@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'contactus', component: ContactusComponent },
   { path: 'Login', component: SignInComponent },
-  { path: 'Register', component: SignUpComponent }
+  { path: 'Register', component: SignUpComponent },
   { path: 'contactus', component: ContactusComponent },
   { path: 'chefs', component: ChefListComponent },
 ];
