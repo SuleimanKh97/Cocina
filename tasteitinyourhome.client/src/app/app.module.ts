@@ -36,14 +36,14 @@ import { ChefListComponent } from './Sofyan/chef-list/chef-list.component';
     AboutusComponent,
     ContactusComponent,
     SignUpComponent,
-    SignInComponent
+    SignInComponent,
     ContactusComponent,
     ChefListComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,
     AppRoutingModule, FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
     BrowserModule, 
     HttpClientModule,
     AppRoutingModule

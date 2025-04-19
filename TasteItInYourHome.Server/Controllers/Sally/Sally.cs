@@ -4,6 +4,7 @@ using TasteItInYourHome.Server.DTOs;
 using TasteItInYourHome.Server.IDataService;
 using Google.Apis.Auth;
 using TasteItInYourHome.Server.Models;
+using Azure.Core;
 
 namespace TasteItInYourHome.Server.Controllers.Sally
 {
@@ -26,23 +27,22 @@ namespace TasteItInYourHome.Server.Controllers.Sally
 
         public IActionResult login(loginUserDTO user)
         {
-
             if (user.Email == null || user.Password == null)
             {
                 return BadRequest();
             }
 
-            bool exist = _data.login(user);
-            if (exist)
+            var userId = _data.LoginAndGetId(user);
+            if (userId != null)
             {
-                return Ok();
+                return Ok(new { UserId = userId });
             }
             else
             {
-
                 return NotFound();
             }
         }
+
 
 
         [HttpPost("Register")]
@@ -60,19 +60,17 @@ namespace TasteItInYourHome.Server.Controllers.Sally
             if (result == "Email already exists.")
                 return BadRequest(result);
 
-            return StatusCode(StatusCodes.Status201Created, result);
+            return StatusCode(StatusCodes.Status201Created, new { message = result });
+
         }
 
 
 
         [HttpPost("GoogleLogin")]
-        public async Task<IActionResult> GoogleLogin([FromBody] string token)
+        public async Task<IActionResult> GoogleLogin([FromBody] GoogleLoginRequestDTO request)
         {
-            var result = await _data.GoogleLogin(token);
-            if (result == null)
-                return BadRequest("Invalid Google token");
-
-            return Ok(result);
+            var result = await _data.GoogleLogin(request.Token);
+            return result != null ? Ok(result) : BadRequest("فشل تسجيل الدخول بجوجل");
         }
 
     }
