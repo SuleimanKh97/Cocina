@@ -97,5 +97,36 @@ namespace TasteItInYourHome.Server.Controllers.Sajeda
             else 
                 return NotFound();
         }
+
+
+
+        /////////////*****************Payment*****************////////////////////////////////
+
+        [HttpPost("Pay")]
+        public IActionResult addPayment(PaymentRequest dtoPayment)
+        {
+            var payment = _data.addPayment(dtoPayment);
+            if (payment != null)
+            {
+                return Ok(payment);
+            }
+            else 
+            {
+                return NotFound(); 
+            }
+        }
+
+        [HttpGet("getBook/{id}")]
+        public IActionResult dgetBookByID(int id) { 
+            var bookID = _data.getBookID(id);
+            if (bookID != null)
+            {
+                return Ok(bookID);
+            }
+            else {
+                return NoContent();
+
+            }
+        }
     }
 }

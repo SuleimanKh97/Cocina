@@ -46,7 +46,6 @@
 //}
 
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { URLService } from '../url.service';
 import { ActivatedRoute } from '@angular/router';
 

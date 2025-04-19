@@ -24,7 +24,7 @@
 
             <select class="form-select" name="ChefId" required [(ngModel)]="formData.ChefId">
               <option value="" disabled selected>Select a chef</option>
-              <option *ngFor="let chef of chefs" [value]="chef.id">{{ chef.fullName }}</option>
+              <option *ngFor="let chef of chefs" [value]="chef.id">{{ chef.FullName }}</option>
             </select>
 
             <div class="col-md-6">
