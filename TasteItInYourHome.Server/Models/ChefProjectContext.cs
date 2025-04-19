@@ -35,13 +35,13 @@ public partial class ChefProjectContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-DCT50HS;Database=ChefProject;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-ONKMO14;Database=Cucina;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Booking>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Bookings__3214EC072F18130D");
+            entity.HasKey(e => e.Id).HasName("PK__Bookings__3214EC07E86B8674");
 
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -70,7 +70,7 @@ public partial class ChefProjectContext : DbContext
 
         modelBuilder.Entity<Chef>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Chefs__3214EC07DEA36420");
+            entity.HasKey(e => e.Id).HasName("PK__Chefs__3214EC078F3642FA");
 
             entity.Property(e => e.Bio).HasMaxLength(500);
             entity.Property(e => e.CreatedAt)
@@ -84,7 +84,7 @@ public partial class ChefProjectContext : DbContext
 
         modelBuilder.Entity<ContactU>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ContactU__3214EC077F71B73F");
+            entity.HasKey(e => e.Id).HasName("PK__ContactU__3214EC07B3FFB813");
 
             entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.FullName).HasMaxLength(100);
@@ -95,7 +95,7 @@ public partial class ChefProjectContext : DbContext
 
         modelBuilder.Entity<Feedback>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Feedback__3214EC070C0A8D43");
+            entity.HasKey(e => e.Id).HasName("PK__Feedback__3214EC07295B1134");
 
             entity.ToTable("Feedback");
 
@@ -110,7 +110,7 @@ public partial class ChefProjectContext : DbContext
 
         modelBuilder.Entity<Food>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Foods__3214EC0729A38EE6");
+            entity.HasKey(e => e.Id).HasName("PK__Foods__3214EC07A0194535");
 
             entity.Property(e => e.Description).HasMaxLength(500);
             entity.Property(e => e.ImageUrl).HasMaxLength(255);
@@ -127,7 +127,7 @@ public partial class ChefProjectContext : DbContext
 
         modelBuilder.Entity<FoodCategory>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__FoodCate__3214EC0740DE3662");
+            entity.HasKey(e => e.Id).HasName("PK__FoodCate__3214EC07FB5D9307");
 
             entity.Property(e => e.Description).HasMaxLength(255);
             entity.Property(e => e.ImageUrl).HasMaxLength(255);
@@ -136,7 +136,7 @@ public partial class ChefProjectContext : DbContext
 
         modelBuilder.Entity<Payment>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Payments__3214EC073191AB2A");
+            entity.HasKey(e => e.Id).HasName("PK__Payments__3214EC07DC0CD9D0");
 
             entity.Property(e => e.Amount).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.PaymentDate)
@@ -154,7 +154,7 @@ public partial class ChefProjectContext : DbContext
 
         modelBuilder.Entity<Service>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Services__3214EC0745F93180");
+            entity.HasKey(e => e.Id).HasName("PK__Services__3214EC07DB51B60B");
 
             entity.Property(e => e.Description).HasMaxLength(255);
             entity.Property(e => e.ImageUrl).HasMaxLength(255);
@@ -163,9 +163,9 @@ public partial class ChefProjectContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC073E1745E3");
+            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC07831D0255");
 
-            entity.HasIndex(e => e.Email, "UQ__Users__A9D10534F21B0F81").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Users__A9D1053476028396").IsUnique();
 
             entity.Property(e => e.Address).HasMaxLength(255);
             entity.Property(e => e.CreatedAt)

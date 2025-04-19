@@ -20,8 +20,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddDbContext<ChefProjectContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("YourConnectionString")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MyConnectionString")));
 
 builder.Services.AddScoped<SuleimanIDataService, SuleimanDataService>();
 builder.Services.AddScoped<SondosIDataService, SondosDataService>();
