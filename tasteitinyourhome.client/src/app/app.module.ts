@@ -18,6 +18,9 @@ import { ContactusComponent } from './Suleiman/contactus/contactus.component';
 import { SignUpComponent } from './Sally/sign-up/sign-up.component';
 import { SignInComponent } from './Sally/sign-in/sign-in.component';
 import { ChefListComponent } from './Sofyan/chef-list/chef-list.component';
+import { ForgotPasswordComponent } from './Sally/forgot-password/forgot-password.component';
+
+
 
 @NgModule({
   declarations: [
@@ -35,16 +38,15 @@ import { ChefListComponent } from './Sofyan/chef-list/chef-list.component';
     ContactusComponent,
     SignUpComponent,
     SignInComponent,
-    ContactusComponent,
-    ChefListComponent
+    ChefListComponent,
+    ForgotPasswordComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule,
+    BrowserModule,
     AppRoutingModule, FormsModule,
     ReactiveFormsModule,
     BrowserModule, 
-    HttpClientModule,
-    AppRoutingModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
