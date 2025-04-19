@@ -10,15 +10,17 @@ import { SaraComponent } from './Sara/sara/sara.component';
 import { SofyanComponent } from './Sofyan/sofyan/sofyan.component';
 import { SondosComponent } from './Sondos/sondos/sondos.component';
 import { SuleimanComponent } from './Suleiman/suleiman/suleiman.component';
-import { ForgotPasswordComponent } from './Sally/forgot-password/forgot-password.component';
-import { ChefListComponent } from './Sofyan/chef-list/chef-list.component';
-import { ContactusComponent } from './Suleiman/contactus/contactus.component';
-import { SignInComponent } from './Sally/sign-in/sign-in.component';
-import { SignUpComponent } from './Sally/sign-up/sign-up.component';
-import { AboutusComponent } from './Suleiman/aboutus/aboutus.component';
-import { HomeComponent } from './Suleiman/home/home.component';
-import { HeaderComponent } from './Suleiman/header/header.component';
 import { FooterComponent } from './Suleiman/footer/footer.component';
+import { HeaderComponent } from './Suleiman/header/header.component';
+import { HomeComponent } from './Suleiman/home/home.component';
+import { AboutusComponent } from './Suleiman/aboutus/aboutus.component';
+import { ContactusComponent } from './Suleiman/contactus/contactus.component';
+import { SignUpComponent } from './Sally/sign-up/sign-up.component';
+import { SignInComponent } from './Sally/sign-in/sign-in.component';
+import { ChefListComponent } from './Sofyan/chef-list/chef-list.component';
+import { ForgotPasswordComponent } from './Sally/forgot-password/forgot-password.component';
+
+
 
 @NgModule({
   declarations: [

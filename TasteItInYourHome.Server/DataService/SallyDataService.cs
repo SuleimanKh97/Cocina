@@ -52,7 +52,7 @@ namespace TasteItInYourHome.Server.DataService
 
             using var client = new SmtpClient();
             await client.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-            await client.AuthenticateAsync("tested4email@gmail.com", "fzai ikjd lspv joor");
+            await client.AuthenticateAsync("tested4email@gmail.com", "jjde lbzz zdxy cvxs");
             await client.SendAsync(message);
             await client.DisconnectAsync(true);
         }
