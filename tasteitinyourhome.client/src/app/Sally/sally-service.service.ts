@@ -22,6 +22,6 @@ export class SallyServiceService {
   }
 
   googleLogin(token: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/GoogleLogin`, { token }, { observe: 'response' });
+    return this.http.post(`${this.apiUrl}/google-login`, { token }, { observe: 'response' });
   }
 }

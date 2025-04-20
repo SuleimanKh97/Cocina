@@ -75,7 +75,9 @@ export class SignInComponent {
   }
 
   handleGoogleResponse(response: any) {
+    console.log('Google response:', response);
     const token = response.credential;
+    console.log('Token:', token);
     this.sallyService.googleLogin(token).subscribe({
       next: (res) => {
         console.log('Login success', res);
