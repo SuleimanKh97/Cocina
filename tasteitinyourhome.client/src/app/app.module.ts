@@ -12,21 +12,13 @@ import { SuleimanComponent } from './Suleiman/suleiman/suleiman.component';
 import { ForgotPasswordComponent } from './Sally/forgot-password/forgot-password.component';
 import { PtofileComponent } from './Sondos/ptofile/ptofile.component';
 import { EditProfileComponent } from './Sondos/edit-profile/edit-profile.component';
-import { FooterComponent } from './Suleiman/footer/footer.component';
-import { HeaderComponent } from './Suleiman/header/header.component';
 import { HomeComponent } from './Suleiman/home/home.component';
 import { ContactusComponent } from './Suleiman/contactus/contactus.component';
 import { AboutusComponent } from './Suleiman/aboutus/aboutus.component';
 import { SignUpComponent } from './Sally/sign-up/sign-up.component';
 import { SignInComponent } from './Sally/sign-in/sign-in.component';
-import { ChefListComponent } from './Sofyan/chef-list/chef-list.component';
 import { FooterComponent } from './Suleiman/footer/footer.component';
 import { HeaderComponent } from './Suleiman/header/header.component';
-import { HomeComponent } from './Suleiman/home/home.component';
-import { AboutusComponent } from './Suleiman/aboutus/aboutus.component';
-import { ContactusComponent } from './Suleiman/contactus/contactus.component';
-import { SignUpComponent } from './Sally/sign-up/sign-up.component';
-import { SignInComponent } from './Sally/sign-in/sign-in.component';
 import { ChefListComponent } from './Sofyan/chef-list/chef-list.component';
 import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 import { UsersComponent } from './Admin/users/users.component';
@@ -58,11 +50,8 @@ import { FeedbackadminComponent } from './Admin/feedbackadmin/feedbackadmin.comp
     SignInComponent,
     ChefListComponent,
     ForgotPasswordComponent,
-    ContactusComponent,
-    ChefListComponent,
     PtofileComponent,
-    EditProfileComponent
-    ChefListComponent,
+    EditProfileComponent,
     DashboardComponent,
     UsersComponent,
     ChefsComponent,

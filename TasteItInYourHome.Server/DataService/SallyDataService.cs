@@ -24,7 +24,7 @@ namespace TasteItInYourHome.Server.DataService
 
         public int? LoginAndGetId(loginUserDTO user)
         {
-            if (user.Email=="admain@gmail.com" && user.Password == "admain")
+            if (user.Email=="admin@gmail.com" && user.Password == "admin")
             {
                 return 0;
             }
