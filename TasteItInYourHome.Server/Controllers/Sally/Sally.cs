@@ -35,6 +35,8 @@ namespace TasteItInYourHome.Server.Controllers.Sally
                 }
 
                 var userId = _data.LoginAndGetId(user);
+                if (userId == 0) { Ok(new { UserId = userId }); }
+
                 if (userId == null)
                 {
                     return Unauthorized("Invalid email or password");
