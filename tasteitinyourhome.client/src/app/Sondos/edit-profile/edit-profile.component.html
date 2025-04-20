@@ -1,0 +1,339 @@
+﻿<div class="edit-profile-container">
+    <h2>Edit profile</h2>
+
+    <form #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm.value)" >
+        <div class="profile-image-upload">
+            <div class="image-preview">
+                <img [src]="imagePreview || 'assets/default-profile.png'" alt="user image">
+            </div>
+            <!--<div class="upload-controls">
+                <label  class="btn btn-outline-primary">Choose photo</label>
+                <input type="file" name="ImageUrl" accept="image/*" style="display: none;">
+            </div>-->
+        </div>
+
+        <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" [(ngModel)]="user.fullName"  class="form-control" >
+       
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" [(ngModel)]="user.email"   class="form-control" >
+          
+        </div>
+
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="tel"  name="phoneNumber" [(ngModel)]="user.phoneNumber"  class="form-control" >
+           
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address</label>
+            <textarea  name="address" [(ngModel)]="user.address" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn book-btn" >Save Changes</button>
+         
+        </div>
+    </form>
+
+</div>
+<style>
+
+    .book-btn {
+        background-color: #DFD3C3;
+        color: #C5705D !important;
+        border: none;
+        padding: 0.5rem 1.2rem;
+        border-radius: 4px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        margin-left: 1rem;
+    }
+
+        .book-btn:hover {
+            background-color: #D0B8A8;
+            transform: translateY(-2px);
+        }
+    :root {
+        --primary-color: #4caf50;
+        --secondary-color: #2196f3;
+        --danger-color: #f44336;
+        --warning-color: #ff9800;
+        --success-color: #8bc34a;
+        --light-gray: #f5f5f5;
+        --medium-gray: #e0e0e0;
+        --dark-gray: #757575;
+        --text-color: #333;
+        --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        --border-radius: 8px;
+    }
+
+ 
+    .profile-container {
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: white;
+        box-shadow: var(--box-shadow);
+        border-radius: var(--border-radius);
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .profile-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 20px;
+    }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .profile-info h2 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: var(--text-color);
+    }
+
+    .profile-info p {
+        margin: 5px 0;
+        color: var(--dark-gray);
+    }
+
+    .profile-info i {
+        margin-right: 10px;
+        color: var(--primary-color);
+    }
+
+    .profile-actions {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.3s;
+    }
+
+
+
+    .btn:hover {
+        opacity: 0.9;
+    }
+
+    /* نموذج تغيير كلمة المرور */
+    .change-password-form {
+        background-color: var(--light-gray);
+        padding: 20px;
+        border-radius: var(--border-radius);
+        margin-bottom: 30px;
+    }
+
+        .change-password-form h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #80808075;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .alert {
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 15px;
+    }
+
+    .alert-danger {
+        background-color: #ffebee;
+        color: var(--danger-color);
+        border: 1px solid #ffcdd2;
+    }
+
+    /* سجل الحجوزات */
+    .booking-history h3 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        color: var(--text-color);
+    }
+
+    .no-bookings {
+        padding: 20px;
+        background-color: var(--light-gray);
+        border-radius: var(--border-radius);
+        text-align: center;
+        color: var(--dark-gray);
+    }
+
+    .booking-item {
+        background-color: white;
+        border: 1px solid var(--medium-gray);
+        border-radius: var(--border-radius);
+        margin-bottom: 15px;
+        overflow: hidden;
+    }
+
+    .booking-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 15px;
+        background-color: var(--light-gray);
+        border-bottom: 1px solid var(--medium-gray);
+    }
+
+    .booking-date {
+        font-weight: 500;
+    }
+
+    .booking-status {
+        padding: 3px 10px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .status-confirmed {
+        background-color: #e3f2fd;
+        color: #1976d2;
+    }
+
+    .status-pending {
+        background-color: #fff8e1;
+        color: #f57f17;
+    }
+
+    .status-cancelled {
+        background-color: #ffebee;
+        color: #c62828;
+    }
+
+    .status-completed {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+    }
+
+    .booking-details {
+        padding: 15px;
+    }
+
+        .booking-details p {
+            margin: 5px 0;
+        }
+
+    /* أنماط تعديل البروفايل */
+    .edit-profile-container {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: white;
+        box-shadow: var(--box-shadow);
+        border-radius: var(--border-radius);
+    }
+
+        .edit-profile-container h2 {
+            margin-top: 0;
+            margin-bottom: 30px;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+    .profile-image-upload {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .image-preview {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-bottom: 15px;
+        border: 2px solid var(--medium-gray);
+    }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .upload-controls {
+        margin-bottom: 15px;
+    }
+
+    .btn-outline-primary {
+        background-color: transparent;
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+    }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+    .is-invalid {
+        border-color: var(--danger-color);
+    }
+
+    .invalid-feedback {
+        color: var(--danger-color);
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+    }
+
+    /* أنماط سجل الحجوزات المستقل */
+    .booking-history-container {
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: white;
+        box-shadow: var(--box-shadow);
+        border-radius: var(--border-radius);
+    }
+
+        .booking-history-container h2 {
+</style>

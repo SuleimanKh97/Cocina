@@ -1,0 +1,183 @@
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+        <div class="text-center py-4">
+          <h4 style="color: var(--color-accent);">Admin Dashboard</h4>
+        </div>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="#dashboard" data-bs-toggle="tab">
+              <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/dashboard/users"data-bs-toggle="tab" >
+              <i class="bi bi-people"></i> Users
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/dashboard/chefs" data-bs-toggle="tab">
+              <i class="bi bi-person-badge"></i> Chefs
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/dashboard/food" data-bs-toggle="tab">
+              <i class="bi bi-egg-fried"></i> Food
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active"  routerLink="/dashboard/category"data-bs-toggle="tab">
+              <i class="bi bi-tags"></i> Categories
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/dashboard/service"data-bs-toggle="tab">
+              <i class="bi bi-list-check"></i> Services
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"  routerLink="/dashboard/booking"data-bs-toggle="tab">
+              <i class="bi bi-calendar-check"></i> Bookings
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/dashboard/payment" data-bs-toggle="tab">
+              <i class="bi bi-credit-card"></i> Payments
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/dashboard/contactusadmin"  data-bs-toggle="tab">
+              <i class="bi bi-envelope"></i> Contact Us
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/dashboard/feedbackadmin"  data-bs-toggle="tab">
+              <i class="bi bi-chat-square-text"></i> Feedback
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-md-9 col-lg-10 ms-sm-auto px-md-4 main-content">
+        <div >
+
+          <router-outlet></router-outlet>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!--<script>
+        // Activate the current tab based on URL hash
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.location.hash) {
+                var tabTrigger = new bootstrap.Tab(document.querySelector('a[href="' + window.location.hash + '"]'));
+                tabTrigger.show();
+            }
+
+            // Update hash when tab changes
+            var tabElms = document.querySelectorAll('a[data-bs-toggle="tab"]');
+            tabElms.forEach(function(tabEl) {
+                tabEl.addEventListener('shown.bs.tab', function (event) {
+                    window.location.hash = event.target.getAttribute('href').substring(1);
+                });
+            });
+
+            // Initialize edit category buttons
+            document.querySelectorAll('.edit-category-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const categoryId = this.getAttribute('data-id');
+                    editCategory(categoryId);
+                });
+            });
+        });
+
+        // Category Management Functions
+        function addCategory() {
+            const form = document.getElementById('addCategoryForm');
+            const formData = new FormData(form);
+
+            // Here you would typically send the data to your backend
+            // For demonstration, we'll just log it and close the modal
+            console.log('Adding category:', Object.fromEntries(formData));
+
+            // Show success message
+            alert('Category added successfully!');
+
+            // Close the modal
+            var modal = bootstrap.Modal.getInstance(document.getElementById('addCategoryModal'));
+            modal.hide();
+
+            // Reset the form
+            form.reset();
+
+            // In a real app, you would refresh the category list here
+        }
+
+        function editCategory(id) {
+            // In a real app, you would fetch the category data from your backend
+            // For demonstration, we'll use sample data
+            const sampleData = {
+                1: { Name: "Pasta", Description: "Various Italian pasta dishes including spaghetti, fettuccine, and more", ImageUrl: "pasta.jpg" },
+                2: { Name: "Main Course", Description: "Hearty main dishes including meats, fish, and vegetarian options", ImageUrl: "main-course.jpg" },
+                3: { Name: "Dessert", Description: "Sweet treats and desserts to finish your meal", ImageUrl: "dessert.jpg" }
+            };
+
+            const category = sampleData[id];
+
+            if (category) {
+                document.getElementById('editCategoryId').value = id;
+                document.getElementById('editCategoryName').value = category.Name;
+                document.getElementById('editCategoryDescription').value = category.Description;
+
+                // Show the edit modal
+                new bootstrap.Modal(document.getElementById('editCategoryModal')).show();
+            }
+        }
+
+        function updateCategory() {
+            const id = document.getElementById('editCategoryId').value;
+            const form = document.getElementById('editCategoryForm');
+            const formData = new FormData(form);
+
+            // Here you would typically send the data to your backend
+            // For demonstration, we'll just log it and close the modal
+            console.log('Updating category:', id, Object.fromEntries(formData));
+
+            // Show success message
+            alert('Category updated successfully!');
+
+            // Close the modal
+            var modal = bootstrap.Modal.getInstance(document.getElementById('editCategoryModal'));
+            modal.hide();
+
+            // In a real app, you would refresh the category list here
+        }
+
+        function confirmDeleteCategory(id) {
+            document.getElementById('deleteCategoryId').value = id;
+            new bootstrap.Modal(document.getElementById('deleteCategoryModal')).show();
+        }
+
+        function deleteCategory() {
+            const id = document.getElementById('deleteCategoryId').value;
+
+            // Here you would typically send a request to delete the category
+            // For demonstration, we'll just log it and close the modal
+            console.log('Deleting category:', id);
+
+            // Show success message
+            alert('Category deleted successfully!');
+
+            // Close the modal
+            var modal = bootstrap.Modal.getInstance(document.getElementById('deleteCategoryModal'));
+            modal.hide();
+
+            // In a real app, you would refresh the category list here
+        }
+  </script>-->
+
