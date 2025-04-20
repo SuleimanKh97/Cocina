@@ -21,5 +21,9 @@ public partial class User
 
     public DateTime? CreatedAt { get; set; }
 
+    public bool IsGoogleUser { get; set; }
+
+    public string? GoogleId { get; set; }
+
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 }

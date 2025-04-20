@@ -8,6 +8,7 @@ body {
   overflow-x: hidden;
 }
 
+/* Regular Navbar Styles */
 .navbar {
   background-color: #C5705D !important;
   padding: 0.5rem 0;
@@ -40,11 +41,22 @@ body {
   font-weight: 500;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link.active {
   color: #D0B8A8 !important;
 }
 
-.book-btn {
+/* Button styles */
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.book-btn,
+.login-btn,
+.profile-btn,
+.logout-btn {
   background-color: #DFD3C3;
   color: #C5705D !important;
   border: none;
@@ -52,11 +64,66 @@ body {
   border-radius: 4px;
   font-weight: bold;
   transition: all 0.3s ease;
-  margin-left: 1rem;
+  cursor: pointer;
+  display: inline-block;
 }
 
-.book-btn:hover {
+.book-btn:hover,
+.login-btn:hover,
+.profile-btn:hover,
+.logout-btn:hover {
   background-color: #D0B8A8;
+  transform: translateY(-2px);
+}
+
+.profile-btn {
+  background-color: #DFD3C3;
+}
+
+.logout-btn {
+  background-color: transparent;
+  border: 1px solid #DFD3C3;
+}
+
+.user-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Admin Navbar styles */
+.admin-navbar {
+  background-color: #333;
+  color: white;
+  padding: 12px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.admin-brand {
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.admin-brand:hover {
+  color: #DFD3C3;
+}
+
+.admin-logout {
+  background-color: #C5705D;
+  color: white !important;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.admin-logout:hover {
+  background-color: #b05a47;
   transform: translateY(-2px);
 }
 
@@ -68,9 +135,25 @@ body {
     border-radius: 0 0 5px 5px;
   }
 
-  .book-btn {
-    display: inline-block;
-    margin: 1rem 0 0 0;
+  .nav-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .book-btn,
+  .login-btn,
+  .profile-btn,
+  .logout-btn {
+    width: 100%;
+    text-align: center;
+    margin: 5px 0;
+  }
+
+  .user-actions {
+    flex-direction: column;
+    width: 100%;
   }
 }
 
