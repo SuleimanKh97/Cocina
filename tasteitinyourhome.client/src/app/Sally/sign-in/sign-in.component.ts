@@ -122,7 +122,7 @@ export class SignInComponent {
               showConfirmButton: false,
               timer: 2000
             }).then(() => {
-              this.router.navigate(['']);
+              this.router.navigate(['/profile']);
             });
           }
         }

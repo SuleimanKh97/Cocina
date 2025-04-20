@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { ApiService } from '../api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -11,17 +11,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PtofileComponent {
 
     constructor(private route: ActivatedRoute, private api: ApiService, private router: Router) { }
+  userId: any;
 
-    ngOnInit() {
+  ngOnInit() {
+    this.userId = (sessionStorage.getItem('userId'));
+
         this.loadUserData();
         this.loadBookingHistory();
-        sessionStorage.setItem('userId', "8");//this line is only for testing 
+        //sessionStorage.setItem('userId', "8");//this line is only for testing 
 
-        this.userId = Number(sessionStorage.getItem('userId'));
 
     }
 
-    userId: number = 8;
     user: any = {};
     bookingHistory: any[] = [];
     showChangePasswordForm = false;
