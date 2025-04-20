@@ -13,6 +13,35 @@
       <p class="subtitle">Discover our talented chefs ready to create an unforgettable culinary experience</p>
     </div>
 
+    <!-- Category Filter Section -->
+    <div class="category-filter">
+      <h3>Filter by Food Category</h3>
+      <div class="category-buttons">
+        <button 
+          (click)="onCategoryChange(null)" 
+          class="category-btn"
+          [class.active]="selectedCategoryId === null">
+          All Categories
+        </button>
+        
+        <button 
+          *ngFor="let category of foodCategories"
+          (click)="onCategoryChange(category.id)" 
+          class="category-btn"
+          [class.active]="selectedCategoryId === category.id">
+          {{ category.name }}
+        </button>
+      </div>
+      
+      <!-- Active filter indicator -->
+      <div *ngIf="selectedCategoryId !== null" class="active-filter">
+        <span>Filtered by: {{ getSelectedCategoryName() }}</span>
+        <button (click)="onCategoryChange(null)" class="clear-filter">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+
     <!-- Loading state -->
     <div *ngIf="loading" class="loading-container">
       <div class="spinner"></div>
@@ -26,7 +55,7 @@
     </div>
 
     <!-- Chefs grid -->
-    <div *ngIf="!loading && !error && chefs.length > 0" class="chefs-grid">
+    <div *ngIf="!loading && !error && filteredChefs.length > 0" class="chefs-grid">
       <div *ngFor="let chef of paginatedChefs" class="chef-card">
         <div class="chef-image" [style.backgroundImage]="'url(' + (chef.imageUrl || 'assets/images/chef-placeholder.jpg') + ')'"></div>
         <div class="chef-details">
@@ -49,7 +78,7 @@
     </div>
 
     <!-- Pagination -->
-    <div *ngIf="!loading && !error && chefs.length > 0" class="pagination">
+    <div *ngIf="!loading && !error && filteredChefs.length > 0" class="pagination">
       <button 
         [disabled]="currentPage === 1" 
         (click)="setPage(currentPage - 1)" 
@@ -81,10 +110,10 @@
     </div>
 
     <!-- No chefs found -->
-    <div *ngIf="!loading && !error && chefs.length === 0" class="no-results">
+    <div *ngIf="!loading && !error && filteredChefs.length === 0" class="no-results">
       <i class="fas fa-user-chef"></i>
       <h3>No Chefs Found</h3>
-      <p>We couldn't find any chefs in our database. Please check back later.</p>
+      <p>No chefs match the selected category. <button class="clear-filter-link" (click)="onCategoryChange(null)">View all chefs</button></p>
     </div>
   </div>
 </div>
