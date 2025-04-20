@@ -34,8 +34,7 @@ public partial class ChefProjectContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-DCT50HS;Database=ChefProject;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-057PR2N;Database=Cucina;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

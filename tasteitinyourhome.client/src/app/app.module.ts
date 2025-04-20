@@ -13,8 +13,6 @@ import { ForgotPasswordComponent } from './Sally/forgot-password/forgot-password
 import { PtofileComponent } from './Sondos/ptofile/ptofile.component';
 import { EditProfileComponent } from './Sondos/edit-profile/edit-profile.component';
 import { HomeComponent } from './Suleiman/home/home.component';
-import { ContactusComponent } from './Suleiman/contactus/contactus.component';
-import { AboutusComponent } from './Suleiman/aboutus/aboutus.component';
 import { SignUpComponent } from './Sally/sign-up/sign-up.component';
 import { SignInComponent } from './Sally/sign-in/sign-in.component';
 import { FooterComponent } from './Suleiman/footer/footer.component';
@@ -51,6 +49,8 @@ import { FeedbackadminComponent } from './Admin/feedbackadmin/feedbackadmin.comp
     ChefListComponent,
     ForgotPasswordComponent,
     PtofileComponent,
+    EditProfileComponent,
+    ChefListComponent,
     EditProfileComponent,
     DashboardComponent,
     UsersComponent,
