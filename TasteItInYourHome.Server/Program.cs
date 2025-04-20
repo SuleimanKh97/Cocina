@@ -22,7 +22,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ChefProjectContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MyConnectionString")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DESKTOP-BJH6DOD")));
+
 
 builder.Services.AddScoped<SuleimanIDataService, SuleimanDataService>();
 builder.Services.AddScoped<SondosIDataService, SondosDataService>();
