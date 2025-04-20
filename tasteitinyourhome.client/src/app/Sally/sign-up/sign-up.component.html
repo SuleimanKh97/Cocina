@@ -1,0 +1,82 @@
+<div class="d-flex justify-content-center py-5">
+  <div class="register-container">
+    <div class="logo"><img width="50%" src="../../../assets/images/Cucina__1_-removebg-preview.png" /></div>
+
+    <h1>Create Your Account</h1>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" id="registrationForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fullName" class="required-field">Full Name</label>
+          <input formControlName="fullName" type="text" id="fullName" placeholder="Enter your full name" required
+                 maxlength="100">
+          <div class="error-message">Full name is required (max 100 characters)</div>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="required-field">Email Address</label>
+          <input type="email" id="email" formControlName="email" placeholder="Enter your email" required>
+          <div class="error-message">Valid email is required</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="password" class="required-field">Password</label>
+          <input type="password" id="password" formControlName="password" placeholder="Create a password (min 6 characters)"
+                 required minlength="6">
+          <div class="error-message">Password must be at least 6 characters</div>
+        </div>
+
+        <div class="form-group">
+          <label for="phoneNumber">Phone Number</label>
+          <input type="tel" id="phoneNumber" formControlName="phoneNumber" placeholder="Enter your phone number">
+          <div class="error-message">Please enter a valid phone number</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group full-width">
+          <label for="address">Address</label>
+          <input type="text" id="address" formControlName="address" placeholder="Enter your address" maxlength="200">
+          <div class="error-message">Address can't exceed 200 characters</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group full-width">
+          <label for="image">Profile Image</label>
+          <div class="file-input-wrapper">
+            <input (change)="onFileChange($event)" type="file" id="image" name="image" class="file-input" accept="image/*">
+            <label for="image" class="file-input-label">Choose profile image...</label>
+            <div id="fileName" class="file-input-name"></div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn">Create Account</button>
+    </form>
+
+    <div class="login-link">
+      Already have an account? <a routerLink="/Login">Sign In</a>
+    </div>
+  </div>
+</div>
+  <!--<script>
+        // Display selected file name
+        document.getElementById('image').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'No file selected';
+            document.getElementById('fileName').textContent = fileName;
+        });
+
+        // Form validation
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Here you would typically handle the form submission
+            // For example, send data to your server via fetch/axios
+
+            alert('Registration form would be submitted here!');
+            // window.location.href = 'success.html'; // Redirect on success
+        });
+  </script>-->

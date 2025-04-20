@@ -1,0 +1,214 @@
+ <!-- Hero Section -->
+<section class="booking-hero text-center">
+  <div class="container">
+    <h1 class="display-4 fw-bold mb-4">Book Your Private Chef</h1>
+    <p class="lead">Experience a restaurant-quality meal in the comfort of your home</p>
+  </div>
+</section>
+
+<div class="container mb-5">
+  <div class="row">
+    <!-- Booking Form Column -->
+    <div class="col-lg-8">
+      <div class="form-section bg-white">
+        <h2 class="mb-4">Booking Details</h2>
+
+        <form #bookingForm="ngForm" (ngSubmit)="onSubmit(bookingForm.value)">
+
+            <!-- Date & Time -->
+          <div class="row mb-4">
+            <div class="col-md-6 mb-3 mb-md-0">
+              <label for="bookingDate" class="form-label">Date</label>
+              <input type="date" class="form-control" name="BookingDate" required [(ngModel)]="formData.BookingDate">
+            </div>
+
+            <select class="form-select" name="ChefId" required [(ngModel)]="formData.ChefId">
+              <option value="" disabled selected>Select a chef</option>
+              <option *ngFor="let chef of chefs" [value]="chef.id">{{ chef.FullName }}</option>
+            </select>
+
+            <div class="col-md-6">
+              <label for="bookingTime" class="form-label">Time</label>
+              <select class="form-select" id="bookingTime" name="TimeSlot" required ngModdel>
+                <option value="" selected disabled>Select time</option>
+                <option value="09:00">9:00 AM</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="12:00">12:00 PM</option>
+                <option value="13:00">1:00 PM</option>
+                <option value="14:00">2:00 PM</option>
+                <option value="17:00">5:00 PM</option>
+                <option value="18:00">6:00 PM</option>
+                <option value="19:00">7:00 PM</option>
+                <option value="20:00">8:00 PM</option>
+                <option value="21:00">9:00 PM</option>
+              </select>
+            </div>
+          </div>
+
+            <!-- Location -->
+            <div class="mb-4">
+              <label for="location" class="form-label">Location</label>
+              <input type="text" class="form-control" id="location" placeholder="Enter your address" required ngModdel>
+            </div>
+
+            <!-- Number of Guests -->
+            <div class="mb-4">
+              <label class="form-label">Number of Guests</label>
+              <div class="guests-counter d-flex align-items-center">
+                <button type="button" class="btn btn-outline-secondary" id="decrementGuests">-</button>
+                <input type="number" class="form-control text-center" name="NumberOfGuests" [(ngModel)]="formData.NumberOfGuests" min="1" max="100">
+                <!--<input type="number" class="form-control text-center mx-2" id="guests" value="2" min="1" max="20" style="width: 70px;" name="NumberOfGuests" ngModdel>-->
+                <button type="button" class="btn btn-outline-secondary" id="incrementGuests">+</button>
+              </div>
+            </div>
+
+            <!-- Meal Type -->
+            <div class="mb-4">
+              <label for="mealType" class="form-label">Meal Type</label>
+              <select class="form-select" id="mealType" required>
+                <option value="" selected disabled>Select meal type</option>
+                <option value="breakfast">Breakfast</option>
+                <option value="brunch">Brunch</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+                <option value="cocktail">Cocktail Party</option>
+                <option value="custom">Custom Menu</option>
+              </select>
+            </div>
+
+            <!-- Cuisine Preferences -->
+            <div class="mb-4">
+              <label class="form-label">Cuisine Preferences (select up to 3)</label>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="italian" value="italian">
+                    <label class="form-check-label" for="italian">Italian</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="french" value="french">
+                    <label class="form-check-label" for="french">French</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="japanese" value="japanese">
+                    <label class="form-check-label" for="japanese">Japanese</label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="mexican" value="mexican">
+                    <label class="form-check-label" for="mexican">Mexican</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="indian" value="indian">
+                    <label class="form-check-label" for="indian">Indian</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="thai" value="thai">
+                    <label class="form-check-label" for="thai">Thai</label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="american" value="american">
+                    <label class="form-check-label" for="american">American</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="mediterranean" value="mediterranean">
+                    <label class="form-check-label" for="mediterranean">Mediterranean</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="vegan" value="vegan">
+                    <label class="form-check-label" for="vegan">Vegan</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Special Requests -->
+            <div class="mb-4">
+              <label for="specialRequests" class="form-label">Special Requests</label>
+              <textarea class="form-control" id="specialRequests" rows="3" placeholder="Dietary restrictions, allergies, or special preferences"></textarea>
+            </div>
+
+            <!--Contact Information
+    <h3 class="mt-5 mb-4">Contact Information</h3>
+    <div class="row mb-4">
+      <div class="col-md-6 mb-3 mb-md-0">
+        <label for="firstName" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="firstName" required>
+      </div>
+      <div class="col-md-6">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="lastName" required>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-md-6 mb-3 mb-md-0">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" required>
+      </div>
+      <div class="col-md-6">
+        <label for="phone" class="form-label">Phone Number</label>
+        <input type="tel" class="form-control" id="phone" required>
+      </div>
+    </div>-->
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg">Complete Booking</button>
+            </div>
+          </form>
+</div>
+    </div>
+
+    <!-- Features Column -->
+    <div class="col-lg-4">
+      <div class="sticky-top" style="top: 20px;">
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-body">
+            <h3 class="h4 mb-4">What's Included</h3>
+            <div class="d-flex mb-4">
+              <div class="flex-shrink-0">
+                <i class="fas fa-utensils feature-icon"></i>
+              </div>
+              <div class="flex-grow-1 ms-3">
+                <h4 class="h5">Gourmet Meal</h4>
+                <p class="mb-0">A customized multi-course dining experience tailored to your preferences.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4">
+              <div class="flex-shrink-0">
+                <i class="fas fa-broom feature-icon"></i>
+              </div>
+              <div class="flex-grow-1 ms-3">
+                <h4 class="h5">Clean Up</h4>
+                <p class="mb-0">The chef will handle all cleanup, leaving your kitchen spotless.</p>
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="flex-shrink-0">
+                <i class="fas fa-concierge-bell feature-icon"></i>
+              </div>
+              <div class="flex-grow-1 ms-3">
+                <h4 class="h5">Professional Service</h4>
+                <p class="mb-0">Attentive service throughout your meal by our experienced cheifs.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+          <div class="card-body">
+            <h3 class="h4 mb-4">Need Help?</h3>
+            <p>Our team is available 7 days a week to assist with your booking.</p>
+            <ul class="list-unstyled">
+              <li class="mb-2"><i class="fas fa-phone me-2"></i> (555) 123-4567</li>
+              <!--<li><i class="fas fa-envelope me-2"></i> bookings@chefservice.com</li>-->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
