@@ -27,18 +27,7 @@ import { PaymentComponent } from './Sajeda/payment/payment.component';
     SaraComponent,
     SofyanComponent,
     SondosComponent,
-    SuleimanComponent,
-    FooterComponent,
-    HeaderComponent,
-    HomeComponent,
-    AboutusComponent,
-    ContactusComponent,
-    SignUpComponent,
-    SignInComponent,
-    ContactusComponent,
-    ChefListComponent,
-    BookingComponent,
-    PaymentComponent
+    SuleimanComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,
