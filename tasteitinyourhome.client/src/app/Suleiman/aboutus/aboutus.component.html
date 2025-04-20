@@ -1,1 +1,173 @@
-<p>aboutus works!</p>
+<div class="about-us-page">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1>About Chef Night</h1>
+                <p class="subtitle">Bringing culinary excellence to your home</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Our Story Section -->
+    <section class="our-story">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 class="section-title">Our Story</h2>
+                    <p>Chef Night was founded with a simple yet powerful vision: to make fine dining accessible in the
+                        comfort of your own home. We believe that exceptional culinary experiences shouldn't be limited
+                        to restaurants.</p>
+                    <p>Our journey began when our founder, Sajeda Khasawneh, recognized a gap in the market for
+                        personalized, high-quality dining experiences at home. What started as a small team of
+                        passionate chefs has grown into a network of culinary artists dedicated to creating memorable
+                        experiences for our clients.</p>
+                    <p>Today, Chef Night connects food enthusiasts with talented chefs who bring restaurant-quality
+                        dining right to your kitchen. We handle everything from menu planning to cleanup, allowing you
+                        to focus on enjoying an unforgettable meal with your loved ones.</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-image">
+                        <img src="../../../assets/images/about-us.jpg" alt="Chef preparing food"
+                            class="img-fluid rounded shadow">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Mission Section -->
+    <section class="our-mission">
+        <div class="container">
+            <div class="mission-content text-center">
+                <h2 class="section-title">Our Mission</h2>
+                <p class="mission-text">To transform ordinary meals into extraordinary dining experiences by bringing
+                    exceptional culinary talent directly to your home.</p>
+            </div>
+
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Culinary Excellence</h3>
+                    <p>We are committed to the highest standards of culinary artistry and innovation.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3>Personalized Service</h3>
+                    <p>Every experience is tailored to your unique preferences and dietary needs.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Sustainable Practices</h3>
+                    <p>We prioritize locally-sourced ingredients and environmentally conscious practices.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Passion for Food</h3>
+                    <p>Our love for food drives us to create memorable dining experiences for every client.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet Our Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title text-center">Meet Our Team</h2>
+            <p class="section-subtitle text-center">The talented people behind Chef Night</p>
+
+            <div class="team-grid">
+                <div class="team-card" *ngFor="let member of teamMembers">
+                    <div class="team-img" [style.background-image]="'url(' + member.image + ')'">
+                        <div class="team-overlay">
+                            <p class="team-bio">{{ member.bio }}</p>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h3>{{ member.name }}</h3>
+                        <p class="team-position">{{ member.position }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Find Us Section -->
+    <section class="location-section">
+        <div class="container">
+            <h2 class="section-title text-center">Find Us</h2>
+            <p class="section-subtitle text-center">Visit our headquarters and culinary studio</p>
+
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Address</h4>
+                                <p>123 Culinary Street, Amman, Jordan</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+962 7 1234 5678</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p>info&chefnight.com</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>Office Hours</h4>
+                                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                                <p>Saturday: 10:00 AM - 4:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="map-container">
+                        <!-- Replace this with your actual map integration -->
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3385.312902758841!2d35.9281705!3d31.9631583!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDU3JzQ3LjQiTiAzNcKwNTUnNDkuMyJF!5e0!3m2!1sen!2sus!4v1627309792685!5m2!1sen!2sus"
+                            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content text-center">
+                <h2>Ready to experience our culinary magic?</h2>
+                <p>Book a chef now and transform your next dinner into an unforgettable event.</p>
+                <button class="cta-btn">Book a Chef</button>
+            </div>
+        </div>
+    </section>
+</div>
