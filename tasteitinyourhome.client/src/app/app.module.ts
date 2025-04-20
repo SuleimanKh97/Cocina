@@ -27,6 +27,8 @@ import { BookingComponent } from './Admin/booking/booking.component';
 import { PaymentComponent } from './Admin/payment/payment.component';
 import { ContactusadminComponent } from './Admin/contactusadmin/contactusadmin.component';
 import { FeedbackadminComponent } from './Admin/feedbackadmin/feedbackadmin.component';
+import { AboutusComponent } from './Suleiman/aboutus/aboutus.component';
+import { ContactusComponent } from './Suleiman/contactus/contactus.component';
 
 
 

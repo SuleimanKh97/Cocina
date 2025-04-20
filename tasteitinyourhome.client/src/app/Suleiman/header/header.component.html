@@ -1,5 +1,5 @@
-<!-- Bootstrap Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark">
+<!-- Only show header when NOT admin -->
+<nav *ngIf="!isAdmin" class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
     <a class="navbar-brand" href="#"><img src="../../../assets/images/Adobe Express - file.png" /></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -32,7 +32,7 @@
         <!-- Show when user is NOT logged in -->
         <a *ngIf="!isLoggedIn" class="login-btn text-decoration-none" routerLink="/Login">Sign In</a>
 
-        <!-- Show when user is logged in -->
+        <!-- Show when user is logged in (but not admin) -->
         <div *ngIf="isLoggedIn" class="user-actions">
           <a class="profile-btn text-decoration-none" routerLink="/profile">
             <i class="fas fa-user-circle me-1"></i> Profile
@@ -45,3 +45,22 @@
     </div>
   </div>
 </nav>
+
+<!-- Admin Navbar - Minimal version only showing logout -->
+<nav *ngIf="isAdmin" class="admin-navbar">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <a class="admin-brand" routerLink="/admin">Admin Dashboard</a>
+      <a class="admin-logout" (click)="logout()">
+        <i class="fas fa-sign-out-alt me-1"></i> Logout
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Debug info - can be removed in production -->
+<div class="d-none">
+  isLoggedIn: {{isLoggedIn}},
+  isAdmin: {{isAdmin}},
+  userId: {{userId}}
+</div>
