@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SallyServiceService } from '../sally-service.service';
-import { addUserDTO } from '../addUserDTO';
-
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,9 +13,9 @@ import { addUserDTO } from '../addUserDTO';
 export class SignUpComponent {
 
   registerForm: FormGroup;
-  selectedFile: File | null = null; // ✅ هنا تعريف المتغير
+  selectedFile: File | null = null;
 
-  constructor(private fb: FormBuilder, private sallyService: SallyServiceService) {
+  constructor(private fb: FormBuilder, private sallyService: SallyServiceService, private router: Router) {
     this.registerForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.maxLength(100)]],
       email: ['', [Validators.required, Validators.email]],
@@ -26,9 +26,9 @@ export class SignUpComponent {
     });
   }
 
-
   onSubmit(): void {
     if (this.registerForm.invalid) {
+      Swal.fire('خطأ!', 'يرجى تعبئة جميع الحقول المطلوبة بشكل صحيح', 'warning');
       return;
     }
 
@@ -46,9 +46,18 @@ export class SignUpComponent {
     this.sallyService.register(formData).subscribe({
       next: (response) => {
         console.log('User registered successfully:', response);
+        Swal.fire({
+          icon: 'success',
+          title: 'تم إنشاء الحساب بنجاح!',
+          showConfirmButton: false,
+          timer: 2000
+        }).then(() => {
+          this.router.navigate(['/Login']);
+        });
       },
       error: (error) => {
         console.error('Registration failed:', error);
+        Swal.fire('فشل التسجيل', 'حدث خطأ أثناء إنشاء الحساب، حاول لاحقاً', 'error');
       }
     });
   }
@@ -58,8 +67,5 @@ export class SignUpComponent {
       this.selectedFile = event.target.files[0];
     }
   }
-
-
-  
 
 }

@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
 import { SallyServiceService } from '../sally-service.service';
 import { loginUserDTO } from '../loginUserDTO';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+
 declare var google: any;
 
 @Component({
-
   selector: 'app-sign-in',
   standalone: false,
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.css'
 })
-
 export class SignInComponent {
-
 
   email: string = '';
   password: string = '';
   private googleInitialized = false;
 
-  constructor(private sallyService: SallyServiceService) { }
+  constructor(private sallyService: SallyServiceService, private router: Router) { }
 
   ngOnInit() {
     if (typeof google === 'undefined') {
@@ -62,11 +62,13 @@ export class SignInComponent {
         document.getElementById('googleSignInContainer'),
         {
           type: 'icon',
-          size: 'large', // للحصول على أيقونة كبيرة واضحة
-          theme: 'outline', // تصميم أنيق
+          size: 'large',
+          theme: 'outline',
           shape: 'circle'
         }
       );
+
+      google.accounts.id.prompt();
     } catch (error) {
       console.error('Google Sign-In initialization error:', error);
     }
@@ -77,18 +79,25 @@ export class SignInComponent {
     this.sallyService.googleLogin(token).subscribe({
       next: (res) => {
         console.log('Login success', res);
-        alert('تم تسجيل الدخول بنجاح!');
+        Swal.fire({
+          icon: 'success',
+          title: 'تم تسجيل الدخول بنجاح!',
+          showConfirmButton: false,
+          timer: 2000
+        }).then(() => {
+          this.router.navigate(['']);
+        });
       },
       error: (err) => {
         console.error('Login failed', err);
-        alert('فشل تسجيل الدخول: ' + err.message);
+        Swal.fire('فشل تسجيل الدخول', err.message, 'error');
       }
     });
   }
 
   onLogin() {
     if (!this.email || !this.password) {
-      alert('Please enter both email and password');
+      Swal.fire('خطأ!', 'يرجى إدخال البريد الإلكتروني وكلمة المرور', 'warning');
       return;
     }
 
@@ -100,24 +109,34 @@ export class SignInComponent {
     this.sallyService.login(user).subscribe({
       next: (response) => {
         if (response.status === 200) {
-          alert('Login Successful!');
+          const userId = response.body.userId;
+          if (userId == 0) {
+            this.router.navigate(['']);
+          }
+          else {
+            sessionStorage.setItem('userId', userId);
+
+            Swal.fire({
+              icon: 'success',
+              title: 'تم تسجيل الدخول بنجاح!',
+              showConfirmButton: false,
+              timer: 2000
+            }).then(() => {
+              this.router.navigate(['']);
+            });
+          }
         }
       },
       error: (err) => {
         console.error('Login error:', err);
         if (err.status === 404) {
-          alert('User not found.');
+          Swal.fire('المستخدم غير موجود', '', 'error');
         } else if (err.status === 400) {
-          alert('Invalid email or password.');
+          Swal.fire('خطأ في البريد الإلكتروني أو كلمة المرور', '', 'error');
         } else {
-          alert('An error occurred. Please try again later.');
+          Swal.fire('حدث خطأ، حاول مرة أخرى لاحقًا', '', 'error');
         }
       }
     });
   }
-
-  
-
-
-
 }
