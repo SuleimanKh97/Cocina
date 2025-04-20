@@ -17,6 +17,8 @@ public partial class Food
 
     public int? ChefId { get; set; }
 
+    public decimal? Price { get; set; }
+
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
     public virtual FoodCategory? Category { get; set; }

@@ -6,10 +6,12 @@ import { SignInComponent } from './Sally/sign-in/sign-in.component';
 import { SignUpComponent } from './Sally/sign-up/sign-up.component';
 import { ChefListComponent } from './Sofyan/chef-list/chef-list.component';
 import { ForgotPasswordComponent } from './Sally/forgot-password/forgot-password.component';
+import { AboutusComponent } from './Suleiman/aboutus/aboutus.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'contactus', component: ContactusComponent },
+  { path: 'aboutus', component: AboutusComponent },
   { path: 'Login', component: SignInComponent },
   { path: 'Register', component: SignUpComponent },
   { path: 'contactus', component: ContactusComponent },
