@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'Register', component: SignUpComponent },
   { path: 'contactus', component: ContactusComponent },
   { path: 'chefs', component: ChefListComponent },
-  { path: 'ForgotPassword', component: ForgotPasswordComponent }
+  { path: 'ForgotPassword', component: ForgotPasswordComponent },
     { path: 'chefs', component: ChefListComponent },
     { path: "profile", component: PtofileComponent },
     { path: "edit-profile/:id", component: EditProfileComponent }

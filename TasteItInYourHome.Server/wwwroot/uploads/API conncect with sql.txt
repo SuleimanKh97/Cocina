@@ -1,0 +1,47 @@
+
+
+
+
+Open the Package Manager Console from Tools > NuGet Package Manager > Package Manager Console.
+
+Install-Package Microsoft.EntityFrameworkCore.SqlServer
+Install-Package Microsoft.EntityFrameworkCore.Design
+Install-Package Microsoft.EntityFrameworkCore.Tools
+
+
+then use scafolding command 
+
+Scaffold-DbContext "Server=DESKTOP-BJH6DOD;Database=Cucina;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Context ChefProjectContext 
+
+
+add this to program.cs 
+// Add services to the container.
+builder.Services.AddDbContext<MyDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DESKTOP-BJH6DOD")));
+
+
+add this to appsetting 
+"ConnectionStrings": {
+  "YourConnectionString": "Server=DESKTOP-BJH6DOD;Database=.netCoreAPI;Trusted_Connection=True;TrustServerCertificate=True;"
+}
+
+
+
+same vidos in 
+https://www.youtube.com/watch?v=BsDljcDkCCU&list=PL3ewn8T-zRWgO-GAdXjVRh-6thRog6ddg&index=39
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
