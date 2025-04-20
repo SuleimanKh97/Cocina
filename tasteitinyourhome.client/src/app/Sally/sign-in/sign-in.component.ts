@@ -111,7 +111,7 @@ export class SignInComponent {
         if (response.status === 200) {
           const userId = response.body.userId;
           if (userId == 0) {
-            this.router.navigate(['']);
+            this.router.navigate(['/dashboard']);
           }
           else {
             sessionStorage.setItem('userId', userId);

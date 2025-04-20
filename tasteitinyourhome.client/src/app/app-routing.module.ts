@@ -19,7 +19,6 @@ import { BookingComponent } from './Admin/booking/booking.component';
 import { PaymentComponent } from './Admin/payment/payment.component';
 import { ContactusadminComponent } from './Admin/contactusadmin/contactusadmin.component';
 import { FeedbackadminComponent } from './Admin/feedbackadmin/feedbackadmin.component';
-import { AboutusComponent } from './Suleiman/aboutus/aboutus.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -32,7 +31,7 @@ const routes: Routes = [
   { path: 'ForgotPassword', component: ForgotPasswordComponent },
     { path: 'chefs', component: ChefListComponent },
     { path: "profile", component: PtofileComponent },
-    { path: "edit-profile/:id", component: EditProfileComponent }
+    { path: "edit-profile/:id", component: EditProfileComponent },
 
   {
     path: "dashboard", component: DashboardComponent, children:
