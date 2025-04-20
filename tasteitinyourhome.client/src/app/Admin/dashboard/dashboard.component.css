@@ -1,0 +1,124 @@
+
+:root {
+  --color-light: #F8EDE3;
+  --color-medium-light: #DFD3C3;
+  --color-medium: #D0B8A8;
+  --color-accent: #C5705D;
+}
+
+body {
+  background-color: var(--color-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar {
+  background-color: var(--color-medium);
+  min-height: 100vh;
+  padding: 0;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+  .sidebar .nav-link {
+    color: #333;
+    padding: 12px 20px;
+    border-radius: 0;
+    transition: all 0.3s;
+  }
+
+    .sidebar .nav-link:hover, .sidebar .nav-link.active {
+      background-color: var(--color-accent);
+      color: white;
+    }
+
+    .sidebar .nav-link i {
+      margin-right: 10px;
+    }
+
+.main-content {
+  padding: 20px;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  transition: transform 0.3s;
+}
+
+  .card:hover {
+    transform: translateY(-5px);
+  }
+
+.card-header {
+  background-color: var(--color-medium-light);
+  border-bottom: none;
+  font-weight: 600;
+  padding: 15px 20px;
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+  .btn-primary:hover {
+    background-color: #b05a4a;
+    border-color: #b05a4a;
+  }
+
+.table th {
+  background-color: var(--color-medium-light);
+  border-top: none;
+}
+
+.status-pending {
+  color: #ffc107;
+  font-weight: 600;
+}
+
+.status-accepted {
+  color: #28a745;
+  font-weight: 600;
+}
+
+.status-rejected {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.action-btns .btn {
+  padding: 5px 10px;
+  margin-right: 5px;
+}
+
+.dashboard-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+  .dashboard-card h3 {
+    color: var(--color-accent);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+
+  .dashboard-card p {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+
+.category-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+
+
