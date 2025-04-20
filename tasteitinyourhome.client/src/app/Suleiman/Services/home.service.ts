@@ -13,11 +13,15 @@ export interface Service {
   providedIn: 'root'
 })
 export class HomeService {
-  private apiUrl = 'https://localhost:7132/Home/GetAllServices';
+  private apiUrl = 'https://localhost:7132';
 
   constructor(private http: HttpClient) { }
 
   getAllServices(): Observable<Service[]> {
-    return this.http.get<Service[]>(this.apiUrl);
+    return this.http.get<Service[]>(`${this.apiUrl}/Home/GetAllServices`);
+  }
+
+  handelcontactusRequst(contact: any) {
+    return this.http.post(`${this.apiUrl}/Home/ContactUs`, contact);
   }
 }
