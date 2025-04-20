@@ -12,6 +12,8 @@
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Google.Apis.Auth" Version="1.69.0" />
+    <PackageReference Include="MailKit" Version="4.11.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
       <Version>8.*-*</Version>
     </PackageReference>
@@ -38,7 +40,6 @@
     <Folder Include="Controllers\Sara\" />
     <Folder Include="Controllers\Sondos\" />
     <Folder Include="Controllers\Sajeda\" />
-    <Folder Include="Controllers\Sally\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

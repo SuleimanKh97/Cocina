@@ -9,8 +9,7 @@ import { addUserDTO } from './addUserDTO';
 })
 export class SallyServiceService {
 
-  private apiUrl = 'https://localhost:7132/api/Sally';
-
+  private apiUrl = 'https://localhost:5261/api/Sally';
   constructor(private http: HttpClient) { }
 
   login(user: loginUserDTO): Observable<any> {

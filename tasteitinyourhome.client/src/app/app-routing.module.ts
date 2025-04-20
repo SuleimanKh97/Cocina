@@ -5,6 +5,10 @@ import { ContactusComponent } from './Suleiman/contactus/contactus.component';
 import { SignInComponent } from './Sally/sign-in/sign-in.component';
 import { SignUpComponent } from './Sally/sign-up/sign-up.component';
 import { ChefListComponent } from './Sofyan/chef-list/chef-list.component';
+import { ForgotPasswordComponent } from './Sally/forgot-password/forgot-password.component';
+import { PtofileComponent } from './Sondos/ptofile/ptofile.component';
+import { EditProfileComponent } from './Sondos/edit-profile/edit-profile.component';
+import { AboutusComponent } from './Suleiman/aboutus/aboutus.component';
 import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 import { UsersComponent } from './Admin/users/users.component';
 import { ChefsComponent } from './Admin/chefs/chefs.component';
@@ -19,10 +23,16 @@ import { FeedbackadminComponent } from './Admin/feedbackadmin/feedbackadmin.comp
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'contactus', component: ContactusComponent },
+  { path: 'aboutus', component: AboutusComponent },
   { path: 'Login', component: SignInComponent },
   { path: 'Register', component: SignUpComponent },
   { path: 'contactus', component: ContactusComponent },
   { path: 'chefs', component: ChefListComponent },
+  { path: 'ForgotPassword', component: ForgotPasswordComponent },
+    { path: 'chefs', component: ChefListComponent },
+    { path: "profile", component: PtofileComponent },
+    { path: "edit-profile/:id", component: EditProfileComponent }
+
   {
     path: "dashboard", component: DashboardComponent, children:
       [
