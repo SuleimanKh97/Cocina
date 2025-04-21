@@ -35,11 +35,11 @@
 //    formData.append("NumberOfGuests", data.NumberOfGuests);
 //    formData.append("TimeSlot", data.TimeSlot);
 //    formData.append("NumberOfGuests", data.NumberOfGuests);
-    
+
 //    this._url.addBook(formData).subscribe(() => {
 //      alert('Booking request submitted! We will contact you shortly to confirm details.')
 //    });
-   
+
 //    // You can reset the guest count here if desired:
 //    // this.guests = 1;
 //  }
@@ -140,7 +140,7 @@ export class BookingComponent implements OnInit {
   //    this.resetForm();
   //  });
   //}
-  onSubmit(data:any) {
+  onSubmit(data: any) {
     const formData = new FormData();
     formData.append("BookingDate", this.formData.BookingDate);
     formData.append("ChefId", this.formData.ChefId);

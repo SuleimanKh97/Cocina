@@ -1,4 +1,4 @@
- <!-- Hero Section -->
+<!-- Hero Section -->
 <section class="booking-hero text-center">
   <div class="container">
     <h1 class="display-4 fw-bold mb-4">Book Your Private Chef</h1>
@@ -15,7 +15,7 @@
 
         <form #bookingForm="ngForm" (ngSubmit)="onSubmit(bookingForm.value)">
 
-            <!-- Date & Time -->
+          <!-- Date & Time -->
           <div class="row mb-4">
             <div class="col-md-6 mb-3 mb-md-0">
               <label for="bookingDate" class="form-label">Date</label>
@@ -46,93 +46,95 @@
             </div>
           </div>
 
-            <!-- Location -->
-            <div class="mb-4">
-              <label for="location" class="form-label">Location</label>
-              <input type="text" class="form-control" id="location" placeholder="Enter your address" required ngModdel>
-            </div>
+          <!-- Location -->
+          <div class="mb-4">
+            <label for="location" class="form-label">Location</label>
+            <input type="text" class="form-control" id="location" placeholder="Enter your address" required ngModdel>
+          </div>
 
-            <!-- Number of Guests -->
-            <div class="mb-4">
-              <label class="form-label">Number of Guests</label>
-              <div class="guests-counter d-flex align-items-center">
-                <button type="button" class="btn btn-outline-secondary" id="decrementGuests">-</button>
-                <input type="number" class="form-control text-center" name="NumberOfGuests" [(ngModel)]="formData.NumberOfGuests" min="1" max="100">
-                <!--<input type="number" class="form-control text-center mx-2" id="guests" value="2" min="1" max="20" style="width: 70px;" name="NumberOfGuests" ngModdel>-->
-                <button type="button" class="btn btn-outline-secondary" id="incrementGuests">+</button>
-              </div>
+          <!-- Number of Guests -->
+          <div class="mb-4">
+            <label class="form-label">Number of Guests</label>
+            <div class="guests-counter d-flex align-items-center">
+              <button type="button" class="btn btn-outline-secondary" id="decrementGuests">-</button>
+              <input type="number" class="form-control text-center" name="NumberOfGuests"
+                [(ngModel)]="formData.NumberOfGuests" min="1" max="100">
+              <!--<input type="number" class="form-control text-center mx-2" id="guests" value="2" min="1" max="20" style="width: 70px;" name="NumberOfGuests" ngModdel>-->
+              <button type="button" class="btn btn-outline-secondary" id="incrementGuests">+</button>
             </div>
+          </div>
 
-            <!-- Meal Type -->
-            <div class="mb-4">
-              <label for="mealType" class="form-label">Meal Type</label>
-              <select class="form-select" id="mealType" required>
-                <option value="" selected disabled>Select meal type</option>
-                <option value="breakfast">Breakfast</option>
-                <option value="brunch">Brunch</option>
-                <option value="lunch">Lunch</option>
-                <option value="dinner">Dinner</option>
-                <option value="cocktail">Cocktail Party</option>
-                <option value="custom">Custom Menu</option>
-              </select>
-            </div>
+          <!-- Meal Type -->
+          <div class="mb-4">
+            <label for="mealType" class="form-label">Meal Type</label>
+            <select class="form-select" id="mealType" required>
+              <option value="" selected disabled>Select meal type</option>
+              <option value="breakfast">Breakfast</option>
+              <option value="brunch">Brunch</option>
+              <option value="lunch">Lunch</option>
+              <option value="dinner">Dinner</option>
+              <option value="cocktail">Cocktail Party</option>
+              <option value="custom">Custom Menu</option>
+            </select>
+          </div>
 
-            <!-- Cuisine Preferences -->
-            <div class="mb-4">
-              <label class="form-label">Cuisine Preferences (select up to 3)</label>
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="italian" value="italian">
-                    <label class="form-check-label" for="italian">Italian</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="french" value="french">
-                    <label class="form-check-label" for="french">French</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="japanese" value="japanese">
-                    <label class="form-check-label" for="japanese">Japanese</label>
-                  </div>
+          <!-- Cuisine Preferences -->
+          <div class="mb-4">
+            <label class="form-label">Cuisine Preferences (select up to 3)</label>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="italian" value="italian">
+                  <label class="form-check-label" for="italian">Italian</label>
                 </div>
-                <div class="col-md-4">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="mexican" value="mexican">
-                    <label class="form-check-label" for="mexican">Mexican</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="indian" value="indian">
-                    <label class="form-check-label" for="indian">Indian</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="thai" value="thai">
-                    <label class="form-check-label" for="thai">Thai</label>
-                  </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="french" value="french">
+                  <label class="form-check-label" for="french">French</label>
                 </div>
-                <div class="col-md-4">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="american" value="american">
-                    <label class="form-check-label" for="american">American</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="mediterranean" value="mediterranean">
-                    <label class="form-check-label" for="mediterranean">Mediterranean</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="vegan" value="vegan">
-                    <label class="form-check-label" for="vegan">Vegan</label>
-                  </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="japanese" value="japanese">
+                  <label class="form-check-label" for="japanese">Japanese</label>
                 </div>
               </div>
+              <div class="col-md-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="mexican" value="mexican">
+                  <label class="form-check-label" for="mexican">Mexican</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="indian" value="indian">
+                  <label class="form-check-label" for="indian">Indian</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="thai" value="thai">
+                  <label class="form-check-label" for="thai">Thai</label>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="american" value="american">
+                  <label class="form-check-label" for="american">American</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="mediterranean" value="mediterranean">
+                  <label class="form-check-label" for="mediterranean">Mediterranean</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="vegan" value="vegan">
+                  <label class="form-check-label" for="vegan">Vegan</label>
+                </div>
+              </div>
             </div>
+          </div>
 
-            <!-- Special Requests -->
-            <div class="mb-4">
-              <label for="specialRequests" class="form-label">Special Requests</label>
-              <textarea class="form-control" id="specialRequests" rows="3" placeholder="Dietary restrictions, allergies, or special preferences"></textarea>
-            </div>
+          <!-- Special Requests -->
+          <div class="mb-4">
+            <label for="specialRequests" class="form-label">Special Requests</label>
+            <textarea class="form-control" id="specialRequests" rows="3"
+              placeholder="Dietary restrictions, allergies, or special preferences"></textarea>
+          </div>
 
-            <!--Contact Information
+          <!--Contact Information
     <h3 class="mt-5 mb-4">Contact Information</h3>
     <div class="row mb-4">
       <div class="col-md-6 mb-3 mb-md-0">
@@ -155,11 +157,11 @@
       </div>
     </div>-->
 
-            <div class="d-grid">
-              <button type="submit" class="btn btn-primary btn-lg">Complete Booking</button>
-            </div>
-          </form>
-</div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">Complete Booking</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <!-- Features Column -->
