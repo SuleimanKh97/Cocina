@@ -1,4 +1,4 @@
-  <!-- Chefs Tab -->
+<!-- Chefs Tab -->
 <div id="chefs">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 style="color: var(--color-accent);">Chefs</h2>
@@ -13,165 +13,166 @@
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-hover">
+        <table class="table table-hover" *ngIf="allchefs && allchefs.length > 0; else noChefs">
           <thead>
             <tr>
               <th>ID</th>
-              <th>Chef</th>
+              <th>Full Name</th>
+              <th>Email</th>
               <th>Experience</th>
               <th>Availability</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <img src="https://via.placeholder.com/40" class="rounded-circle me-2" alt="Chef">
-                  <div>
-                    <div>Chef Maria</div>
-                    <small class="text-muted">marihef.com</small>
-                  </div>
-                </div>
-              </td>
-              <td>5 years</td>
-              <td>Mon-Fri</td>
+            <tr *ngFor="let chef of allchefs">
+              <td>{{ chef.id }}</td>
+              <td>{{ chef.fullName }}</td>
+              <td>{{ chef.email }}</td>
+              <td>{{ chef.experienceYears }} years</td>
+              <td>{{ chef.availabilitySchedule }}</td>
               <td class="action-btns">
-                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editChefModal">
+                <button class="btn btn-sm btn-outline-primary"
+                        (click)="openEditModal(chef)"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editChefModal">
                   <i class="bi bi-pencil"></i>
                 </button>
-                <button class="btn btn-sm btn-outline-danger">
+
+                <button class="btn btn-sm btn-outline-danger" (click)="deleteChef(chef.id)">
                   <i class="bi bi-trash"></i>
                 </button>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <img src="https://via.placeholder.com/40" class="rounded-circle me-2" alt="Chef">
-                  <div>
-                    <div>Chef Antonio</div>
-                    <small class="text-muted">antonichef.com</small>
-                  </div>
-                </div>
-              </td>
-              <td>8 years</td>
-              <td>Wed-Sun</td>
-              <td class="action-btns">
-                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editChefModal">
-                  <i class="bi bi-pencil"></i>
-                </button>
-                <button class="btn btn-sm btn-outline-danger">
-                  <i class="bi bi-trash"></i>
-                </button>
+
+
               </td>
             </tr>
           </tbody>
         </table>
+
+        <!-- No chefs fallback -->
+        <ng-template #noChefs>
+          <p class="text-center text-muted mt-4">No chefs found.</p>
+        </ng-template>
       </div>
     </div>
   </div>
 </div>
 
-
-
-
-
-<!-- Add Chef Modal -->
+<!--//////// Add Chef Modal /////-->
 <div class="modal fade" id="addChefModal" tabindex="-1" aria-labelledby="addChefModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addChefModalLabel">Add New Chef</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
+
+      <form #addchefs="ngForm" (ngSubmit)="addCheff(addchefs.value)">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addChefModalLabel">Add New Chef</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
           <div class="mb-3">
             <label for="chefName" class="form-label">Full Name</label>
-            <input type="text" class="form-control" id="chefName" required>
+            <input type="text" class="form-control" name="fullName" required ngModel>
           </div>
+
           <div class="mb-3">
             <label for="chefBio" class="form-label">Bio</label>
-            <textarea class="form-control" id="chefBio" rows="3"></textarea>
+            <textarea class="form-control" id="chefBio" name="bio" rows="3" ngModel></textarea>
           </div>
+
           <div class="mb-3">
             <label for="chefExperience" class="form-label">Experience (Years)</label>
-            <input type="number" class="form-control" id="chefExperience">
+            <input type="number" class="form-control" name="experienceYears" ngModel>
           </div>
+
           <div class="mb-3">
             <label for="chefEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="chefEmail">
+            <input type="email" class="form-control" name="email" ngModel>
           </div>
+
           <div class="mb-3">
             <label for="chefPhone" class="form-label">Phone Number</label>
-            <input type="tel" class="form-control" id="chefPhone">
+            <input type="tel" class="form-control" name="phoneNumber" ngModel>
           </div>
+
           <div class="mb-3">
             <label for="chefAvailability" class="form-label">Availability Schedule</label>
-            <input type="text" class="form-control" id="chefAvailability" placeholder="e.g. Mon-Fri, 9am-5pm">
+            <input type="text" class="form-control" name="availabilitySchedule" placeholder="e.g. Mon-Fri, 9am-5pm" ngModel>
           </div>
+
           <div class="mb-3">
-            <label for="chefImage" class="form-label">Chef Image</label>
-            <input class="form-control" type="file" id="chefImage">
+            <label for="chefImage" class="form-label">Chef Image (URL)</label>
+            <input class="form-control" type="text" name="imageUrl" ngModel>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Save Chef</button>
-      </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Chef</button>
+        </div>
+      </form>
+
     </div>
   </div>
 </div>
+
+
 
 <!-- Edit Chef Modal -->
 <div class="modal fade" id="editChefModal" tabindex="-1" aria-labelledby="editChefModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editChefModalLabel">Edit Chef</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
+
+      <form #editChefForm="ngForm" (ngSubmit)="editChef(selectedChef.id, selectedChef)">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editChefModalLabel">Edit Chef</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
           <div class="mb-3">
-            <label for="editChefName" class="form-label">Full Name</label>
-            <input type="text" class="form-control" id="editChefName" value="Chef Maria" required>
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-control" name="fullName" [(ngModel)]="selectedChef.fullName" required>
           </div>
+
           <div class="mb-3">
-            <label for="editChefBio" class="form-label">Bio</label>
-            <textarea class="form-control" id="editChefBio" rows="3">Master chef specializing in Italian cuisine with 5 years of experience.</textarea>
+            <label class="form-label">Bio</label>
+            <textarea class="form-control" name="bio" rows="3" [(ngModel)]="selectedChef.bio"></textarea>
           </div>
+
           <div class="mb-3">
-            <label for="editChefExperience" class="form-label">Experience (Years)</label>
-            <input type="number" class="form-control" id="editChefExperience" value="5">
+            <label class="form-label">Experience (Years)</label>
+            <input type="number" class="form-control" name="experienceYears" [(ngModel)]="selectedChef.experienceYears">
           </div>
+
           <div class="mb-3">
-            <label for="editChefEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="editChefEmail" value="maria@chef.com">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" [(ngModel)]="selectedChef.email">
           </div>
+
           <div class="mb-3">
-            <label for="editChefPhone" class="form-label">Phone Number</label>
-            <input type="tel" class="form-control" id="editChefPhone" value="(123) 456-7890">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" name="phoneNumber" [(ngModel)]="selectedChef.phoneNumber">
           </div>
+
           <div class="mb-3">
-            <label for="editChefAvailability" class="form-label">Availability Schedule</label>
-            <input type="text" class="form-control" id="editChefAvailability" value="Mon-Fri, 9am-5pm">
+            <label class="form-label">Availability Schedule</label>
+            <input type="text" class="form-control" name="availabilitySchedule" [(ngModel)]="selectedChef.availabilitySchedule">
           </div>
+
           <div class="mb-3">
-            <label for="editChefImage" class="form-label">Chef Image</label>
-            <input class="form-control" type="file" id="editChefImage">
-            <small class="text-muted">Current image: maria.jpg</small>
+            <label class="form-label">Chef Image URL</label>
+            <input type="text" class="form-control" name="imageUrl" [(ngModel)]="selectedChef.imageUrl">
+            <small class="text-muted">Current image: {{ selectedChef.imageUrl }}</small>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Save Changes</button>
-      </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+
     </div>
   </div>
 </div>

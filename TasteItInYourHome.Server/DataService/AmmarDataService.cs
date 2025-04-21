@@ -35,16 +35,15 @@ namespace TasteItInYourHome.Server.DataService
 
         public bool DeleteChef(int id)
         {
-            var chefToDelete = _context.Chefs.FirstOrDefault(c => c.Id == id);
-            if (chefToDelete != null)
-            {
-                _context.Chefs.Remove(chefToDelete);
-                _context.SaveChanges();
-                return true;
-            }
-            return false;
+            var chef = _context.Chefs.FirstOrDefault(c => c.Id == id);
+            if (chef == null)
+                return false;
 
+            _context.Chefs.Remove(chef);
+            _context.SaveChanges(); 
+            return true;
         }
+
 
         public bool AddChef(ChefRequestDTO dto)
         {
@@ -97,16 +96,17 @@ namespace TasteItInYourHome.Server.DataService
 
         public bool DeleteFood(int id)
         {
-            var foodToDelete = _context.Foods.FirstOrDefault(c => c.Id == id);
-            if (foodToDelete != null)
-            {
-                _context.Foods.Remove(foodToDelete);
-                _context.SaveChanges();
-                return true;
-            }
-            return false;
+            var food = _context.Foods.FirstOrDefault(c => c.Id == id);
+            if (food == null)
+                return false;
+            _context.Foods.Remove(food);
+            _context.SaveChanges();
+            return true;
 
         }
+
+
+        
 
 
         public bool AddFood(FoodRequestDTO dto)
@@ -156,15 +156,16 @@ namespace TasteItInYourHome.Server.DataService
         public bool DeleteCategory(int id)
         {
             var categoryToDelete = _context.FoodCategories.FirstOrDefault(c => c.Id == id);
-            if (categoryToDelete != null)
-            {
-                _context.FoodCategories.Remove(categoryToDelete);
-                _context.SaveChanges();
-                return true;
-            }
-            return false;
+            if (categoryToDelete == null)
+                return false;
+            _context.FoodCategories.Remove(categoryToDelete);
+            _context.SaveChanges();
+            return true;
+
+
         }
 
+       
 
 
         public bool AddCategory(CategoryFoodRequestDTO dto)

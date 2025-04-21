@@ -117,15 +117,22 @@ export class SignInComponent {
       next: (response) => {
         if (response.status === 200) {
           const userId = response.body.userId;
+          if (userId == -1) {
+            sessionStorage.setItem('userId', userId)
+            this.router.navigate(['/dashboard']);
+          }
+          else {
+            sessionStorage.setItem('userId', userId);
 
-          this.authService.login(userId.toString());
-
-          Swal.fire({
-            icon: 'success',
-            title: 'تم تسجيل الدخول بنجاح!',
-            showConfirmButton: false,
-            timer: 2000
-          });
+            Swal.fire({
+              icon: 'success',
+              title: 'تم تسجيل الدخول بنجاح!',
+              showConfirmButton: false,
+              timer: 2000
+            }).then(() => {
+              this.router.navigate(['/profile']);
+            });
+          }
         }
       },
       error: (err) => {
