@@ -86,13 +86,17 @@ export class SignInComponent {
     this.sallyService.googleLogin(token).subscribe({
       next: (res) => {
         console.log('Login success', res);
-        this.authService.login(res.userId.toString());
 
         Swal.fire({
           icon: 'success',
           title: 'تم تسجيل الدخول بنجاح!',
           showConfirmButton: false,
           timer: 2000
+        }).then(() => {
+          console.log(res.body.id)
+          this.authService.login(res.body.id);
+          sessionStorage.setItem('userId', res.body.id)
+          this.router.navigate(['/profile']);
         });
       },
       error: (err) => {
@@ -117,15 +121,22 @@ export class SignInComponent {
       next: (response) => {
         if (response.status === 200) {
           const userId = response.body.userId;
+          if (userId == -1) {
+            sessionStorage.setItem('userId', userId)
+            this.router.navigate(['/dashboard']);
+          }
+          else {
+            sessionStorage.setItem('userId', userId);
 
-          this.authService.login(userId.toString());
-
-          Swal.fire({
-            icon: 'success',
-            title: 'تم تسجيل الدخول بنجاح!',
-            showConfirmButton: false,
-            timer: 2000
-          });
+            Swal.fire({
+              icon: 'success',
+              title: 'تم تسجيل الدخول بنجاح!',
+              showConfirmButton: false,
+              timer: 2000
+            }).then(() => {
+              this.router.navigate(['/profile']);
+            });
+          }
         }
       },
       error: (err) => {

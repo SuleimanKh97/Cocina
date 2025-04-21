@@ -40,7 +40,7 @@ export class EditProfileComponent {
 
     loadUserData(): void {
         this.api.getUserById(this.userId).subscribe(
-            (data) => {
+            (data:any) => {
                 this.user = data;
                 this.profileForm.patchValue({
                     fullName: this.user.fullName,
@@ -51,10 +51,20 @@ export class EditProfileComponent {
                 });
                 this.imagePreview = this.user.imageUrl;
             },
-            (error) => {
+            (error : any) => {
                 console.error('Error loading user data:', error);
             }
         );
+    }
+
+    /**
+     * Trigger file input click when user clicks on the profile image
+     */
+    triggerFileInput(): void {
+        const fileInput = document.getElementById('ImageUpload') as HTMLInputElement;
+        if (fileInput) {
+            fileInput.click();
+        }
     }
 
     onFileChange(event: Event): void {
@@ -65,25 +75,33 @@ export class EditProfileComponent {
             const reader = new FileReader();
             reader.onload = () => {
                 this.imagePreview = reader.result as string;
-                this.profileForm.patchValue({
-                    imageUrl: this.imagePreview
-                });
+                this.user.imageUrl = this.imagePreview;
             };
             reader.readAsDataURL(this.imageFile);
         }
     }
 
-    onSubmit(profileForm: any): void {
-
-
-        this.api.updateProfile(profileForm, this.userId).subscribe(() => {
-            alert("profile has been updated succssfully");
-        })
-
-       
+    getImageUrl(): string {
+        return `http://localhost:5000/assets/images/${this.user.imageUrl}`;
     }
 
+    onSubmit(profileForm: any): void {
+        const formData = new FormData();
+        
+        formData.append('FullName', profileForm.fullName);
+        formData.append('Email', profileForm.email);
+        formData.append('PhoneNumber', profileForm.phoneNumber);
+        formData.append('Address', profileForm.address);
+        
+        if (this.imageFile) {
+            formData.append('ImageFile', this.imageFile, this.imageFile.name);
+        }
 
+        this.api.updateProfile(formData, this.userId).subscribe(() => {
+            alert("Profile has been updated successfully");
+            this.loadUserData(); 
+        });
+    }
 
     cancel(): void {
         this.router.navigate(['/profile', this.userId]);

@@ -1,379 +1,124 @@
-﻿<div class="profile-container" >
-    <div class="profile-header" >
-        <div class="profile-image">
-            <img [src]="user.imageUrl || 'assets/images/default-profile.jpg'" alt="User Image" >
+﻿<div class="profile-container">
+    <!-- Profile Header Section -->
+    <div class="profile-header">
+        <div class="profile-image" (click)="navigateToEdit()">
+            <!--<img [src]="user.imageUrl || 'assets/images/default-profile.jpg'" alt="User Image">-->
+            <img [src]="'http://localhost:5261/assets/images/' + user.imageUrl" alt="User profile photo">
         </div>
         <div class="profile-info">
             <h2>{{ user.fullName }}</h2>
             <p><i class="fa fa-envelope"></i> {{ user.email }}</p>
             <p><i class="fa fa-phone"></i> {{ user.phoneNumber }}</p>
             <p><i class="fa fa-map-marker"></i> {{ user.address }}</p>
-        </div>
-        <div class="profile-actions mt-3">
-            <!--<button class=" book-btn me-2" (click)="navigateToEdit()">Edit Profile</button>-->
-            <button class=" book-btn me-2" routerLink="edit-profile/{{user.id}}">Edit Profile</button>
-            <button class="btn  book-btn" (click)="toggleChangePasswordForm()">
-                {{ showChangePasswordForm ? 'Cancel' : 'Change Password' }}
-            </button>
+        
+            <div class="profile-actions">
+                <button class="book-btn" [routerLink]="['/edit-profile', user.id]">Edit Profile</button>
+                <button class="book-btn" (click)="toggleChangePasswordForm()">
+                    {{ showChangePasswordForm ? 'Cancel' : 'Change Password' }}
+                </button>
+            </div>
         </div>
     </div>
 
-   
-
-    <div *ngIf="showChangePasswordForm" class="change-password-form mt-4">
+    <!-- Password Change Form -->
+    <div *ngIf="showChangePasswordForm" class="change-password-form">
         <h4>Change Password</h4>
 
         <div *ngIf="passwordError" class="alert alert-danger">
-            {{ passwordError }}
+            <i class="fa fa-exclamation-circle"></i> {{ passwordError }}
         </div>
 
-        <div class="mb-3">
-            <label>Current Password</label>
-            <input type="password" class="form-control" style=" width: 43% !important; " [(ngModel)]="passwordData.currentPassword">
+        <div class="form-group">
+            <label for="currentPassword">Current Password</label>
+            <input type="password" id="currentPassword" class="form-control" [(ngModel)]="passwordData.currentPassword">
         </div>
 
-        <div class="mb-3">
-            <label>New Password</label>
-            <input type="password" class="form-control" style=" width: 43% !important; " [(ngModel)]="passwordData.newPassword">
+        <div class="form-group">
+            <label for="newPassword">New Password</label>
+            <input type="password" id="newPassword" class="form-control" [(ngModel)]="passwordData.newPassword">
         </div>
 
-        <div class="mb-3">
-            <label>Confirm Password</label>
-            <input type="password" class="form-control" style=" width: 43% !important; " [(ngModel)]="passwordData.confirmPassword">
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" class="form-control" [(ngModel)]="passwordData.confirmPassword">
         </div>
 
-        <button class="btn book-btn" (click)="changePassword()">Save New Password</button>
+        <button class="book-btn" (click)="changePassword()">Save New Password</button>
     </div>
 
-    <div class="booking-history mt-5">
-        <h4>Booking History</h4>
-
-        <div *ngIf="bookingHistory.length === 0" class="alert alert-info">
-            No previous bookings found.
+    <!-- Booking History Section -->
+    <div class="booking-history">
+        <div class="booking-history-header" (click)="toggleBookingHistory()">
+            <h4>Booking History</h4>
+            <i class="fa" [ngClass]="{'fa-chevron-down': !showBookingHistory, 'fa-chevron-up': showBookingHistory}"></i>
         </div>
 
-        <div *ngIf="bookingHistory.length > 0" style=" display: flex; gap: 21px;">
-            <div *ngFor="let booking of bookingHistory" class="card my-3 p-3 shadow-sm">
-                <div class="d-flex justify-content-between">
-                    <span>{{ booking.bookingDate }}</span>
-                    <span class="badge bg-secondary">{{ booking.status }}</span>
-                </div>
-                <div class="mt-2">
-                    <p><strong>Chef:</strong> {{ booking.chefName }}</p>
-                    <p><strong>Food:</strong> {{ booking.foodName }}</p>
-                    <p><strong>Service:</strong> {{ booking.serviceName }}</p>
-                    <p><strong>Number of Guests:</strong> {{ booking.numberOfGuests }}</p>
-                    <p><strong>Time Slot:</strong> {{ booking.timeSlot }}</p>
+        <div class="booking-history-content" [ngClass]="{'visible': showBookingHistory}">
+            <div *ngIf="bookingHistory.length === 0" class="alert alert-info">
+                <i class="fa fa-info-circle"></i> No previous bookings found.
+            </div>
+
+            <div *ngIf="bookingHistory.length > 0" class="booking-cards">
+                <div *ngFor="let booking of bookingHistory" class="booking-card">
+                    <div class="card-header">
+                        <span>{{ booking.bookingDate }}</span>
+                        <span class="badge" 
+                              [ngClass]="{
+                                'badge-completed': booking.status === 'Completed',
+                                'badge-pending': booking.status === 'Pending',
+                                'badge-cancelled': booking.status === 'Cancelled'
+                              }">
+                            {{ booking.status }}
+                        </span>
+                    </div>
+                    <div class="booking-info">
+                        <p><strong>Chef:</strong> {{ booking.chefName }}</p>
+                        <p><strong>Food:</strong> {{ booking.foodName }}</p>
+                        <p><strong>Service:</strong> {{ booking.serviceName }}</p>
+                        <p><strong>Number of Guests:</strong> {{ booking.numberOfGuests }}</p>
+                        <p><strong>Time Slot:</strong> {{ booking.timeSlot }}</p>
+                    </div>
+                    <div *ngIf="booking.status === 'Completed'" class="text-end mt-3">
+                        <button class="book-btn" (click)="submitFeedback(booking)">Submit Feedback</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Feedback Modal -->
+    <div class="modal-overlay" *ngIf="showModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-star"></i> Submit Feedback</h5>
+                <button type="button" class="btn-close" (click)="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p *ngIf="selectedBooking" class="booking-info-text">
+                    Your feedback for <strong>{{ selectedBooking.chefName }}</strong> 
+                    on <strong>{{ selectedBooking.bookingDate }}</strong>
+                </p>
+                
+                <div class="form-group">
+                    <label for="rating">Rating (1 to 5 stars):</label>
+                    <input type="number" id="rating" [(ngModel)]="feedbackData.rating" min="1" max="5" class="form-control" />
+                    <div class="rating-display">
+                        <i class="fa fa-star" *ngFor="let star of [1,2,3,4,5]" 
+                           [ngClass]="{'active': star <= feedbackData.rating}"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="comment">Your Comments:</label>
+                    <textarea id="comment" [(ngModel)]="feedbackData.comment" rows="3" class="form-control" 
+                              placeholder="Please share your experience..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="book-btn" (click)="submitFeedbackToServer()">
+                    <i class="fa fa-paper-plane"></i> Submit Feedback
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
-<style>
-    .book-btn {
-        background-color: #DFD3C3;
-        color: #C5705D !important;
-        border: none;
-        padding: 0.5rem 1.2rem;
-        border-radius: 4px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        margin-left: 1rem;
-    }
-
-        .book-btn:hover {
-            background-color: #D0B8A8;
-            transform: translateY(-2px);
-        }
-
-    /* أنماط عامة */
-    :root {
-        --primary-color: #4caf50;
-        --secondary-color: #2196f3;
-        --danger-color: #f44336;
-        --warning-color: #ff9800;
-        --success-color: #8bc34a;
-        --light-gray: #f5f5f5;
-        --medium-gray: #e0e0e0;
-        --dark-gray: #757575;
-        --text-color: #333;
-        --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        --border-radius: 8px;
-    }
-
-    /* أنماط البروفايل */
-    .profile-container {
-        max-width: 800px;
-        margin: 30px auto;
-        padding: 20px;
-        background-color: white;
-        box-shadow: var(--box-shadow);
-        border-radius: var(--border-radius);
-    }
-
-    .profile-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 30px;
-    }
-
-    .profile-image {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        overflow: hidden;
-        margin-right: 20px;
-    }
-
-        .profile-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-    .profile-info h2 {
-        margin-top: 0;
-        margin-bottom: 10px;
-        color: var(--text-color);
-    }
-
-    .profile-info p {
-        margin: 5px 0;
-        color: var(--dark-gray);
-    }
-
-    .profile-info i {
-        margin-right: 10px;
-        color: var(--primary-color);
-    }
-
-    .profile-actions {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 30px;
-    }
-
-    .btn {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: 500;
-        transition: background-color 0.3s;
-    }
-
-    .btn-primary {
-        background-color: var(--primary-color);
-        color: white;
-    }
-
-    .btn-secondary {
-        background-color: var(--secondary-color);
-        color: white;
-    }
-
-    .btn-success {
-        background-color: var(--success-color);
-        color: white;
-    }
-
-    .btn:hover {
-        opacity: 0.9;
-    }
-
-    /* نموذج تغيير كلمة المرور */
-    .change-password-form {
-        background-color: var(--light-gray);
-        padding: 20px;
-        border-radius: var(--border-radius);
-        margin-bottom: 30px;
-    }
-
-        .change-password-form h3 {
-            margin-top: 0;
-            margin-bottom: 20px;
-            color: var(--text-color);
-        }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-            color: var(--text-color);
-        }
-
-    .form-control {
-        width: 100%;
-        padding: 10px;
-        border:1px solid darkgray;
-        font-size: 16px;
-    }
-
-    .alert {
-        padding: 10px;
-        border-radius: 4px;
-        margin-bottom: 15px;
-    }
-
-    .alert-danger {
-        background-color: #ffebee;
-        color: var(--danger-color);
-        border: 1px solid #ffcdd2;
-    }
-
-    /* سجل الحجوزات */
-    .booking-history h3 {
-        margin-top: 0;
-        margin-bottom: 20px;
-        color: var(--text-color);
-    }
-
-    .no-bookings {
-        padding: 20px;
-        background-color: var(--light-gray);
-        border-radius: var(--border-radius);
-        text-align: center;
-        color: var(--dark-gray);
-    }
-
-    .booking-item {
-        background-color: white;
-        border: 1px solid var(--medium-gray);
-        border-radius: var(--border-radius);
-        margin-bottom: 15px;
-        overflow: hidden;
-    }
-
-    .booking-header {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px 15px;
-        background-color: var(--light-gray);
-        border-bottom: 1px solid var(--medium-gray);
-    }
-
-    .booking-date {
-        font-weight: 500;
-    }
-
-    .booking-status {
-        padding: 3px 10px;
-        border-radius: 12px;
-        font-size: 14px;
-        font-weight: 500;
-    }
-
-    .status-confirmed {
-        background-color: #e3f2fd;
-        color: #1976d2;
-    }
-
-    .status-pending {
-        background-color: #fff8e1;
-        color: #f57f17;
-    }
-
-    .status-cancelled {
-        background-color: #ffebee;
-        color: #c62828;
-    }
-
-    .status-completed {
-        background-color: #e8f5e9;
-        color: #2e7d32;
-    }
-
-    .booking-details {
-        padding: 15px;
-    }
-
-        .booking-details p {
-            margin: 5px 0;
-        }
-
-    /* أنماط تعديل البروفايل */
-    .edit-profile-container {
-        max-width: 600px;
-        margin: 30px auto;
-        padding: 20px;
-        background-color: white;
-        box-shadow: var(--box-shadow);
-        border-radius: var(--border-radius);
-    }
-
-        .edit-profile-container h2 {
-            margin-top: 0;
-            margin-bottom: 30px;
-            color: var(--text-color);
-            text-align: center;
-        }
-
-    .profile-image-upload {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 30px;
-    }
-
-    .image-preview {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        overflow: hidden;
-        margin-bottom: 15px;
-        border: 2px solid var(--medium-gray);
-    }
-
-        .image-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-    .upload-controls {
-        margin-bottom: 15px;
-    }
-
-    .btn-outline-primary {
-        background-color: transparent;
-        border: 1px solid var(--primary-color);
-        color: var(--primary-color);
-    }
-
-        .btn-outline-primary:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-    .is-invalid {
-        border-color: var(--danger-color);
-    }
-
-    .invalid-feedback {
-        color: var(--danger-color);
-        font-size: 14px;
-        margin-top: 5px;
-    }
-
-    .form-actions {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 30px;
-    }
-
-    
-    .booking-history-container {
-        max-width: 800px;
-        margin: 30px auto;
-        padding: 20px;
-        background-color: white;
-        box-shadow: var(--box-shadow);
-        border-radius: var(--border-radius);
-    }
-
-        .booking-history-container h2 {
-</style>

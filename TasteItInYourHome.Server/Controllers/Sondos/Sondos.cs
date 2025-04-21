@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using TasteItInYourHome.Server.Models;
 using BCrypt.Net;
 using TasteItInYourHome.Server.DTOs;
+using TasteItInYourHome.Server.Dtos;
 
 namespace TasteItInYourHome.Server.Controllers.Sondos
 {
@@ -36,23 +37,82 @@ namespace TasteItInYourHome.Server.Controllers.Sondos
             return Ok(user);
         }
 
+        //[HttpGet("BookingHistory/{userId}")]
+        //public IActionResult GetUserBookingHistory(int userId)
+        //{
+        //    var bookingHistory = _data.GetUserBookingHistory(userId);
+        //    var user = _data.getUserById(userId);
+        //    if (user == null)
+        //    {
+        //        return NotFound("User not found");
+        //    }
+        //    else
+        //    {
+
+        //        if (bookingHistory == null || !bookingHistory.Any())
+        //        {
+        //            return NotFound("No booking for this User");
+        //        }
+
+        //        return Ok(bookingHistory);
+        //    }
 
 
-        [HttpPut("UpdateProfile/{id}")]
-        public IActionResult UpdateProfile(int id, EditProfile Dto)
+        //}
+
+        [HttpGet("BookingHistory/{UserId}")]
+        public IActionResult BookingHistory(int UserId)
         {
-            if (Dto == null)
+            var bookings = _data.BookingHistory(UserId);
+               
+
+            return Ok(bookings);
+        }
+
+
+
+        [HttpPost("AddFeedback")]
+        public IActionResult AddFeedback([FromBody] FeedbackDto dto)
+        {
+            if (dto == null)
             {
-                return BadRequest();
+                return BadRequest("Invalid data.");
             }
 
-            var user = _data.UpdateProfile(id, Dto);
-            if (user ==true )
-            {
-                return Ok();
+            var check = _data.AddFeedback(dto);
+            if (check) { 
+
+             return Ok(new { message = "Feedback added successfully!" });
+
             }
+            else { return Ok(new { message = "Feedback cant be added (you already add it before )" }); }
+
+        }
+
+        //[HttpPut("UpdateProfile/{id}")]
+        //public IActionResult UpdateProfile(int id, EditProfileWithImageDto Dto)
+        //{
+        //    if (Dto == null)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    var user = _data.UpdateProfile(id, Dto);
+        //    if (user ==true )
+        //    {
+        //        return Ok();
+        //    }
+        //    return NotFound();
+        //}
+        [HttpPut("UpdateProfile/{id}")]
+        public async Task<IActionResult> UpdateProfile(int id, [FromForm] EditProfileWithImageDto dto)
+        {
+            var success = await _data.UpdateProfileAsync(id, dto);
+            if (success) return Ok();
+
             return NotFound();
         }
+
 
 
 
@@ -60,7 +120,7 @@ namespace TasteItInYourHome.Server.Controllers.Sondos
         public IActionResult ChangePassword(int id, [FromBody] changePassword Dto)
         {
             if (Dto == null)
-                return BadRequest("Invalid data");
+                return BadRequest();
 
             try
             {
@@ -74,28 +134,6 @@ namespace TasteItInYourHome.Server.Controllers.Sondos
         }
 
 
-        [HttpGet("BookingHistory/{userId}")]
-        public IActionResult GetUserBookingHistory(int userId)
-        {
-            var bookingHistory = _data.GetUserBookingHistory(userId);
-            var user = _data.getUserById(userId);
-            if (user == null)
-            {
-                return NotFound("User not found");
-            }
-            else
-            {
-
-                if (bookingHistory == null || !bookingHistory.Any())
-                {
-                    return NotFound("No booking for this User");
-                }
-
-                return Ok(bookingHistory);
-            }
-
-
-        }
 
     }
 }

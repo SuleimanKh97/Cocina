@@ -24,24 +24,21 @@ namespace TasteItInYourHome.Server.Controllers.Ammar
             return Ok(chefs);
         }
 
-        [HttpDelete]
-        [Route("DeleteChef/{id}")]
+       
+        [HttpDelete("DeleteChef/{id}")]
         public IActionResult DeleteChef(int id)
         {
-            var chefs = _data.GetChefs();
-            var chefToDelete = chefs.FirstOrDefault(c => c.Id == id);
-            if (chefToDelete != null)
-            {
-                chefs.Remove(chefToDelete);
-                return Ok(chefs);
-            }
+            bool deleted = _data.DeleteChef(id);
+            if (deleted)
+                return Ok();
             return NotFound();
         }
 
 
+
         [HttpPost]
         [Route("AddChef")]
-        public IActionResult AddChef([FromForm] ChefRequestDTO newChef)
+        public IActionResult AddChef(ChefRequestDTO newChef)
         {
             if (ModelState.IsValid)
             {
@@ -54,7 +51,7 @@ namespace TasteItInYourHome.Server.Controllers.Ammar
 
 
         [HttpPut("EditChef/{id}")]
-        public IActionResult EditChef(int id, [FromForm] ChefRequestDTO chef)
+        public IActionResult EditChef(int id, ChefRequestDTO chef)
         {
             if (chef == null)
                 return BadRequest();
@@ -85,19 +82,18 @@ namespace TasteItInYourHome.Server.Controllers.Ammar
         [HttpDelete("DeleteFood/{id}")]
         public IActionResult DeleteFood(int id)
         {
-            var Foods = _data.GetFoods();
-            var foodToDelete = Foods.FirstOrDefault(c => c.Id == id);
-            if (foodToDelete != null)
-            {
-                Foods.Remove(foodToDelete);
-                return Ok(Foods);
-            }
+            bool deleted = _data.DeleteFood(id);
+            if (deleted)
+                return Ok();
             return NotFound();
         }
 
 
+     
+
+
         [HttpPost("AddFood")]
-        public IActionResult AddFood([FromForm] FoodRequestDTO newFood)
+        public IActionResult AddFood(FoodRequestDTO newFood)
         {
             if (ModelState.IsValid)
             {
@@ -110,7 +106,7 @@ namespace TasteItInYourHome.Server.Controllers.Ammar
 
 
         [HttpPut("EditFood/{id}")]
-        public IActionResult EditFood(int id, [FromForm] FoodRequestDTO food)
+        public IActionResult EditFood(int id,  FoodRequestDTO food)
         {
             if (food == null)
                 return BadRequest();
@@ -157,20 +153,19 @@ namespace TasteItInYourHome.Server.Controllers.Ammar
         [HttpDelete("DeleteCategory/{id}")]
         public IActionResult DeleteCategory(int id)
         {
-            var Category = _data.GetALlCategory();
-            var categoryToDelete = Category.FirstOrDefault(c => c.Id == id);
-            if (categoryToDelete != null)
-            {
-                Category.Remove(categoryToDelete);
-                return Ok(Category);
-            }
+            bool deleted = _data.DeleteCategory(id);
+            if (deleted)
+                return Ok();
             return NotFound();
+
         }
 
 
 
+
+
         [HttpPost("AddCategory")]
-        public IActionResult AddCategory([FromForm] CategoryFoodRequestDTO newCategory)
+        public IActionResult AddCategory( CategoryFoodRequestDTO newCategory)
         {
             if (ModelState.IsValid)
             {
@@ -182,7 +177,7 @@ namespace TasteItInYourHome.Server.Controllers.Ammar
 
 
         [HttpPut("EditCategory/{id}")]
-        public IActionResult EditCategory(int id, [FromForm] CategoryFoodRequestDTO category)
+        public IActionResult EditCategory(int id, CategoryFoodRequestDTO category)
         {
             if (category == null)
                 return BadRequest();

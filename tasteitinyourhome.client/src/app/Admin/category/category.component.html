@@ -13,7 +13,8 @@
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-hover">
+        <table class="table table-hover" *ngIf="allCategories && allCategories.length > 0; else noCategories">
+          
           <thead>
             <tr>
               <th>ID</th>
@@ -24,69 +25,68 @@
             </tr>
           </thead>
           <tbody>
-           
-            <tr>
-              <td>2</td>
+            <tr *ngFor="let category of allCategories">
+              <td>{{ category.id }}</td>
               <td>
-                <img src="https://via.placeholder.com/60" class="category-img" alt="Main Course">
+                <img [src]="category.imageUrl" alt="{{ category.name }}" width="60" class="category-img">
               </td>
-              <td>Main Course</td>
-              <td class="text-truncate" style="max-width: 200px;">Hearty main dishes including meats, fish, and vegetarian options</td>
+              <td>{{ category.name }}</td>
+              <td class="text-truncate" style="max-width: 200px;">{{ category.description }}</td>
               <td class="action-btns">
-               
-                <button class="btn btn-sm btn-outline-primary edit-category-btn" data-bs-toggle="modal" data-bs-target="#editCategoryModal">
+                <button class="btn btn-sm btn-outline-primary"
+                       (click)="selectCategory(category)"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editCategoryModal">
                   <i class="bi bi-pencil"></i>
                 </button>
-                <button class="btn btn-sm btn-outline-danger" onclick="confirmDeleteCategory(2)">
+                <button class="btn btn-sm btn-outline-danger" (click)="deleteCategory(category.id)">
                   <i class="bi bi-trash"></i>
                 </button>
               </td>
             </tr>
-          
           </tbody>
         </table>
+
+        <ng-template #noCategories>
+          <p class="text-center text-muted mt-4">No categories found.</p>
+        </ng-template>
       </div>
     </div>
   </div>
 </div>
 
-
-
-
-
-
-
-
-
-
 <!-- Add Category Modal -->
 <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="addCategoryForm">
+      <form #addCatForm="ngForm" (ngSubmit)="addCategory(addCatForm.value)">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
           <div class="mb-3">
-            <label for="categoryName" class="form-label">Category Name *</label>
-            <input type="text" class="form-control" id="categoryName" name="Name" required>
+            <label class="form-label">Category Name *</label>
+            <input type="text" class="form-control" name="name" required ngModel>
           </div>
+
           <div class="mb-3">
-            <label for="categoryDescription" class="form-label">Description</label>
-            <textarea class="form-control" id="categoryDescription" name="Description" rows="3"></textarea>
+            <label class="form-label">Description</label>
+            <textarea class="form-control" name="description" rows="3" ngModel></textarea>
           </div>
+
           <div class="mb-3">
-            <label for="categoryImage" class="form-label">Category Image</label>
-            <input class="form-control" type="file" id="categoryImage" name="ImageUrl">
+            <label class="form-label">Image URL</label>
+            <input class="form-control" type="text" name="imageUrl" ngModel>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" onclick="addCategory()">Add Category</button>
-      </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Add Category</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -95,38 +95,41 @@
 <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editCategoryModalLabel">Edit Category</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="editCategoryForm">
-          <input type="hidden" id="editCategoryId">
+      <form #editCatForm="ngForm" (ngSubmit)="editCategory(selectedCategory.id, selectedCategory)">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editCategoryModalLabel">Edit Category</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
           <div class="mb-3">
-            <label for="editCategoryName" class="form-label">Category Name *</label>
-            <input type="text" class="form-control" id="editCategoryName" name="Name" required>
+            <label class="form-label">Category Name *</label>
+            <input type="text" class="form-control" name="name" [(ngModel)]="selectedCategory.name" required>
           </div>
+
           <div class="mb-3">
-            <label for="editCategoryDescription" class="form-label">Description</label>
-            <textarea class="form-control" id="editCategoryDescription" name="Description" rows="3"></textarea>
+            <label class="form-label">Description</label>
+            <textarea class="form-control" name="description" rows="3" [(ngModel)]="selectedCategory.description"></textarea>
           </div>
+
           <div class="mb-3">
-            <label for="editCategoryImage" class="form-label">Category Image</label>
-            <input class="form-control" type="file" id="editCategoryImage" name="ImageUrl">
-            <small class="text-muted">Current image: pasta.jpg</small>
+            <label class="form-label">Image URL</label>
+            <input class="form-control" type="text" name="imageUrl" [(ngModel)]="selectedCategory.imageUrl">
+            <small class="text-muted">Current image: {{ selectedCategory.imageUrl }}</small>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" onclick="updateCategory()">Save Changes</button>
-      </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
 <!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel" aria-hidden="true">
+<!--<div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -143,4 +146,4 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->

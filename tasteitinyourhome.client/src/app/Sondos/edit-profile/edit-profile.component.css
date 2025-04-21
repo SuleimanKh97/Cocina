@@ -1,0 +1,424 @@
+/* Edit Profile Component Styles */
+:root {
+  --primary-color: #C5705D;
+  --secondary-color: #DFD3C3;
+  --bg-color: #F9F5F0;
+  --text-color: #333;
+  --light-gray: #f5f5f5;
+  --medium-gray: #e0e0e0;
+  --dark-gray: #757575;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --input-border-color: #C5705D;
+}
+
+/* Main Container */
+.edit-profile-container {
+  display: flex;
+  min-height: auto;
+  max-height: 550px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: white;
+  position: relative;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.profile-sidebar {
+  width: 40%;
+  background-color: var(--bg-color);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 6px;
+  background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+  z-index: 1;
+}
+
+.profile-form-container {
+  width: 60%;
+  padding: 15px 25px;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
+  margin: 10px;
+  background-color: #fcfcfc;
+}
+
+.edit-profile-title {
+  color: var(--primary-color);
+  font-size: 22px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.edit-profile-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: var(--secondary-color);
+}
+
+/* Profile Image Upload */
+.profile-image-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.image-preview {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 15px;
+  border: 4px solid var(--secondary-color);
+  box-shadow: var(--box-shadow);
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.image-preview:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.3s ease;
+}
+
+/* Camera overlay on profile image hover */
+.image-preview::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.image-preview::after {
+  content: '\f030';
+  font-family: 'FontAwesome';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 36px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 3;
+}
+
+.image-preview:hover::before,
+.image-preview:hover::after {
+  opacity: 1;
+}
+
+.image-preview:hover img {
+  filter: blur(2px);
+}
+
+.upload-controls {
+  margin-top: 15px;
+  text-align: center;
+  display: none; /* Hide by default, will show via JS click */
+}
+
+/* Profile Form Actions */
+.profile-form-actions {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.profile-instructions {
+  text-align: center;
+  margin: 10px 0;
+  color: var(--dark-gray);
+  max-width: 80%;
+  line-height: 1.3;
+  font-size: 13px;
+}
+
+/* Form Styling */
+.profile-form {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  background-color: white;
+  padding: 15px;
+  border-radius: var(--border-radius);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f0f0f0;
+}
+
+.form-group {
+  margin-bottom: 12px;
+  position: relative;
+  width: 100%;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: var(--primary-color);
+  letter-spacing: 0.5px;
+  font-size: 13px;
+  transition: color 0.3s ease;
+}
+
+/* Global Input Field Styling */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+textarea,
+select,
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #d0d0d0;
+  border-left: 4px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background-color: white;
+  color: var(--text-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Active input state */
+input:focus,
+textarea:focus,
+select:focus,
+.form-control:focus {
+  outline: none;
+  border: 2px solid var(--primary-color);
+  border-left: 4px solid var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(197, 112, 93, 0.15);
+  background-color: #fffcfb;
+}
+
+.form-group:has(input:focus) label,
+.form-group:has(textarea:focus) label,
+.form-group:has(select:focus) label {
+  color: #a04f3d;
+  font-weight: 700;
+}
+
+/* Add a subtle highlight on hover */
+input:hover,
+textarea:hover,
+select:hover,
+.form-control:hover {
+  border-color: #b5b5b5;
+  background-color: #fffefe;
+}
+
+/* Specific Input Styling */
+input[type="text"]#fullName {
+  border-left-color: #dd8e7c;
+}
+
+input[type="email"] {
+  border-left-color: #c96a57;
+}
+
+input[type="tel"] {
+  border-left-color: #bf5846;
+}
+
+textarea.form-control {
+  min-height: 44px;
+  max-height: 70px;
+  resize: vertical;
+  border-left-color: #a04f3d;
+}
+
+/* Button Styling */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-upload {
+  background-color: var(--primary-color);
+  color: white;
+  border: 2px solid #b05a48;
+  padding: 8px 18px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+}
+
+.btn-upload:hover {
+  background-color: #b05a48;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(197, 112, 93, 0.3);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.book-btn {
+  background-color: #DFD3C3;
+  color: #C5705D !important;
+  border: 2px solid var(--primary-color);
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--border-radius);
+  font-weight: bold;
+  transition: all 0.3s ease;
+  min-width: 150px;
+  text-align: center;
+  font-size: 14px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.book-btn:hover {
+  box-shadow: 0 3px 8px rgba(197, 112, 93, 0.2);
+  background-color: #D0B8A8;
+  transform: translateY(-2px);
+}
+
+/* Decorative Elements */
+.decorative-shape {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: rgba(197, 112, 93, 0.1);
+  z-index: 0;
+}
+
+.shape-top {
+  top: -50px;
+  right: -50px;
+}
+
+.shape-bottom {
+  bottom: -50px;
+  left: -50px;
+}
+
+/* Hide original file input */
+input[type="file"] {
+  display: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .edit-profile-container {
+    flex-direction: column;
+    height: auto;
+    max-height: none;
+  }
+  
+  .profile-sidebar {
+    width: 100%;
+    padding: 30px 20px;
+  }
+  
+  .profile-form-container {
+    width: 100%;
+    padding: 30px 20px;
+    margin: 0;
+  }
+  
+  .image-preview {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+@media (max-width: 576px) {
+  .form-actions, .profile-form-actions {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .book-btn {
+    width: 100%;
+  }
+  
+  .edit-profile-title {
+    font-size: 24px;
+  }
+  
+  .image-preview {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+/* Form input active state indicator */
+.form-group {
+  position: relative;
+}
+
+.form-group::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.form-group:has(input:focus)::after,
+.form-group:has(textarea:focus)::after,
+.form-group:has(select:focus)::after {
+  width: 100%;
+}
