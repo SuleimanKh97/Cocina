@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TasteItInYourHome.Server.Dtos;
 using TasteItInYourHome.Server.DTOs;
 using TasteItInYourHome.Server.IDataService;
 using TasteItInYourHome.Server.Models;
@@ -32,9 +33,56 @@ namespace TasteItInYourHome.Server.DataService
             return null;
         }
 
+        //public async Task<string> Feedback(FeedbackDTO feedback)
+        //{
 
- 
 
+        //    var newFeedback = new Feedback
+        //    {
+        //        BookingId = feedback.BookingId,
+        //        Rating = feedback.Rating,
+        //        Comment = feedback.Comment,
+        //        SubmittedAt = DateTime.UtcNow,
+
+        //    };
+
+        //    _context.Users.Add(newFeedback);
+        //    _context.SaveChanges();
+        //    return "User registered successfully.";
+        //}
+        public List<Booking> BookingHistory(int UserId)
+        {
+            var bookings = _context.Bookings
+                .Where(b => b.UserId == UserId)
+                .ToList();
+
+            return bookings;
+        }
+
+        public  bool AddFeedback( FeedbackDto dto)
+        {
+            var existingFeedback = _context.Feedbacks
+         .FirstOrDefault(f => f.BookingId == dto.BookingId);
+
+            if (existingFeedback != null)
+            {
+                return false;
+            }
+
+            var feedback = new Feedback
+            {
+                BookingId = dto.BookingId,
+                Rating = dto.Rating,
+                Comment = dto.Comment,
+                SubmittedAt = DateTime.UtcNow
+            };
+
+            _context.Feedbacks.Add(feedback);
+             _context.SaveChangesAsync();
+
+            return true;
+        }
+    
         public bool UpdateProfile(int id,  EditProfile Dto)
         {
             

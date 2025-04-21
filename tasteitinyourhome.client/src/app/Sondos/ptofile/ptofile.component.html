@@ -1,7 +1,7 @@
-﻿<div class="profile-container" >
-    <div class="profile-header" >
+﻿<div class="profile-container">
+    <div class="profile-header">
         <div class="profile-image">
-            <img [src]="user.imageUrl || 'assets/images/default-profile.jpg'" alt="User Image" >
+            <img [src]="user.imageUrl || 'assets/images/default-profile.jpg'" alt="User Image">
         </div>
         <div class="profile-info">
             <h2>{{ user.fullName }}</h2>
@@ -18,7 +18,7 @@
         </div>
     </div>
 
-   
+
 
     <div *ngIf="showChangePasswordForm" class="change-password-form mt-4">
         <h4>Change Password</h4>
@@ -54,6 +54,7 @@
 
         <div *ngIf="bookingHistory.length > 0" style=" display: flex; gap: 21px;">
             <div *ngFor="let booking of bookingHistory" class="card my-3 p-3 shadow-sm">
+                <!--you havr to view the booking where the booking.userId = userId-->
                 <div class="d-flex justify-content-between">
                     <span>{{ booking.bookingDate }}</span>
                     <span class="badge bg-secondary">{{ booking.status }}</span>
@@ -64,11 +65,43 @@
                     <p><strong>Service:</strong> {{ booking.serviceName }}</p>
                     <p><strong>Number of Guests:</strong> {{ booking.numberOfGuests }}</p>
                     <p><strong>Time Slot:</strong> {{ booking.timeSlot }}</p>
+                    <div *ngIf="booking.status === 'Completed'" class="mt-3 text-end">
+                        <!--<button class="btn book-btn" (click)="submitFeedback({{booking}})">Submit Feedback</button>-->
+                        <button class="btn book-btn" (click)="submitFeedback(booking)">Submit Feedback</button>
+
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+    <!-- Feedback Modal -->
+    <div class="modal" tabindex="-1" [ngClass]="{'show d-block': showModal}" style="background-color: rgba(0,0,0,0.5);" *ngIf="showModal">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
+                <div class="modal-header">
+                    <h5 class="modal-title">Submit Feedback</h5>
+                    <button type="button" class="btn-close" (click)="closeModal()"></button>
+                </div>
+                <div class="modal-body">
+                    <label>Rating (1 to 5):</label>
+                    <input type="number" [(ngModel)]="feedbackData.rating" min="1" max="5" class="form-control" />
+
+                    <label class="mt-2">Comment:</label>
+                    <textarea [(ngModel)]="feedbackData.comment" rows="3" class="form-control"></textarea>
+                </div>
+                <div class="modal-footer">
+
+                    <!--<button class="btn btn-success" (click)="submitFeedback(booking)">Submit</button>-->
+                    <button class="btn book-btn" (click)="submitFeedbackToServer()">Submit</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
 <style>
     .book-btn {
         background-color: #DFD3C3;

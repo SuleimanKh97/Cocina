@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TasteItInYourHome.Server.Dtos;
 using TasteItInYourHome.Server.DTOs;
 using TasteItInYourHome.Server.Models;
 
@@ -6,7 +7,10 @@ namespace TasteItInYourHome.Server.IDataService
 {
     public interface SondosIDataService
     {
+        public bool AddFeedback( FeedbackDto dto);
 
+
+        public List<Booking> BookingHistory(int UserId);
 
         public User getUserById(int id);
         public List<User> GetAll();

@@ -13,11 +13,14 @@ export class PtofileComponent {
     constructor(private route: ActivatedRoute, private api: ApiService, private router: Router) { }
 
     ngOnInit() {
+        this.userId = Number(sessionStorage.getItem('userId'));
         this.loadUserData();
         this.loadBookingHistory();
-        sessionStorage.setItem('userId', "8");//this line is only for testing 
+       
 
-        this.userId = Number(sessionStorage.getItem('userId'));
+        this.api.getUserBookingHistory(this.userId).subscribe(data => {
+            this.bookingHistory = data;
+        });
 
     }
 
@@ -31,6 +34,7 @@ export class PtofileComponent {
         confirmPassword: ''
     };
     passwordError = '';
+
 
     loadUserData(): void {
         this.api.getUserById(this.userId).subscribe(
@@ -57,6 +61,18 @@ export class PtofileComponent {
             }
         );
     }
+    //submitFeedback(booking: any): void {
+    //    this.api.submitFeedback(booking.id).subscribe({
+    //        next: (response) => {
+    //            console.log('Feedback submitted successfully', response);
+              
+    //        },
+    //        error: (error) => {
+    //            console.error('Error submitting feedback', error);
+    //        }
+    //    });
+    //}
+
 
     navigateToEdit(): void {
         this.router.navigate(['edit-profile', this.userId]);
@@ -97,4 +113,55 @@ export class PtofileComponent {
             }
         );
     }
+
+
+    showModal = false;
+    selectedBookingId: number | null = null;
+    selectedBooking: any = null;
+    feedbackData = {
+        rating: 0,
+        comment: ''
+    };
+
+    openFeedbackModal(booking: any) {
+        this.selectedBookingId = booking.id;
+        this.feedbackData = { rating: 0, comment: '' };
+        this.showModal = true;
+    }
+
+    closeModal() {
+        this.showModal = false;
+    }
+
+
+    
+    submitFeedback(booking: any) {
+        this.selectedBooking = booking;
+        this.selectedBookingId = booking.id;
+        this.showModal = true;
+    }
+    submitFeedbackToServer() {
+        if (this.api && this.feedbackData.rating && this.feedbackData.comment) {
+            const feedback = {
+                bookingId: this.selectedBookingId,
+                    rating: this.feedbackData.rating,
+                comment: this.feedbackData.comment,
+                };
+
+                this.api.submitFeedback(feedback).subscribe({
+                    next: (response: any) => alert(response.message),
+                    error: (err) => console.error('Error submitting feedback:', err)
+                });
+            console.log('Feedback submitted for:', this.selectedBooking);
+            console.log('Rating:', this.feedbackData.rating);
+            console.log('Comment:', this.feedbackData.comment);
+
+            // إغلاق المودال وتنظيف البيانات
+            this.showModal = false;
+            this.feedbackData = { rating: 0, comment: '' };
+            this.selectedBooking = null;
+        }
+    }
+
+
 }
