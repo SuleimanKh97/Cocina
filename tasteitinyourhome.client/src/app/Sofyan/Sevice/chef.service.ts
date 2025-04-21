@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map, catchError, of } from 'rxjs';
 
 export interface Chef {
   id: number;
@@ -27,7 +27,7 @@ export interface FoodCategory {
 })
 export class ChefService {
   private baseUrl = 'https://localhost:7132/api';
-  
+
   // Sample chef image URLs
   private chefImages: string[] = [
     'https://images.unsplash.com/photo-1583394293214-28ded15ee548?q=80&w=600',
@@ -55,6 +55,10 @@ export class ChefService {
           ...chef,
           imageUrl: chef.imageUrl || this.chefImages[index % this.chefImages.length]
         }));
+      }),
+      catchError(error => {
+        console.error('Error fetching chefs:', error);
+        return of([]);
       })
     );
   }
@@ -64,7 +68,38 @@ export class ChefService {
    * @returns Observable with list of food categories
    */
   getAllFoodCategories(): Observable<FoodCategory[]> {
-    return this.http.get<FoodCategory[]>(`${this.baseUrl}/FoodCategories`);
+    // Try multiple endpoints if the first one fails
+    return this.http.get<FoodCategory[]>(`${this.baseUrl}/FoodCategories`).pipe(
+      catchError(error => {
+        console.warn('Error fetching from /FoodCategories, trying alternate endpoint', error);
+        return this.http.get<FoodCategory[]>(`${this.baseUrl}/Ammar/GetAllCategory`).pipe(
+          catchError(err => {
+            console.warn('Error fetching from alternate endpoint, trying another', err);
+            return this.http.get<FoodCategory[]>(`${this.baseUrl}/Sajeda/getCategory`).pipe(
+              catchError(finalError => {
+                console.error('All category endpoints failed:', finalError);
+
+                // Return fallback categories if all API calls fail
+                return of(this.getFallbackCategories());
+              })
+            );
+          })
+        );
+      })
+    );
+  }
+
+  /**
+   * Provide fallback categories when API fails
+   */
+  private getFallbackCategories(): FoodCategory[] {
+    return [
+      { id: 1, name: 'Italian', description: 'Italian cuisine' },
+      { id: 2, name: 'Asian', description: 'Asian cuisine' },
+      { id: 3, name: 'Mediterranean', description: 'Mediterranean cuisine' },
+      { id: 4, name: 'Mexican', description: 'Mexican cuisine' },
+      { id: 5, name: 'Middle Eastern', description: 'Middle Eastern cuisine' }
+    ];
   }
 
   /**
@@ -77,10 +112,17 @@ export class ChefService {
     if (!categoryId) {
       return chefs;
     }
-    
-    return chefs.filter(chef => 
+
+    // Add logging to debug the filtering
+    console.log('Filtering chefs by category ID:', categoryId);
+    console.log('Chefs before filtering:', chefs.length);
+
+    const filtered = chefs.filter(chef =>
       chef.foodCategories?.includes(categoryId)
     );
+
+    console.log('Chefs after filtering:', filtered.length);
+    return filtered;
   }
 
   /**
@@ -89,6 +131,11 @@ export class ChefService {
    * @returns Observable with chef details
    */
   getChefById(id: number): Observable<Chef> {
-    return this.http.get<Chef>(`${this.baseUrl}/Chefs/${id}`);
+    return this.http.get<Chef>(`${this.baseUrl}/Chefs/${id}`).pipe(
+      catchError(error => {
+        console.error(`Error fetching chef with ID ${id}:`, error);
+        return of({} as Chef);
+      })
+    );
   }
 }

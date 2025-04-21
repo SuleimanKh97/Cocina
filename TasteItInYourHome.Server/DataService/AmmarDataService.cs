@@ -116,6 +116,7 @@ namespace TasteItInYourHome.Server.DataService
                 Name = dto.Name,
                 Description = dto.Description,
                 ImageUrl = dto.ImageUrl,
+                Price = dto.Price,
                 CategoryId = dto.CategoryId ?? 0,
                 ChefId = dto.ChefId ?? 0
             };
@@ -136,6 +137,7 @@ namespace TasteItInYourHome.Server.DataService
                 existfood.Name = food.Name;
                 existfood.Description = food.Description;
                 existfood.ImageUrl = food.ImageUrl;
+                existfood.Price = food.Price;
                 existfood.CategoryId = food.CategoryId;
                 existfood.ChefId = food.ChefId;
 
