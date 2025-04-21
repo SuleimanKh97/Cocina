@@ -24,5 +24,9 @@ export class URLService {
     return this._http.get("https://localhost:7132/api/Sajeda/getService");
   }
 
+  addToCheck(data: any) {
+    return this._http.post("https://localhost:7132/api/Sajeda/Pay", data);
+  }
+
 
 }

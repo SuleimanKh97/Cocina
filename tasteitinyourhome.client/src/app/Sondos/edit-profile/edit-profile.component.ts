@@ -40,7 +40,7 @@ export class EditProfileComponent {
 
     loadUserData(): void {
         this.api.getUserById(this.userId).subscribe(
-            (data) => {
+            (data:any) => {
                 this.user = data;
                 this.profileForm.patchValue({
                     fullName: this.user.fullName,
@@ -51,7 +51,7 @@ export class EditProfileComponent {
                 });
                 this.imagePreview = this.user.imageUrl;
             },
-            (error) => {
+            (error : any) => {
                 console.error('Error loading user data:', error);
             }
         );

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChefService, Chef } from '../Sevice/chef.service';
+import { ChefService, Chef, FoodCategory } from '../Sevice/chef.service';
 
 @Component({
   selector: 'app-chef-list',
@@ -9,7 +9,10 @@ import { ChefService, Chef } from '../Sevice/chef.service';
 })
 export class ChefListComponent implements OnInit {
   chefs: Chef[] = [];
+  filteredChefs: Chef[] = []; // Chefs filtered by food category
   paginatedChefs: Chef[] = [];
+  foodCategories: FoodCategory[] = [];
+  selectedCategoryId: number | null = null;
   loading = false;
   error = '';
   
@@ -21,7 +24,23 @@ export class ChefListComponent implements OnInit {
   constructor(private chefService: ChefService) { }
 
   ngOnInit(): void {
+    this.loadFoodCategories();
     this.loadChefs();
+  }
+
+  /**
+   * Load all food categories from the API
+   */
+  loadFoodCategories(): void {
+    this.chefService.getAllFoodCategories().subscribe({
+      next: (data) => {
+        this.foodCategories = data;
+        console.log('Food categories loaded:', data);
+      },
+      error: (err) => {
+        console.error('Error loading food categories:', err);
+      }
+    });
   }
 
   /**
@@ -34,9 +53,7 @@ export class ChefListComponent implements OnInit {
     this.chefService.getAllChefs().subscribe({
       next: (data) => {
         this.chefs = data;
-        this.calculateTotalPages();
-        this.updatePaginatedChefs();
-        this.loading = false;
+        this.applyFilter();
         console.log('Chefs loaded:', data);
       },
       error: (err) => {
@@ -48,10 +65,40 @@ export class ChefListComponent implements OnInit {
   }
 
   /**
+   * Apply filter by food category
+   */
+  applyFilter(): void {
+    this.filteredChefs = this.chefService.filterChefsByFoodCategory(this.chefs, this.selectedCategoryId);
+    this.currentPage = 1; // Reset to first page
+    this.calculateTotalPages();
+    this.updatePaginatedChefs();
+    this.loading = false;
+  }
+
+  /**
+   * Handle category filter change
+   * @param categoryId The selected food category ID
+   */
+  onCategoryChange(categoryId: number | null): void {
+    this.selectedCategoryId = categoryId;
+    this.applyFilter();
+  }
+
+  /**
+   * Get the name of the selected food category
+   * @returns The name of the selected category or empty string
+   */
+  getSelectedCategoryName(): string {
+    if (!this.selectedCategoryId) return '';
+    const category = this.foodCategories.find(c => c.id === this.selectedCategoryId);
+    return category ? category.name : '';
+  }
+
+  /**
    * Calculate total number of pages based on the page size
    */
   calculateTotalPages(): void {
-    this.totalPages = Math.ceil(this.chefs.length / this.pageSize);
+    this.totalPages = Math.ceil(this.filteredChefs.length / this.pageSize);
   }
 
   /**
@@ -59,8 +106,8 @@ export class ChefListComponent implements OnInit {
    */
   updatePaginatedChefs(): void {
     const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = Math.min(startIndex + this.pageSize - 1, this.chefs.length - 1);
-    this.paginatedChefs = this.chefs.slice(startIndex, endIndex + 1);
+    const endIndex = Math.min(startIndex + this.pageSize - 1, this.filteredChefs.length - 1);
+    this.paginatedChefs = this.filteredChefs.slice(startIndex, endIndex + 1);
   }
 
   /**

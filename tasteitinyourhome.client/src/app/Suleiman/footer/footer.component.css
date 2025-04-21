@@ -109,6 +109,12 @@ footer {
   margin-right: 8px;
 }
 
+/* Admin Footer Style */
+.admin-footer {
+  display: none;
+  /* Hidden completely for admin */
+}
+
 /* Responsive adjustments */
 @media (max-width: 767px) {
   .footer-section {

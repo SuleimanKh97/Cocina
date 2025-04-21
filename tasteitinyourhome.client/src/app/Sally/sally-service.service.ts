@@ -9,7 +9,7 @@ import { addUserDTO } from './addUserDTO';
 })
 export class SallyServiceService {
 
-  private apiUrl = 'https://localhost:7132/api/Sally';
+    private apiUrl = 'http://localhost:5261/api/Sally';
   constructor(private http: HttpClient) { }
 
   login(user: loginUserDTO): Observable<any> {
@@ -22,6 +22,6 @@ export class SallyServiceService {
   }
 
   googleLogin(token: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/GoogleLogin`, { token }, { observe: 'response' });
+    return this.http.post(`${this.apiUrl}/google-login`, { token }, { observe: 'response' });
   }
 }

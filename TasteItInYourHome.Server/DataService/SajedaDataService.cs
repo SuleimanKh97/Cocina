@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics.Contracts;
+using Microsoft.EntityFrameworkCore;
 using TasteItInYourHome.Server.DTOs;
 using TasteItInYourHome.Server.IDataService;
 using TasteItInYourHome.Server.Models;
@@ -64,6 +65,28 @@ namespace TasteItInYourHome.Server.DataService
         { 
             return  _projectContext.Services.ToList();
         }
+
+        public Payment addPayment(PaymentRequest dto)
+        {
+            var payment = new Payment
+            {
+                BookingId = dto.BookingId,
+                Amount = dto.Amount,
+                PaymentMethod = dto.PaymentMethod,
+                PaymentStatus = dto.PaymentStatus,
+                PaymentDate = dto.PaymentDate,
+            };
+            _projectContext.Add(payment);
+            _projectContext.SaveChanges();
+            return payment; 
+        }
+
+        public Booking getBookID(int id)
+        {
+            var book = _projectContext.Bookings.Find(id);
+            return book;
+        }
     }
 }
 
+    

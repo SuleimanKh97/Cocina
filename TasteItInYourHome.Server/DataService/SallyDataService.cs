@@ -26,7 +26,7 @@ namespace TasteItInYourHome.Server.DataService
         {
             if (user.Email=="admin@gmail.com" && user.Password == "admin")
             {
-                return 0;
+                return -1;
             }
             var existUser = db.Users.FirstOrDefault(u => u.Email == user.Email);
             if (existUser == null) return null;
