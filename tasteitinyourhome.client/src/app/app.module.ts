@@ -33,20 +33,6 @@ import { CategoryComponent } from './Admin/category/category.component';
 
 
 
-import { HeaderComponent } from './Suleiman/header/header.component';
-import { HomeComponent } from './Suleiman/home/home.component';
-import { AboutusComponent } from './Suleiman/aboutus/aboutus.component';
-import { ContactusComponent } from './Suleiman/contactus/contactus.component';
-import { SignUpComponent } from './Sally/sign-up/sign-up.component';
-import { SignInComponent } from './Sally/sign-in/sign-in.component';
-import { ChefListComponent } from './Sofyan/chef-list/chef-list.component';
-import { FooterComponent } from './Suleiman/footer/footer.component';
-import { PaymentComponent } from './Admin/payment/payment.component';
-import { EditProfileComponent } from './Sondos/edit-profile/edit-profile.component';
-import { PtofileComponent } from './Sondos/ptofile/ptofile.component';
-import { ForgotPasswordComponent } from './Sally/forgot-password/forgot-password.component';
-import { DashboardComponent } from './Admin/dashboard/dashboard.component';
-
 import { UserPaymentComponent } from './Sajeda/user-payment/user-payment.component';
 import { CheifBookingComponent } from './Sajeda/cheif-booking/cheif-booking.component';
 
@@ -81,14 +67,8 @@ import { CheifBookingComponent } from './Sajeda/cheif-booking/cheif-booking.comp
     ServiceComponent,
     BookingComponent,
     PaymentComponent,
-    ContactusadminComponent,
     FeedbackadminComponent,
     CategoryComponent,
-    
-    
-   
-    ChefListComponent,
-
     PaymentComponent,
     SignInComponent,
     SignUpComponent,
@@ -96,7 +76,7 @@ import { CheifBookingComponent } from './Sajeda/cheif-booking/cheif-booking.comp
     PtofileComponent,
     ForgotPasswordComponent,
     DashboardComponent,
- 
+
     CheifBookingComponent,
     UserPaymentComponent
 

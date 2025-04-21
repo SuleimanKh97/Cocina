@@ -80,7 +80,7 @@ export class URLService {
     return this._http.get(`https://localhost:7132/api/Sajeda/getService${chefId}`);
   }
   addToCheck(data: any) {
-    return this._http.post("https://localhost:7132/api/Sajeda/Pay", data.response);
+    return this._http.post("https://localhost:7132/api/Sajeda/Pay", data);
   }
   getAvailability(chefId: number, date: string) {
     //return this._http.get(`/api/chef/${chefId}/availability?bookingDate=${date}`);

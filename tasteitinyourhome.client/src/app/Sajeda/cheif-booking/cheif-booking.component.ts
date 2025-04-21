@@ -168,45 +168,49 @@ decrementGuests(): void {
 
 // Submit booking
   onSubmit(data: any): void {
-    debugger
-  const selectedFood = this.foods.find((food: any) => food.id === this.formData.FoodId);
+    const selectedFood = this.foods.find((food: any) => food.id == this.formData.FoodId);
 
-  if(!selectedFood) {
-    alert("Please select a valid food item.");
-    return;
-  }
+    if (!selectedFood) {
+      alert("Please select a valid food item.");
+      return;
+    }
 
     const pricePerGuest = selectedFood.price;
-  const numberOfGuests = this.formData.NumberOfGuests;
-  const amount = pricePerGuest * numberOfGuests;
+    const numberOfGuests = this.formData.NumberOfGuests;
+    const amount = pricePerGuest * numberOfGuests;
 
-  const bookingData = {
-    chefId: this.formData.ChefId,
-    userId: this.formData.UserId,
-    date: this.formData.BookingDate,
-    time: this.formData.TimeSlot,
-    guests: numberOfGuests,
-    foodId: this.formData.FoodId,
-    serviceId: this.formData.ServiceId,
-    location: this.formData.Location,
-    amount: amount,
-    notes: '' // You can add custom notes here
-  };
+    const bookingData = {
+      chefId: this.formData.ChefId,
+      userId: this.formData.UserId,
+      date: this.formData.BookingDate,
+      time: this.formData.availableTimeSlots,
+      guests: this.formData.NumberOfGuests,
+      foodId: this.formData.FoodId,
+      serviceId: this.formData.ServiceId,
+      location: this.formData.Location,
+      amount: amount,
+      notes: ''
+    };
 
-  console.log('Navigating to payment with:', bookingData);
+    // ✅ Set bookingData into `this.booking` for later use
+    //this.booking = bookingData;
+  
 
-  // Navigate to payment and pass data
-    this._url.addBook(data).subscribe(() => {
-    alert("Booked Added")
-  });
-  this._url.setBookingData(bookingData);
-  //this._url.addBook(data).subscribe(() => {
-  //  alert("Booked Added")
-  //});
-  // We’ll define this next in the URLService
-  // Or you could use router navigation with queryParams if preferred
 
-  //this.router.navigate(['/userPayment']); // or the correct route for your payment component
+    console.log('Navigating to payment with:', bookingData);
+    this._url.setBookingData(bookingData);
+
+
+    // Store booking
+    this._url.addBook(bookingData).subscribe(() => {
+      alert("Booking Added");
+    });
+
+    // Set booking data for future use
+    this._url.setBookingData(bookingData);
+  
+
+  this.router.navigate(['/userPayment']); // or the correct route for your payment component
 
 }
 
