@@ -22,7 +22,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ChefProjectContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DESKTOP-057PR2N")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AMMAR")));
 
 
 builder.Services.AddScoped<SuleimanIDataService, SuleimanDataService>();

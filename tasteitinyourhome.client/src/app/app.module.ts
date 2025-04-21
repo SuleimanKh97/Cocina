@@ -29,6 +29,8 @@ import { BookingComponent } from './Admin/booking/booking.component';
 import { PaymentComponent } from './Admin/payment/payment.component';
 import { ContactusadminComponent } from './Admin/contactusadmin/contactusadmin.component';
 import { FeedbackadminComponent } from './Admin/feedbackadmin/feedbackadmin.component';
+import { CategoryComponent } from './Admin/category/category.component';
+
 
 
 
@@ -64,6 +66,8 @@ import { FeedbackadminComponent } from './Admin/feedbackadmin/feedbackadmin.comp
     PaymentComponent,
     ContactusadminComponent,
     FeedbackadminComponent,
+    CategoryComponent,
+    
     
    
   ],
