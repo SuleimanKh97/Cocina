@@ -143,7 +143,8 @@ namespace TasteItInYourHome.Server.DataService
                 {
                     Email = user.Email,
                     FullName = user.FullName,
-                    IsGoogleUser = true
+                    IsGoogleUser = true,
+                    Id = user.Id,
                 };
             }
             catch (Exception ex)
