@@ -18,7 +18,7 @@ namespace TasteItInYourHome.Server.Controllers.Sajeda
             }
 
         [HttpPost("CreateBook")]
-        public IActionResult addBook([FromForm] BookingReq bookDTO)
+        public IActionResult addBook([FromBody] BookingReq bookDTO)
         {
             if (bookDTO == null)
             {
@@ -29,7 +29,10 @@ namespace TasteItInYourHome.Server.Controllers.Sajeda
                 bool book = _data.AddBook(bookDTO);
                 if (book)
                 {
-                    return Ok(bookDTO);
+
+                    var BookID = _data.AddBook(bookDTO);
+                    return Ok(new { bookID = BookID });
+                    //return Ok(bookDTO);
                 }
                 else
                 {
@@ -127,6 +130,20 @@ namespace TasteItInYourHome.Server.Controllers.Sajeda
                 return NoContent();
 
             }
+        }
+
+
+        [HttpGet("{chefId}/availability")]
+        public ActionResult<List<string>> GetAvailability(int chefId, [FromQuery] DateTime bookingDate)
+        {
+            var availability = _data.GetAvailability(chefId, bookingDate);
+
+            if (availability == null || availability.Count == 0)
+            {
+                return NotFound("No availability found for the given chef and date.");
+            }
+
+            return Ok(availability);
         }
     }
 }

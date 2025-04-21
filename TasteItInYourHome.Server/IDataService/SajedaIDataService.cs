@@ -13,5 +13,6 @@ namespace TasteItInYourHome.Server.IDataService
         public List<Service> GetAllServ();
         public Payment addPayment(PaymentRequest dto);
         public Booking getBookID(int id);
+        public List<string> GetAvailability(int chefId, DateTime bookingDate);
     }
 }
