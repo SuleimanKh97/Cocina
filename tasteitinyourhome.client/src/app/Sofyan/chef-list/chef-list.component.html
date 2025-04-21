@@ -16,23 +16,30 @@
     <!-- Category Filter Section -->
     <div class="category-filter">
       <h3>Filter by Food Category</h3>
-      <div class="category-buttons">
-        <button 
-          (click)="onCategoryChange(null)" 
-          class="category-btn"
-          [class.active]="selectedCategoryId === null">
+
+      <!-- Loading state for categories -->
+      <div *ngIf="loadingCategories" class="category-loading">
+        <div class="spinner-sm"></div>
+        <span>Loading categories...</span>
+      </div>
+
+      <!-- Error message for categories -->
+      <div *ngIf="categoryError" class="category-error">
+        <p>{{ categoryError }}</p>
+      </div>
+
+      <!-- Category buttons -->
+      <div *ngIf="!loadingCategories" class="category-buttons">
+        <button (click)="onCategoryChange(null)" class="category-btn" [class.active]="selectedCategoryId === null">
           All Categories
         </button>
-        
-        <button 
-          *ngFor="let category of foodCategories"
-          (click)="onCategoryChange(category.id)" 
-          class="category-btn"
+
+        <button *ngFor="let category of foodCategories" (click)="onCategoryChange(category.id)" class="category-btn"
           [class.active]="selectedCategoryId === category.id">
           {{ category.name }}
         </button>
       </div>
-      
+
       <!-- Active filter indicator -->
       <div *ngIf="selectedCategoryId !== null" class="active-filter">
         <span>Filtered by: {{ getSelectedCategoryName() }}</span>
@@ -57,7 +64,8 @@
     <!-- Chefs grid -->
     <div *ngIf="!loading && !error && filteredChefs.length > 0" class="chefs-grid">
       <div *ngFor="let chef of paginatedChefs" class="chef-card">
-        <div class="chef-image" [style.backgroundImage]="'url(' + (chef.imageUrl || 'assets/images/chef-placeholder.jpg') + ')'"></div>
+        <div class="chef-image"
+          [style.backgroundImage]="'url(' + (chef.imageUrl || 'assets/images/chef-placeholder.jpg') + ')'"></div>
         <div class="chef-details">
           <h3 class="chef-name">{{ chef.fullName }}</h3>
           <p *ngIf="chef.experienceYears" class="chef-experience">
@@ -79,32 +87,20 @@
 
     <!-- Pagination -->
     <div *ngIf="!loading && !error && filteredChefs.length > 0" class="pagination">
-      <button 
-        [disabled]="currentPage === 1" 
-        (click)="setPage(currentPage - 1)" 
-        class="pagination-btn prev"
-        [class.disabled]="currentPage === 1"
-      >
+      <button [disabled]="currentPage === 1" (click)="setPage(currentPage - 1)" class="pagination-btn prev"
+        [class.disabled]="currentPage === 1">
         <i class="fas fa-chevron-left"></i> Previous
       </button>
-      
+
       <div class="page-numbers">
-        <button 
-          *ngFor="let page of getPageNumbers()" 
-          class="page-number"
-          [class.active]="page === currentPage"
-          (click)="setPage(page)"
-        >
+        <button *ngFor="let page of getPageNumbers()" class="page-number" [class.active]="page === currentPage"
+          (click)="setPage(page)">
           {{ page }}
         </button>
       </div>
-      
-      <button 
-        [disabled]="currentPage === totalPages" 
-        (click)="setPage(currentPage + 1)" 
-        class="pagination-btn next"
-        [class.disabled]="currentPage === totalPages"
-      >
+
+      <button [disabled]="currentPage === totalPages" (click)="setPage(currentPage + 1)" class="pagination-btn next"
+        [class.disabled]="currentPage === totalPages">
         Next <i class="fas fa-chevron-right"></i>
       </button>
     </div>
@@ -113,7 +109,8 @@
     <div *ngIf="!loading && !error && filteredChefs.length === 0" class="no-results">
       <i class="fas fa-user-chef"></i>
       <h3>No Chefs Found</h3>
-      <p>No chefs match the selected category. <button class="clear-filter-link" (click)="onCategoryChange(null)">View all chefs</button></p>
+      <p>No chefs match the selected category. <button class="clear-filter-link" (click)="onCategoryChange(null)">View
+          all chefs</button></p>
     </div>
   </div>
 </div>
