@@ -86,13 +86,17 @@ export class SignInComponent {
     this.sallyService.googleLogin(token).subscribe({
       next: (res) => {
         console.log('Login success', res);
-        this.authService.login(res.userId.toString());
 
         Swal.fire({
           icon: 'success',
           title: 'تم تسجيل الدخول بنجاح!',
           showConfirmButton: false,
           timer: 2000
+        }).then(() => {
+          console.log(res.body.id)
+          this.authService.login(res.body.id);
+          sessionStorage.setItem('userId', res.body.id)
+          this.router.navigate(['/profile']);
         });
       },
       error: (err) => {

@@ -15,6 +15,22 @@ export class FoodComponent {
 
   ngOnInit() {
     this.getAllFood();
+    this.getAllChefs();
+    this.allCategories();
+  }
+  allCategories: any;
+  getAllCategories() {
+    this.TheService.getallcategory().subscribe((data) => {
+      this.allCategories = data;
+    })
+  }
+
+  allchefs: any
+  getAllChefs() {
+    this.TheService.getAllChefs().subscribe((data) => {
+      this.allchefs = data;
+
+    })
   }
 
   allfood: any

@@ -34,7 +34,13 @@
                 <img [src]="food.imageUrl" alt="food image" width="50" height="50" class="rounded" />
               </td>
               <td>{{ food.categoryId }}</td>
+              
+              
+
               <td>{{ food.chefId }}</td>
+
+
+
               <td class="action-btns">
                 <button class="btn btn-sm btn-outline-primary"
                         (click)="openEditFoodModal(food)"
@@ -84,14 +90,33 @@
             <input type="text" class="form-control" name="imageUrl" ngModel>
           </div>
 
-          <div class="mb-3">
-            <label class="form-label">Category ID</label>
-            <input type="number" class="form-control" name="categoryId" ngModel>
-          </div>
+          <!--<div class="mb-3">
+    <label class="form-label">Category ID</label>
+    <input type="number" class="form-control" name="categoryId" ngModel>
+  </div>-->
 
           <div class="mb-3">
-            <label class="form-label">Chef ID</label>
-            <input type="number" class="form-control" name="chefId" ngModel>
+            <label class="form-label">Category</label>
+            <select class="form-select" name="categoryId" ngModel>
+              <option disabled selected>Select Category</option>
+              <option *ngFor="let i of allCategories" [value]="i.id" >
+                {{ i.name }}
+              </option>
+            </select>
+          </div>
+
+          <!--<div class="mb-3">
+    <label class="form-label">Chef ID</label>
+    <input type="number" class="form-control" name="chefId" ngModel>
+  </div>-->
+          <div class="mb-3">
+            <label class="form-label">Chef</label>
+            <select class="form-select" name="chefId" ngModel>
+              <option disabled selected>Select Chef</option>
+              <option *ngFor="let chef of allchefs" [value]="chef.id">
+                {{ chef.fullName }}
+              </option>
+            </select>
           </div>
 
         </div>
