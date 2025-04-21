@@ -1,152 +1,158 @@
 <div class="home-page">
-    <!-- Hero Slider Section -->
-    <div class="slider-container">
-        <div *ngIf="services.length === 0" class="loading">
-            <p>Loading services...</p>
-        </div>
-
-        <div *ngIf="services.length > 0" class="slider">
-            <div class="slide" *ngFor="let service of services; let i = index" [class.active]="i === currentSlide"
-                [style.background-image]="'url(' + service.imageUrl + ')'">
-                <div class="slide-overlay">
-                    <div class="slide-content">
-                        <h2>{{ service.name }}</h2>
-                        <p>{{ service.description }}</p>
-                        <button class="service-btn" [routerLink]="['/service', service.id]">View Service</button>
-                    </div>
-                </div>
-            </div>
-
-            <button class="slider-arrow prev" (click)="prevSlide()">❮</button>
-            <button class="slider-arrow next" (click)="nextSlide()">❯</button>
-
-            <div class="slider-dots">
-                <span *ngFor="let service of services; let i = index" class="dot" [class.active]="i === currentSlide"
-                    (click)="goToSlide(i)">
-                </span>
-            </div>
-        </div>
+  <!-- Hero Slider Section -->
+  <div class="slider-container">
+    <div *ngIf="services.length === 0" class="loading">
+      <p>Loading services...</p>
     </div>
 
-    <!-- How It Works Section -->
-    <section class="how-it-works">
-        <div class="container">
-            <h2 class="section-title">How It Works</h2>
-            <p class="section-subtitle">Experience restaurant-quality dining in the comfort of your home</p>
-
-            <div class="process-steps">
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
-                    <h3>Book a Chef</h3>
-                    <p>Select your preferred cuisine, date, and number of guests</p>
-                </div>
-
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-utensils"></i>
-                    </div>
-                    <h3>Customize Menu</h3>
-                    <p>Work with your chef to create the perfect menu for your occasion</p>
-                </div>
-
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <h3>Enjoy at Home</h3>
-                    <p>Relax while your chef prepares, serves, and cleans up</p>
-                </div>
-            </div>
+    <div *ngIf="services.length > 0" class="slider">
+      <div class="slide" *ngFor="let service of services; let i = index" [class.active]="i === currentSlide"
+           [style.background-image]="'url(' + service.imageUrl + ')'">
+        <div class="slide-overlay">
+          <div class="slide-content">
+            <h2>{{ service.name }}</h2>
+            <p>{{ service.description }}</p>
+            <button class="service-btn" [routerLink]="['/service', service.id]">View Service</button>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <!-- Featured Chefs Section -->
-    <section class="featured-chefs">
-        <div class="container">
-            <h2 class="section-title">Meet Our Top Chefs</h2>
-            <p class="section-subtitle">Professional chefs ready to create an unforgettable dining experience</p>
+      <button class="slider-arrow prev" (click)="prevSlide()">❮</button>
+      <button class="slider-arrow next" (click)="nextSlide()">❯</button>
 
-            <div class="chefs-grid">
-                <div class="chef-card">
-                    <div class="chef-img" style="background-image: url('assets/images/chef1.jpg')"></div>
-                    <div class="chef-info">
-                        <h3>Chef Marco</h3>
-                        <p class="chef-specialty">Italian Cuisine</p>
-                        <p>15+ years experience in Michelin-starred restaurants</p>
-                        <button class="view-btn">View Profile</button>
-                    </div>
-                </div>
+      <div class="slider-dots">
+        <span *ngFor="let service of services; let i = index" class="dot" [class.active]="i === currentSlide"
+              (click)="goToSlide(i)">
+        </span>
+      </div>
+    </div>
+  </div>
 
-                <div class="chef-card">
-                    <div class="chef-img" style="background-image: url('assets/images/chef2.jpg')"></div>
-                    <div class="chef-info">
-                        <h3>Chef Yuki</h3>
-                        <p class="chef-specialty">Japanese Cuisine</p>
-                        <p>Expert in traditional and fusion Japanese dishes</p>
-                        <button class="view-btn">View Profile</button>
-                    </div>
-                </div>
+  <!-- How It Works Section -->
+  <section class="how-it-works">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">Experience restaurant-quality dining in the comfort of your home</p>
 
-                <div class="chef-card">
-                    <div class="chef-img" style="background-image: url('assets/images/chef3.jpg')"></div>
-                    <div class="chef-info">
-                        <h3>Chef Aisha</h3>
-                        <p class="chef-specialty">Middle Eastern Cuisine</p>
-                        <p>Specializes in authentic Middle Eastern flavors</p>
-                        <button class="view-btn">View Profile</button>
-                    </div>
-                </div>
-            </div>
+      <div class="process-steps">
+        <div class="step">
+          <div class="step-icon">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+          <h3>Book a Chef</h3>
+          <p>Select your preferred cuisine, date, and number of guests</p>
         </div>
-    </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">What Our Customers Say</h2>
-
-            <div class="testimonial-cards">
-                <div class="testimonial">
-                    <div class="testimonial-content">
-                        <p>"The chef created an amazing dining experience for my anniversary. The food was exceptional
-                            and the service was impeccable."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-img" style="background-image: url('assets/images/client1.jpg')"></div>
-                        <div class="author-info">
-                            <h4>Sarah Johnson</h4>
-                            <p>New York, NY</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial">
-                    <div class="testimonial-content">
-                        <p>"Having a professional chef cook in my home was such a treat! The menu was customized
-                            perfectly to our tastes and dietary needs."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-img" style="background-image: url('assets/images/client2.jpg')"></div>
-                        <div class="author-info">
-                            <h4>Michael Brown</h4>
-                            <p>Chicago, IL</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="step">
+          <div class="step-icon">
+            <i class="fas fa-utensils"></i>
+          </div>
+          <h3>Customize Menu</h3>
+          <p>Work with your chef to create the perfect menu for your occasion</p>
         </div>
-    </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Ready to Experience Culinary Excellence?</h2>
-                <p>Book a chef today and transform your next meal into an extraordinary dining experience.</p>
-                <button class="cta-btn">Book a Chef Now</button>
-            </div>
+        <div class="step">
+          <div class="step-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <h3>Enjoy at Home</h3>
+          <p>Relax while your chef prepares, serves, and cleans up</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Chefs Section -->
+  <section class="featured-chefs">
+    <div class="container">
+      <h2 class="section-title">Meet Our Top Chefs</h2>
+      <p class="section-subtitle">Professional chefs ready to create an unforgettable dining experience</p>
+
+      <div class="chefs-grid">
+        <div class="chef-card">
+          <div class="chef-img" style="background-image: url('assets/images/chef1.jpg')"></div>
+          <div class="chef-info">
+            <h3>Chef Marco</h3>
+            <p class="chef-specialty">Italian Cuisine</p>
+            <p>15+ years experience in Michelin-starred restaurants</p>
+            <button class="view-btn">View Profile</button>
+          </div>
+        </div>
+
+        <div class="chef-card">
+          <div class="chef-img" style="background-image: url('assets/images/chef2.jpg')"></div>
+          <div class="chef-info">
+            <h3>Chef Yuki</h3>
+            <p class="chef-specialty">Japanese Cuisine</p>
+            <p>Expert in traditional and fusion Japanese dishes</p>
+            <button class="view-btn">View Profile</button>
+          </div>
+        </div>
+
+        <div class="chef-card">
+          <div class="chef-img" style="background-image: url('assets/images/chef3.jpg')"></div>
+          <div class="chef-info">
+            <h3>Chef Aisha</h3>
+            <p class="chef-specialty">Middle Eastern Cuisine</p>
+            <p>Specializes in authentic Middle Eastern flavors</p>
+            <button class="view-btn">View Profile</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials">
+    <div class="container">
+      <h2 class="section-title">What Our Customers Say</h2>
+
+      <div class="testimonial-cards">
+        <div class="testimonial">
+          <div class="testimonial-content">
+            <p>
+              "The chef created an amazing dining experience for my anniversary. The food was exceptional
+              and the service was impeccable."
+            </p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-img" style="background-image: url('assets/images/client1.jpg')"></div>
+            <div class="author-info">
+              <h4>Sarah Johnson</h4>
+              <p>New York, NY</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <div class="testimonial-content">
+            <p>
+              "Having a professional chef cook in my home was such a treat! The menu was customized
+              perfectly to our tastes and dietary needs."
+            </p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-img" style="background-image: url('assets/images/client2.jpg')"></div>
+            <div class="author-info">
+              <h4>Michael Brown</h4>
+              <p>Chicago, IL</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Experience Culinary Excellence?</h2>
+        <p>Book a chef today and transform your next meal into an extraordinary dining experience.</p>
+        <button class="cta-btn">Book a Chef Now</button>
+
+      </div>
+    </div>
+  </section>
 </div>
+
