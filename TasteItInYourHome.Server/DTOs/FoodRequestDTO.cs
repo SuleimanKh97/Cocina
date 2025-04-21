@@ -11,5 +11,8 @@
         public int? CategoryId { get; set; }
 
         public int? ChefId { get; set; }
+
+        public decimal? Price { get; set; }
+
     }
 }
