@@ -1,0 +1,166 @@
+ <!-- Hero Section -->
+<section id="bodysection">
+  <section class="booking-hero text-center">
+    <div class="container">
+      <h1 class="display-4 fw-bold mb-4">Book Your Private Chef</h1>
+      <p class="lead">Experience a restaurant-quality meal in the comfort of your home</p>
+    </div>
+  </section>
+
+  <div class="container mb-5">
+    <div class="row">
+      <!-- Booking Form Column -->
+      <div class="col-lg-8">
+        <div class="form-section bg-white">
+          <h2 class="mb-4">Booking Details</h2>
+
+          <form #bookingForm="ngForm" (ngSubmit)="onSubmit(bookingForm.value)">
+
+            <div class=" mb-4">
+              <label for="bookingDate" class="form-label">Date</label>
+              <input type="date" class="form-control" name="BookingDate"
+                     [(ngModel)]="formData.BookingDate"
+                     (change)="onDateOrChefChange()">
+            </div>
+
+            <div class=" mb-4">
+              <label for="cheif" class="form-label">Cheifs</label>
+              <select class="form-select"
+                      name="ChefId"
+                      [(ngModel)]="formData.ChefId"
+                      (change)="onDateOrChefChange()">
+                <option value="" disabled selected>Select a chef</option>
+                <option *ngFor="let chef of chefs" [value]="chef.id">{{ chef.fullName }}</option>
+              </select>
+            </div>
+
+
+            <div class="row mb-4">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <label for="service" class="form-label">Services</label>
+                <select class="form-select" id="service" name="service" [(ngModel)]="formData.ServiceId" (change)="onDateOrChefChange()">
+                  <option value="" disabled selected>Select service</option>
+                  <option *ngFor="let service of services" [value]="service.id">{{ service.name }}</option>
+                </select>
+              </div>
+
+
+              <div class="col-md-6 mb-3 mb-md-0">
+                <label for="service" class="form-label">Categories</label>
+                <select class="form-select" id="service"
+                        name="CategoryID"
+                        [(ngModel)]="formData.CategoryID"
+                        (change)="onDateOrChefChange()">
+                  <option value="" disabled selected>Select service</option>
+                  <option *ngFor="let Category of Category" [value]="Category.id">{{ Category.name }}</option>
+                </select>
+              </div>
+            </div>
+
+
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <label for="bookingTime" class="form-label">Time</label>
+                <select id="time" [(ngModel)]="formData.TimeSlot" class="form-select" name="timeSlot" (change)="onDateOrChefChange()">
+                  <option *ngIf="availableTimeSlots.length === 0" disabled>No available times</option>
+                  <option *ngFor="let time of availableTimeSlots" [value]="time">{{ time }}</option>
+                </select>
+              </div>
+
+
+              <div class="col-md-6">
+                <label for="food" class="form-label">Food</label>
+                <select id="food" [(ngModel)]="formData.FoodId" class="form-select" name="foodId" (change)="onDateOrChefChange()">
+                  <option value="" disabled selected>Select Food</option>
+                  <option *ngFor="let food of foods" [value]="food.id">{{ food.name }}</option>
+                </select>
+              </div>
+            </div>
+
+
+            <div class=" row mb-4">
+              <div class="col-md-6">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" class="form-control" id="location" placeholder="Enter your address" ngModdel>
+              </div>
+
+
+
+
+              <div class="col-md-6">
+                <label class="form-label">Number of Guests</label>
+                <div class="guests-counter d-flex align-items-center">
+                  <button type="button" class="btn btn-outline-secondary" (click)="decrementGuests()">-</button>
+                  <input type="number" class="form-control text-center" name="NumberOfGuests" [(ngModel)]="formData.NumberOfGuests" min="1" max="100">
+                  <button type="button" class="btn btn-outline-secondary" (click)="incrementGuests()">+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Special Requests -->
+            <div class="mb-4">
+              <label for="specialRequests" class="form-label">Special Requests</label>
+              <textarea class="form-control" id="specialRequests" rows="3" placeholder="Dietary restrictions, allergies, or special preferences"></textarea>
+            </div>
+
+
+            <div class="d-grid">
+              <!--<button type="submit" class="btn btn-primary btn-lg">Complete Booking</button>-->
+              <button type="submit" class="btn btn-primary btn-lg">Complete Booking</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Features Column -->
+      <div class="col-lg-4">
+        <div class="sticky-top" style="top: 20px;">
+          <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+              <h3 class="h4 mb-4">What's Included</h3>
+              <div class="d-flex mb-4">
+                <div class="flex-shrink-0">
+                  <i class="fas fa-utensils feature-icon"></i>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                  <h4 class="h5">Gourmet Meal</h4>
+                  <p class="mb-0">A customized multi-course dining experience tailored to your preferences.</p>
+                </div>
+              </div>
+              <div class="d-flex mb-4">
+                <div class="flex-shrink-0">
+                  <i class="fas fa-broom feature-icon"></i>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                  <h4 class="h5">Clean Up</h4>
+                  <p class="mb-0">The chef will handle all cleanup, leaving your kitchen spotless.</p>
+                </div>
+              </div>
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                  <i class="fas fa-concierge-bell feature-icon"></i>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                  <h4 class="h5">Professional Service</h4>
+                  <p class="mb-0">Attentive service throughout your meal by our experienced cheifs.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <h3 class="h4 mb-4">Need Help?</h3>
+              <p>Our team is available 7 days a week to assist with your booking.</p>
+              <ul class="list-unstyled">
+                <li class="mb-2"><i class="fas fa-phone me-2"></i> (555) 123-4567</li>
+                <!--<li><i class="fas fa-envelope me-2"></i> bookings@chefservice.com</li>-->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

@@ -84,31 +84,70 @@ namespace TasteItInYourHome.Server.DataService
 
             return true;
         }
-    
-        public bool UpdateProfile(int id,  EditProfile Dto)
-        {
+
+        //public bool UpdateProfile(int id,  EditProfileWithImageDto Dto)
+        //{
+
+
+        //    var user = _context.Users.Find(id);
+        //    if (user != null)
+        //    {
+        //        user.FullName = Dto.FullName;
+        //        user.Email = Dto.Email;
+        //        user.PhoneNumber = Dto.PhoneNumber;
+        //        user.Address = Dto.Address;
+
+        //        if (Dto.ImageUrl != null)
+        //        {
+
+        //            user.ImageUrl = Dto.ImageUrl;
+        //        }
+
+        //        _context.SaveChanges();
+        //        return true;
+
+        //    }
+        //    return false;
+        //}
+      
+
+           
+                
+
             
 
+      
+        public async Task<bool> UpdateProfileAsync(int id, EditProfileWithImageDto dto)
+        {
             var user = _context.Users.Find(id);
-            if (user != null)
-            {
-                user.FullName = Dto.FullName;
-                user.Email = Dto.Email;
-                user.PhoneNumber = Dto.PhoneNumber;
-                user.Address = Dto.Address;
+            if (user == null) return false;
 
-                if (Dto.ImageUrl != null)
+            user.FullName = dto.FullName;
+            user.Email = dto.Email;
+            user.PhoneNumber = dto.PhoneNumber;
+            user.Address = dto.Address;
+
+            if (dto.ImageFile != null)
+            {
+                var uploadsFolder = Path.Combine("wwwroot", "assets", "images");
+                Directory.CreateDirectory(uploadsFolder);
+
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(dto.ImageFile.FileName);
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                   
-                    user.ImageUrl = Dto.ImageUrl;
+                    await dto.ImageFile.CopyToAsync(stream);
                 }
 
-                _context.SaveChanges();
-                return true;
-               
+                user.ImageUrl = fileName;
             }
-            return false;
+
+            await _context.SaveChangesAsync();
+            return true;
         }
+
+
 
 
         public void ChangePassword(int id, changePassword Dto)

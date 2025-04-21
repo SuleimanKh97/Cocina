@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.Contracts;
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using TasteItInYourHome.Server.DTOs;
 using TasteItInYourHome.Server.IDataService;
@@ -32,6 +33,8 @@ namespace TasteItInYourHome.Server.DataService
             _projectContext.Add(book);
             _projectContext.SaveChanges();
             return true;
+
+
         }
 
         public User getUserByID(int id)
@@ -86,6 +89,26 @@ namespace TasteItInYourHome.Server.DataService
             var book = _projectContext.Bookings.Find(id);
             return book;
         }
+
+
+        public List<string> GetAvailability(int chefId, DateTime bookingDate)
+        {
+            var chef = _projectContext.Chefs.Find(chefId);
+            if (chef == null || string.IsNullOrEmpty(chef.AvailabilitySchedule))
+                return new List<string>();
+
+            // Deserialize the JSON to a dictionary
+            var availability = JsonSerializer.Deserialize<Dictionary<string, List<string>>>(chef.AvailabilitySchedule);
+
+            var dateKey = bookingDate.ToString("yyyy-MM-dd"); // format the date as string "2025-04-23"
+
+            if (availability != null && availability.TryGetValue(dateKey, out var times))
+                return times;
+
+            return new List<string>();
+        }
+
+
     }
 }
 

@@ -89,21 +89,30 @@ namespace TasteItInYourHome.Server.Controllers.Sondos
 
         }
 
-        [HttpPut("UpdateProfile/{id}")]
-        public IActionResult UpdateProfile(int id, EditProfile Dto)
-        {
-            if (Dto == null)
-            {
-                return BadRequest();
-            }
+        //[HttpPut("UpdateProfile/{id}")]
+        //public IActionResult UpdateProfile(int id, EditProfileWithImageDto Dto)
+        //{
+        //    if (Dto == null)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            var user = _data.UpdateProfile(id, Dto);
-            if (user ==true )
-            {
-                return Ok();
-            }
+        //    var user = _data.UpdateProfile(id, Dto);
+        //    if (user ==true )
+        //    {
+        //        return Ok();
+        //    }
+        //    return NotFound();
+        //}
+        [HttpPut("UpdateProfile/{id}")]
+        public async Task<IActionResult> UpdateProfile(int id, [FromForm] EditProfileWithImageDto dto)
+        {
+            var success = await _data.UpdateProfileAsync(id, dto);
+            if (success) return Ok();
+
             return NotFound();
         }
+
 
 
 

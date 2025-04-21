@@ -30,11 +30,14 @@ export class ApiService {
     //    return this.http.put(`${this.apiUrl}/UpdateProfile/${id}`, user);
     //}
 
-    updateProfile(user: any, id: number): Observable<any> {
+    updateProfile(formData: FormData, id: number): Observable<any> {
        
 
-        return this.http.put(`${this.apiUrl}/UpdateProfile/${id}`, user);
+        return this.http.put(`${this.apiUrl}/UpdateProfile/${id}`, formData);
     }
+    //updateProfile( userId: number) {
+    //    return this.http.put(`https://your-api-url/api/users/${userId}`, formData);
+    //}
 
     changePassword(passwordData: any, id: number): Observable<any> {
         return this.http.put(`${this.apiUrl}/ChangePassword/${id}`, passwordData);
