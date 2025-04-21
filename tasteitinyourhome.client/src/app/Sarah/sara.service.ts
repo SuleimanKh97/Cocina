@@ -79,7 +79,7 @@ export class SaraService {
   }
 
   acceptBooking(id: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}/getBookings/${id}`, {});
+    return this.http.put(`${this.apiUrl}/updateBookings/${id}`, {});
   }
 
   // Payments API calls

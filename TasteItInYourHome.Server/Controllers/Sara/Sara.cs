@@ -101,7 +101,7 @@ namespace TasteItInYourHome.Server.Controllers.Sara
         {
             bool accepted = _data.AcceptBooking(id);
             if (!accepted) return NotFound("Booking not found.");
-            return Ok("Booking accepted successfully.");
+            return Ok();
         }
 
 

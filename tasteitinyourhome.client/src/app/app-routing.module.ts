@@ -27,6 +27,7 @@ import { CheifBookingComponent } from './Sajeda/cheif-booking/cheif-booking.comp
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'contactus', component: ContactusComponent },
+  { path: 'bookingorder', component: CheifBookingComponent },
   { path: 'aboutus', component: AboutusComponent },
   { path: 'Login', component: SignInComponent },
   { path: 'Register', component: SignUpComponent },

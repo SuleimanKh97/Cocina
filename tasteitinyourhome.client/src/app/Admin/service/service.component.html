@@ -1,5 +1,5 @@
     <!-- Services Tab -->
-<div class="tab-pane fade" id="services">
+<div  id="services">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 style="color: var(--color-accent);">Services</h2>
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addServiceModal">
@@ -17,7 +17,7 @@
           <thead>
             <tr>
 
-              <th>Image</th>
+              <!--<th>Image</th>-->
               <th>Title</th>
               <th>Description</th>
 
@@ -27,9 +27,9 @@
           <tbody>
             <tr *ngFor="let service of services">
 
-              <td>
+              <!--<td>
                 <img [src]="service.image" width="60" height="60" class="category-img" alt="Service Image">
-              </td>
+              </td>-->
               <td>{{ service.name}}</td>
               <td>{{ service.description | slice:0:50 }}{{ service.description.length > 50 ? '...' : '' }}</td>
 
@@ -74,7 +74,7 @@
 
           <div class="mb-3">
             <label for="serviceImage" class="form-label">Image</label>
-            <input type="file" class="form-control" id="serviceImage" name="image" #fileInput>
+            <input type="text" class="form-control" id="serviceImage" name="image" #fileInput>
           </div>
         </form>
       </div>
@@ -108,7 +108,7 @@
 
           <div class="mb-3">
             <label for="editServiceImage" class="form-label">Image</label>
-            <input type="file" class="form-control" id="editServiceImage" name="ImageUrl" #editFileInput>
+            <input type="text" class="form-control" id="editServiceImage" name="ImageUrl" #editFileInput>
           </div>
 
 

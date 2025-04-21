@@ -1,5 +1,5 @@
 <!-- Bookings Tab -->
-<div class="tab-pane fade" id="bookings">
+<div  id="bookings">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 style="color: var(--color-accent);">Bookings</h2>
   </div>
@@ -30,8 +30,8 @@
               <td>
                 <span [ngClass]="{
                      'status-pending': booking.status === 'Pending',
-                     'status-accepted': booking.status === 'Accepted',
-                     'status-rejected': booking.status === 'Rejected'
+                     'status-accepted': booking.status === 'Completed',
+                     'status-rejected': booking.status === 'Cancelled'
                    }">{{ booking.status }}</span>
               </td>
               <td class="action-btns">
