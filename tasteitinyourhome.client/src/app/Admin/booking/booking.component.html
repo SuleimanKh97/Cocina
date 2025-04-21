@@ -1,5 +1,5 @@
 <!-- Bookings Tab -->
-<div  id="bookings">
+<div class="tab-pane fade" id="bookings">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 style="color: var(--color-accent);">Bookings</h2>
   </div>
@@ -13,38 +13,31 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>ID</th>
+
               <th>User</th>
-              <th>Chef</th>
+              <th>Service</th>
               <th>Date</th>
-              <th>Guests</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>#BK001</td>
-              <td>John Doe</td>
-              <td>Chef Maria</td>
-              <td>2023-06-15</td>
-              <td>4</td>
-              <td><span class="status-pending">Pending</span></td>
+            <tr *ngFor="let booking of bookings">
+
+              <td>{{ booking.userName || 'User #' + booking.userId }}</td>
+              <td>{{ booking.serviceName || 'Service #' + booking.serviceId }}</td>
+              <td>{{ booking.bookingDate | date:'short' }}</td>
               <td>
-                <button class="btn btn-sm btn-success">Accept</button>
-                <button class="btn btn-sm btn-danger ms-1">Reject</button>
+                <span [ngClass]="{
+                     'status-pending': booking.status === 'Pending',
+                     'status-accepted': booking.status === 'Accepted',
+                     'status-rejected': booking.status === 'Rejected'
+                   }">{{ booking.status }}</span>
               </td>
-            </tr>
-            <tr>
-              <td>#BK002</td>
-              <td>Sarah Smith</td>
-              <td>Chef Antonio</td>
-              <td>2023-06-16</td>
-              <td>2</td>
-              <td><span class="status-accepted">Accepted</span></td>
-              <td>
-                <button class="btn btn-sm btn-success" disabled>Accept</button>
-                <button class="btn btn-sm btn-danger ms-1">Reject</button>
+              <td class="action-btns">
+                <button *ngIf="booking.status === 'Pending'" class="btn btn-sm btn-success" (click)="acceptBooking(booking.id)">
+                  <i class="bi bi-check-circle"></i> Accept
+                </button>
               </td>
             </tr>
           </tbody>

@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SaraComponent } from './Sara/sara/sara.component';
 import { SofyanComponent } from './Sofyan/sofyan/sofyan.component';
 import { SondosComponent } from './Sondos/sondos/sondos.component';
 import { SuleimanComponent } from './Suleiman/suleiman/suleiman.component';
@@ -37,7 +36,6 @@ import { CategoryComponent } from './Admin/category/category.component';
 @NgModule({
   declarations: [
     AppComponent,
-    SaraComponent,
     SofyanComponent,
     SondosComponent,
     SuleimanComponent,

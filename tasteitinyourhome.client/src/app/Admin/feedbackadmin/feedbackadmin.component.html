@@ -1,59 +1,47 @@
-  <!-- Feedback Tab -->
-<div  id="feedback">
+<!-- Feedback Tab -->
+<div class="tab-pane fade" id="feedback">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 style="color: var(--color-accent);">Customer Feedback</h2>
+    <h2 style="color: var(--color-accent);">Feedback</h2>
   </div>
 
   <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
-      <span>Feedback</span>
+      <span>Feedback List</span>
     </div>
     <div class="card-body">
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Booking ID</th>
+
+              <th>User</th>
+              <th>Chef</th>
+
+              <th>Service</th>
               <th>Rating</th>
               <th>Comment</th>
               <th>Date</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>#BK001</td>
+            <tr *ngFor="let feedback of feedbacks">
+
+              <td>{{ feedback.userName }}</td>
+              <td>{{ feedback.chefName }}</td>
+              <td>{{ feedback.foodName || 'Service #' + feedback.bookingId }}</td>
               <td>
-                <div class="text-warning">
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star"></i>
+                <div class="rating">
+                  <span *ngFor="let star of [1,2,3,4,5]" [class.bi-star-fill]="star <= feedback.rating" [class.bi-star]="star > feedback.rating" class="bi"></span>
                 </div>
               </td>
-              <td class="text-truncate" style="max-width: 200px;">Great experience with Chef Maria. The food was delicious!</td>
-              <td>2023-06-12</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>#BK002</td>
-              <td>
-                <div class="text-warning">
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                </div>
-              </td>
-              <td class="text-truncate" style="max-width: 200px;">Absolutely perfect! Chef Antonio is amazing.</td>
-              <td>2023-06-14</td>
+              <td>{{ feedback.comment | slice:0:50 }}{{ feedback.comment.length > 50 ? '...' : '' }}</td>
+              <td>{{ feedback.submittedAt | date:'short' }}</td>
             </tr>
           </tbody>
         </table>
       </div>
+
     </div>
   </div>
 </div>
+      
