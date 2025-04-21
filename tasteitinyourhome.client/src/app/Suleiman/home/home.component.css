@@ -350,7 +350,7 @@ section {
 }
 
 .testimonial-content p::before {
-    content: "" ";
+   
  font-size: 60px;
     color: #C5705D;
     position: absolute;

@@ -1,0 +1,83 @@
+.booking-summary {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.payment-card {
+  transition: all 0.3s;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+  .payment-card:hover, .payment-card.selected {
+    border-color: #0d6efd;
+    background-color: #f0f7ff;
+  }
+
+    .payment-card.selected .select-indicator {
+      color: #0d6efd;
+    }
+
+.select-indicator {
+  color: #dee2e6;
+}
+
+.progress-steps .step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.progress-steps .step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e9ecef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #6c757d;
+}
+
+.progress-steps .step.active .step-number {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.progress-steps .step.completed .step-number {
+  background-color: #198754;
+  color: white;
+}
+
+.progress-steps .step-line {
+  position: absolute;
+  height: 2px;
+  background-color: #e9ecef;
+  top: 20px;
+  left: -50%;
+  right: 50%;
+  z-index: -1;
+}
+
+.progress-steps .step:first-child .step-line {
+  display: none;
+}
+
+.progress-steps .step.completed .step-line {
+  background-color: #198754;
+}
+
+.credit-card-icon {
+  font-size: 2rem;
+  color: #6c757d;
+}
+
+.security-badge {
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 15px;
+}

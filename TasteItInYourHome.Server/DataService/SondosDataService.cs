@@ -4,6 +4,8 @@ using TasteItInYourHome.Server.Dtos;
 using TasteItInYourHome.Server.DTOs;
 using TasteItInYourHome.Server.IDataService;
 using TasteItInYourHome.Server.Models;
+using BCrypt.Net;
+
 
 namespace TasteItInYourHome.Server.DataService
 {
@@ -115,10 +117,15 @@ namespace TasteItInYourHome.Server.DataService
             if (user == null)
                 throw new Exception("User not found");
 
-            if (Dto.CurrentPassword != user.PasswordHash)
+            bool isPasswordCorrect = BCrypt.Net.BCrypt.Verify(Dto.CurrentPassword, user.PasswordHash);
+            if (!isPasswordCorrect)
                 throw new Exception("Current password is incorrect");
 
-            user.PasswordHash = Dto.NewPassword;
+           
+            string hashedNewPassword = BCrypt.Net.BCrypt.HashPassword(Dto.NewPassword);
+
+            
+            user.PasswordHash = hashedNewPassword;
             _context.SaveChanges();
         }
 

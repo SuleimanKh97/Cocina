@@ -11,5 +11,7 @@ namespace TasteItInYourHome.Server.IDataService
         public List<FoodCategory> getAllFoodCategories();
         public List<Food> GetByChefAndCategoryAsync(int chefId, int categoryId);
         public List<Service> GetAllServ();
+        public Payment addPayment(PaymentRequest dto);
+        public Booking getBookID(int id);
     }
 }

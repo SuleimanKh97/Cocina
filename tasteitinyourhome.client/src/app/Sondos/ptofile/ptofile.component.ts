@@ -12,31 +12,38 @@ export class PtofileComponent {
 
     constructor(private route: ActivatedRoute, private api: ApiService, private router: Router) { }
 
-    ngOnInit() {
-        this.userId = Number(sessionStorage.getItem('userId'));
-        this.loadUserData();
-        this.loadBookingHistory();
-       
 
-        this.api.getUserBookingHistory(this.userId).subscribe(data => {
-            this.bookingHistory = data;
-        });
-
-    }
-
-    userId: number = 8;
+    userId: any;
     user: any = {};
     bookingHistory: any[] = [];
     showChangePasswordForm = false;
+    passwordError = '';
+    showModal = false;
+    selectedBookingId: number | null = null;
+    selectedBooking: any = null;
+
     passwordData = {
         currentPassword: '',
         newPassword: '',
         confirmPassword: ''
     };
-    passwordError = '';
+    
+    feedbackData = {
+        rating: 0,
+        comment: ''
+    };
 
+    ngOnInit() {
+
+        this.userId = sessionStorage.getItem('userId');
+        this.loadUserData();
+        this.loadBookingHistory();
+      
+
+    }
 
     loadUserData(): void {
+        console.log('Trying to call getUserById with:', this.userId);
         this.api.getUserById(this.userId).subscribe(
             (data: any) => {
                 this.user = data;
@@ -48,6 +55,7 @@ export class PtofileComponent {
     }
 
     loadBookingHistory(): void {
+        console.log('Trying to call getUserById with:', this.userId);
         this.api.getUserBookingHistory(this.userId).subscribe(
             (data: any) => {
                 this.bookingHistory = data;
@@ -115,13 +123,7 @@ export class PtofileComponent {
     }
 
 
-    showModal = false;
-    selectedBookingId: number | null = null;
-    selectedBooking: any = null;
-    feedbackData = {
-        rating: 0,
-        comment: ''
-    };
+   
 
     openFeedbackModal(booking: any) {
         this.selectedBookingId = booking.id;

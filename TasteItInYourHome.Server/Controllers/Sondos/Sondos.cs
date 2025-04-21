@@ -111,7 +111,7 @@ namespace TasteItInYourHome.Server.Controllers.Sondos
         public IActionResult ChangePassword(int id, [FromBody] changePassword Dto)
         {
             if (Dto == null)
-                return BadRequest("Invalid data");
+                return BadRequest();
 
             try
             {

@@ -41,7 +41,7 @@ public partial class ChefProjectContext : DbContext
     {
         modelBuilder.Entity<Booking>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Bookings__3214EC0782247088");
+            entity.HasKey(e => e.Id).HasName("PK__Bookings__3214EC0794EACDDC");
 
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -70,7 +70,7 @@ public partial class ChefProjectContext : DbContext
 
         modelBuilder.Entity<Chef>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Chefs__3214EC07723DAF2F");
+            entity.HasKey(e => e.Id).HasName("PK__Chefs__3214EC072A6B63B2");
 
             entity.Property(e => e.Bio).HasMaxLength(500);
             entity.Property(e => e.CreatedAt)
@@ -84,7 +84,7 @@ public partial class ChefProjectContext : DbContext
 
         modelBuilder.Entity<ContactU>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ContactU__3214EC077E46632C");
+            entity.HasKey(e => e.Id).HasName("PK__ContactU__3214EC07096A918D");
 
             entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.FullName).HasMaxLength(100);
@@ -95,7 +95,7 @@ public partial class ChefProjectContext : DbContext
 
         modelBuilder.Entity<Feedback>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Feedback__3214EC07A2FBEA19");
+            entity.HasKey(e => e.Id).HasName("PK__Feedback__3214EC07E19AF3BC");
 
             entity.ToTable("Feedback");
 
@@ -110,7 +110,7 @@ public partial class ChefProjectContext : DbContext
 
         modelBuilder.Entity<Food>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Foods__3214EC07405D61E0");
+            entity.HasKey(e => e.Id).HasName("PK__Foods__3214EC077000B842");
 
             entity.Property(e => e.Description).HasMaxLength(500);
             entity.Property(e => e.ImageUrl).HasMaxLength(255);
@@ -128,7 +128,7 @@ public partial class ChefProjectContext : DbContext
 
         modelBuilder.Entity<FoodCategory>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__FoodCate__3214EC07C0A860C9");
+            entity.HasKey(e => e.Id).HasName("PK__FoodCate__3214EC074B18C487");
 
             entity.Property(e => e.Description).HasMaxLength(255);
             entity.Property(e => e.ImageUrl).HasMaxLength(255);
@@ -137,7 +137,7 @@ public partial class ChefProjectContext : DbContext
 
         modelBuilder.Entity<Payment>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Payments__3214EC07A90EC486");
+            entity.HasKey(e => e.Id).HasName("PK__Payments__3214EC0753D32EB9");
 
             entity.Property(e => e.Amount).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.PaymentDate)
@@ -155,7 +155,7 @@ public partial class ChefProjectContext : DbContext
 
         modelBuilder.Entity<Service>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Services__3214EC07F39F5775");
+            entity.HasKey(e => e.Id).HasName("PK__Services__3214EC0722CC95DA");
 
             entity.Property(e => e.Description).HasMaxLength(255);
             entity.Property(e => e.ImageUrl).HasMaxLength(255);
@@ -164,9 +164,9 @@ public partial class ChefProjectContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC0735E9A945");
+            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC07BCE07611");
 
-            entity.HasIndex(e => e.Email, "UQ__Users__A9D10534337C6316").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Users__A9D105341C9F7B62").IsUnique();
 
             entity.Property(e => e.Address).HasMaxLength(255);
             entity.Property(e => e.CreatedAt)

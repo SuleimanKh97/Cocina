@@ -1,5 +1,5 @@
- <!-- Bootstrap Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark">
+<!-- Only show header when NOT admin -->
+<nav *ngIf="!isAdmin" class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
     <a class="navbar-brand" href="#"><img src="../../../assets/images/Adobe Express - file.png" /></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -8,23 +8,59 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Home</a>
+          <a class="nav-link" routerLink="/" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/chefs">Our Chefs</a>
+          <a class="nav-link" routerLink="/chefs" routerLinkActive="active">Our Chefs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Cuisines</a>
+          <a class="nav-link" routerLink="/cuisines" routerLinkActive="active">Cuisines</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/aboutus">About Us</a>
+          <a class="nav-link" routerLink="/aboutus" routerLinkActive="active">About Us</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/contactus">Contact Us</a>
+          <a class="nav-link" routerLink="/contactus" routerLinkActive="active">Contact Us</a>
         </li>
       </ul>
-      <a href="#" class="book-btn text-decoration-none">Book Now</a>
-      <a class="book-btn text-decoration-none" routerLink="/Login">Sign In</a>
+
+      <!-- Action Buttons -->
+      <div class="nav-buttons">
+        <a class="book-btn text-decoration-none">Book Now</a>
+
+        <!-- Show when user is NOT logged in -->
+        <a *ngIf="!isLoggedIn" class="login-btn text-decoration-none" routerLink="/Login">Sign In</a>
+
+        <!-- Show when user is logged in (but not admin) -->
+        <div *ngIf="isLoggedIn" class="user-actions">
+          <a class="profile-btn text-decoration-none" routerLink="/profile">
+            <i class="fas fa-user-circle me-1"></i> Profile
+          </a>
+          <a class="logout-btn text-decoration-none" (click)="logout()">
+            <i class="fas fa-sign-out-alt me-1"></i> Logout
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
+
+<!-- Admin Navbar - Minimal version only showing logout -->
+<nav *ngIf="isAdmin" class="admin-navbar">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <a class="admin-brand" routerLink="/admin">Admin Dashboard</a>
+      <a class="admin-logout" (click)="logout()">
+        <i class="fas fa-sign-out-alt me-1"></i> Logout
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Debug info - can be removed in production -->
+<div class="d-none">
+  isLoggedIn: {{isLoggedIn}},
+  isAdmin: {{isAdmin}},
+  userId: {{userId}}
+</div>

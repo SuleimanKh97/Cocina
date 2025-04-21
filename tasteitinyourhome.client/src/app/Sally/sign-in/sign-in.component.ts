@@ -3,6 +3,7 @@ import { SallyServiceService } from '../sally-service.service';
 import { loginUserDTO } from '../loginUserDTO';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 declare var google: any;
 
@@ -18,7 +19,11 @@ export class SignInComponent {
   password: string = '';
   private googleInitialized = false;
 
-  constructor(private sallyService: SallyServiceService, private router: Router) { }
+  constructor(
+    private sallyService: SallyServiceService,
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
     if (typeof google === 'undefined') {
@@ -75,17 +80,19 @@ export class SignInComponent {
   }
 
   handleGoogleResponse(response: any) {
+    console.log('Google response:', response);
     const token = response.credential;
+    console.log('Token:', token);
     this.sallyService.googleLogin(token).subscribe({
       next: (res) => {
         console.log('Login success', res);
+        this.authService.login(res.userId.toString());
+
         Swal.fire({
           icon: 'success',
           title: 'تم تسجيل الدخول بنجاح!',
           showConfirmButton: false,
           timer: 2000
-        }).then(() => {
-          this.router.navigate(['']);
         });
       },
       error: (err) => {
@@ -110,21 +117,15 @@ export class SignInComponent {
       next: (response) => {
         if (response.status === 200) {
           const userId = response.body.userId;
-          if (userId == 0) {
-            this.router.navigate(['']);
-          }
-          else {
-            sessionStorage.setItem('userId', userId);
 
-            Swal.fire({
-              icon: 'success',
-              title: 'تم تسجيل الدخول بنجاح!',
-              showConfirmButton: false,
-              timer: 2000
-            }).then(() => {
-              this.router.navigate(['']);
-            });
-          }
+          this.authService.login(userId.toString());
+
+          Swal.fire({
+            icon: 'success',
+            title: 'تم تسجيل الدخول بنجاح!',
+            showConfirmButton: false,
+            timer: 2000
+          });
         }
       },
       error: (err) => {

@@ -11,7 +11,7 @@
         </div>
         <div class="profile-actions mt-3">
             <!--<button class=" book-btn me-2" (click)="navigateToEdit()">Edit Profile</button>-->
-            <button class=" book-btn me-2" routerLink="edit-profile/{{user.id}}">Edit Profile</button>
+            <button class=" book-btn me-2" [routerLink]="['/edit-profile', user.id]">Edit Profile</button>
             <button class="btn  book-btn" (click)="toggleChangePasswordForm()">
                 {{ showChangePasswordForm ? 'Cancel' : 'Change Password' }}
             </button>

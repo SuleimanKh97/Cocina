@@ -8,12 +8,26 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/4c8957d542.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/4c8957d542.js" crossorigin="anonymous"></script>
+  <!-- Brevo Conversations {literal} -->
+  <script>
+    (function (d, w, c) {
+      w.BrevoConversationsID = '6804c44859d925438f09c7d4';
+      w[c] = w[c] || function () {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      var s = d.createElement('script');
+      s.async = true;
+      s.src = 'https://conversations-widget.brevo.com/brevo-conversations.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'BrevoConversations');
+  </script>
+  <!-- /Brevo Conversations {/literal} -->
 
 </head>
 <body>
+
   <app-root></app-root>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 </body>
 </html>
