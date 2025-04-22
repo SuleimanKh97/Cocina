@@ -41,13 +41,13 @@ section {
 
 /* Hero Section */
 .hero-section {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/images/hero-about.jpg');
-    background-size: cover;
-    background-position: center;
-    color: white;
-    text-align: center;
-    padding: 150px 0;
-    margin-bottom: 0;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://img.freepik.com/premium-photo/chef-cooking-with-fiery-passion-restaurant-kitchen_204719-13056.jpg);
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  padding: 150px 0;
+  margin-bottom: 0;
 }
 
 .hero-content h1 {
@@ -87,7 +87,7 @@ section {
 .about-image img {
     max-width: 100%;
     border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+/*    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);*/
 }
 
 /* Our Mission Section */

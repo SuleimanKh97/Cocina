@@ -30,9 +30,10 @@ body {
   padding: 0;
 }
 
-.navbar-brand img {
-  max-height: 50px;
-}
+  .navbar-brand img {
+    max-height: 80px;
+    width: 130px;
+  }
 
 .nav-link {
   color: #F8EDE3 !important;
