@@ -16,46 +16,46 @@ interface TeamMember {
 export class AboutusComponent {
   teamMembers: TeamMember[] = [
     {
-      name: 'Sajeda Ramzi Ahmad Khasawneh',
+      name: 'Sajeda Khasawneh',
       position: 'Founder & CEO',
       bio: 'Passionate culinary expert with over 10 years of experience in fine dining and hospitality. Sajeda founded Chef Night with the vision of bringing restaurant-quality dining to homes.',
-      image: 'assets/images/team/team1.jpg'
+      image: 'https://img.freepik.com/psd-premium/avatar-de-personagem-de-desenho-animado-feminino-3d-isolado-em-renderizacao-3d_235528-942.jpg'
     },
     {
-      name: 'Suleiman Mustafa Suleiman Khashashneh',
+      name: 'Suleiman Khashashneh',
       position: 'Executive Chef',
       bio: 'Award-winning chef with expertise in multiple cuisines. Suleiman leads our chef team, ensuring each menu is crafted to perfection and every dining experience is exceptional.',
-      image: 'assets/images/team/team2.jpg'
+      image: 'https://img.freepik.com/premium-photo/memoji-happy-man-white-background-emoji_826801-6834.jpg?semt=ais_hybrid&w=740'
     },
     {
-      name: 'Ammar Waheed Ahmad Alomari',
+      name: 'Ammar Alomari',
       position: 'Operations Manager',
       bio: 'With a background in hospitality management, Ammar ensures smooth operations and coordinates between clients and chefs to create seamless dining experiences.',
-      image: 'assets/images/team/team3.jpg'
+      image: 'https://img.freepik.com/fotos-premium/memoji-gutaussehender-mann-mit-brille-auf-weissem-hintergrund-emoji-zeichentrickfigur_826801-6961.jpg'
     },
     {
-      name: 'Sally Marwan Mohammad Alzu\'bi',
+      name: 'Sally Al Zu\'bi',
       position: 'Customer Relations',
       bio: 'Sally is dedicated to ensuring customer satisfaction, handling special requests and managing feedback to continuously improve our services.',
-      image: 'assets/images/team/team4.jpg'
+      image: 'https://img.freepik.com/psd-premium/avatar-de-personagem-de-desenho-animado-feminino-3d-isolado-em-renderizacao-3d_235528-988.jpg'
     },
     {
-      name: 'Sondos Mohammed Abdel Wahab Athamneh',
+      name: 'Sondos Athamneh',
       position: 'Marketing Director',
       bio: 'Sondos brings creative marketing strategies to connect food lovers with exceptional in-home dining experiences. She leads our digital presence and brand messaging.',
-      image: 'assets/images/team/team5.jpg'
+      image: 'https://img.freepik.com/psd-premium/avatar-de-personagem-de-desenho-animado-feminino-3d-isolado-em-renderizacao-3d_235528-954.jpg?w=360'
     },
     {
-      name: 'Sara Yousef Ahmoud Alharahsheh',
+      name: 'Sara Al Harahsheh',
       position: 'Chef Recruiter',
       bio: 'Sara identifies and onboards talented chefs, ensuring our team consists of only the most skilled and passionate culinary artists.',
-      image: 'assets/images/team/team6.jpg'
+      image: 'https://img.freepik.com/psd-premium/avatar-de-personagem-de-desenho-animado-de-garcom-3d-isolado-em-renderizacao-3d_235528-1017.jpg'
     },
     {
-      name: 'Sofyan Yousef Oqlah Njadat',
+      name: 'Sofyan Njadat',
       position: 'Finance Manager',
       bio: 'Sofyan manages the financial aspects of the business, ensuring we deliver premium culinary experiences while maintaining excellent value for our customers.',
-      image: 'assets/images/team/team7.jpg'
+      image: 'https://img.freepik.com/photos-premium/image-stock-haute-qualite_783884-150679.jpg'
     }
   ];
 
