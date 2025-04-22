@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -29,18 +28,18 @@ export class BookingComponent implements OnInit {
   constructor(private saraService: SaraService) { }
 
   ngOnInit(): void {
-   
+
     this.loadBookings();
- 
+
   }
 
   loadBookings(): void {
     this.saraService.getAllBookings().subscribe({
-      next: (data :any) => {
+      next: (data: any) => {
         this.bookings = data;
         console.log('Bookings loaded:', this.bookings);
       },
-      error: (error :any) => {
+      error: (error: any) => {
         console.error('Error loading bookings:', error);
       }
     });
@@ -53,7 +52,7 @@ export class BookingComponent implements OnInit {
         console.log('Booking accepted successfully');
         this.loadBookings(); // Reload bookings after accepting
       },
-      error: (error :any) => {
+      error: (error: any) => {
         console.error('Error accepting booking:', error);
       }
     });

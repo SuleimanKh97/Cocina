@@ -52,37 +52,112 @@ namespace TasteItInYourHome.Server.DataService
         //    _context.SaveChanges();
         //    return "User registered successfully.";
         //}
-        public List<Booking> BookingHistory(int UserId)
+        public List<BookingHistoryDto> BookingHistory(int UserId)
         {
             var bookings = _context.Bookings
                 .Where(b => b.UserId == UserId)
+                .Include(b => b.Chef)
+                .Include(b => b.Food)
+                .Include(b => b.Service)
+                .OrderByDescending(b => b.CreatedAt)
+                .Select(b => new BookingHistoryDto
+                {
+                    Id = b.Id,
+                    ChefName = b.Chef != null ? b.Chef.FullName : string.Empty,
+                    FoodName = b.Food != null ? b.Food.Name : string.Empty,
+                    ServiceName = b.Service != null ? b.Service.Name : string.Empty,
+                    NumberOfGuests = b.NumberOfGuests,
+                    BookingDate = b.BookingDate.ToString("yyyy-MM-dd"),
+                    TimeSlot = b.TimeSlot,
+                    Status = b.Status,
+                    CreatedAt = b.CreatedAt.HasValue ? b.CreatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss") : string.Empty
+                })
                 .ToList();
 
             return bookings;
         }
 
-        public  bool AddFeedback( FeedbackDto dto)
+        public bool AddFeedback(FeedbackDto dto)
         {
-            var existingFeedback = _context.Feedbacks
-         .FirstOrDefault(f => f.BookingId == dto.BookingId);
-
-            if (existingFeedback != null)
+            Console.WriteLine($"\n===== AÑADIENDO FEEDBACK PARA BOOKING {dto?.BookingId} =====");
+            
+            if (dto == null || !dto.BookingId.HasValue)
             {
+                Console.WriteLine("Error: dto es null o BookingId no tiene valor");
                 return false;
             }
 
-            var feedback = new Feedback
+            // التحقق من وجود الملاحظات السابقة
+            var existingFeedback = _context.Feedbacks
+                .FirstOrDefault(f => f.BookingId == dto.BookingId.Value);
+
+            if (existingFeedback != null)
             {
-                BookingId = dto.BookingId,
-                Rating = dto.Rating,
-                Comment = dto.Comment,
-                SubmittedAt = DateTime.UtcNow
-            };
+                // Ya existe un feedback para esta reserva
+                Console.WriteLine($"Error: Feedback ya existe para booking {dto.BookingId.Value}");
+                return false;
+            }
 
-            _context.Feedbacks.Add(feedback);
-             _context.SaveChangesAsync();
+            // التحقق من حالة الطلب - يجب أن تكون "Completed" أو "completed" أو "Accepted" أو "accepted"
+            var booking = _context.Bookings.Find(dto.BookingId.Value);
+            if (booking == null)
+            {
+                Console.WriteLine($"Error: Booking {dto.BookingId.Value} no encontrado");
+                return false; // الطلب غير موجود
+            }
 
-            return true;
+            // Depuración: Mostrar el estado actual del booking
+            Console.WriteLine($"Booking {dto.BookingId.Value} status: '{booking.Status}' (tipo: {booking.Status?.GetType().Name})");
+            
+            // Mostrar bytes del string para depuración
+            if (booking.Status != null)
+            {
+                Console.WriteLine("Bytes del status:");
+                foreach (var b in System.Text.Encoding.UTF8.GetBytes(booking.Status))
+                {
+                    Console.Write($"{b:X2} ");
+                }
+                Console.WriteLine();
+            }
+
+            // التحقق من الحالة بصرف النظر عن حالة الأحرف
+            // Pruebas de comparación para diagnóstico
+            Console.WriteLine($"Comparación directa: '{booking.Status}' == 'Completed': {booking.Status == "Completed"}");
+            Console.WriteLine($"Comparación con ToLower: '{booking.Status}' -> '{booking.Status?.ToLower()}' == 'completed': {booking.Status?.ToLower() == "completed"}");
+            Console.WriteLine($"Comparación con Trim: '{booking.Status}' -> '{booking.Status?.Trim()}' == 'Completed': {booking.Status?.Trim() == "Completed"}");
+            Console.WriteLine($"Comparación con ToLowerInvariant: '{booking.Status}' -> '{booking.Status?.ToLowerInvariant()}' == 'completed': {booking.Status?.ToLowerInvariant() == "completed"}");
+
+            // Caso especial: permitir estados exactos o normalizados
+            bool isValidStatus = booking.Status == "Completed" || 
+                              booking.Status == "Accepted" ||
+                              booking.Status?.ToLower()?.Trim() == "completed" || 
+                              booking.Status?.ToLower()?.Trim() == "accepted";
+
+            Console.WriteLine($"¿Es estado válido? {isValidStatus}");
+            
+            if (isValidStatus)
+            {
+                // El estado es válido, continuar con la adición del feedback
+                var feedback = new Feedback
+                {
+                    BookingId = dto.BookingId.Value,
+                    Rating = dto.Rating,
+                    Comment = dto.Comment,
+                    SubmittedAt = DateTime.UtcNow
+                };
+
+                _context.Feedbacks.Add(feedback);
+                _context.SaveChanges(); // استخدام SaveChanges بدلاً من SaveChangesAsync
+
+                Console.WriteLine($"Feedback añadido con éxito para booking {dto.BookingId.Value}");
+                return true;
+            }
+            else
+            {
+                // Estado inválido para añadir feedback
+                Console.WriteLine($"Error: Estado inválido '{booking.Status}' para añadir feedback");
+                return false;
+            }
         }
 
         //public bool UpdateProfile(int id,  EditProfileWithImageDto Dto)
@@ -195,7 +270,15 @@ namespace TasteItInYourHome.Server.DataService
             return bookings;
         }
 
+        public Booking GetBookingById(int bookingId)
+        {
+            return _context.Bookings.Find(bookingId);
+        }
 
+        public Feedback GetFeedbackByBookingId(int bookingId)
+        {
+            return _context.Feedbacks.FirstOrDefault(f => f.BookingId == bookingId);
+        }
 
     }
 }

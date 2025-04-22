@@ -134,19 +134,62 @@
 }
 
 .book-btn {
-    background-color: #DFD3C3;
-    color: #C5705D !important;
-    border: 2px solid var(--primary-color);
-    padding: 0.75rem 1.5rem;
-    border-radius: 4%;
-    font-weight: bold;
-    transition: all 0.3s ease;
+  background-color: #DFD3C3;
+  color: #C5705D !important;
+  border: 2px solid var(--primary-color);
+  padding: 0.75rem 1.5rem;
+  border-radius: 4%;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
 .book-btn:hover {
   background-color: #D0B8A8;
   transform: translateY(-2px);
   box-shadow: 0 3px 8px rgba(197, 112, 93, 0.2);
+}
+
+.book-btn.feedback-btn {
+  background-color: #ffd700;
+  color: #333 !important;
+  border: 2px solid #f5c518;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4%;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.book-btn.feedback-btn:hover {
+  background-color: #f5c518;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.book-btn.feedback-btn i {
+  color: #FF8C00;
+  font-size: 1.1rem;
+}
+
+/* Add an attention animation to the feedback button */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.book-btn.feedback-btn {
+  animation: pulse 2s infinite;
 }
 
 /* Password Change Form - Enhanced Styling */
@@ -203,17 +246,17 @@ input[type="number"],
 textarea,
 select,
 .form-control {
-    width: 100%;
-    padding: 12px 15px;
-/*    border: 2px solid var(--medium-gray);*/
-    border-left: 4px solid var(--input-border-color);
-    border-radius: var(--border-radius);
-    font-size: 16px;
-    transition: all 0.3s ease;
-    background-color: white;
-    color: var(--text-color);
-    box-shadow: none;
-    border: 1px solid #80808073;
+  width: 100%;
+  padding: 12px 15px;
+  /*    border: 2px solid var(--medium-gray);*/
+  border-left: 4px solid var(--input-border-color);
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: white;
+  color: var(--text-color);
+  box-shadow: none;
+  border: 1px solid #80808073;
 }
 
 input:focus,
@@ -239,11 +282,12 @@ input[type="number"] {
   text-align: center;
   font-weight: bold;
   color: var(--primary-color);
-  -moz-appearance: textfield; /* Firefox */
+  -moz-appearance: textfield;
+  /* Firefox */
 }
 
-input[type="number"]::-webkit-inner-spin-button, 
-input[type="number"]::-webkit-outer-spin-button { 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -421,6 +465,7 @@ textarea {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -524,23 +569,69 @@ input[type="file"] {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .profile-image {
     margin-bottom: 20px;
   }
-  
+
   .profile-actions {
     margin-top: 20px;
     width: 100%;
     justify-content: flex-start;
   }
-  
+
   .booking-cards {
     grid-template-columns: 1fr;
   }
-  
+
   .modal-content {
     width: 90%;
     margin: 0 20px;
   }
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.booking-date {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.booking-date i {
+  margin-right: 8px;
+  color: var(--primary-color);
+  font-size: 16px;
+}
+
+.booking-date span {
+  font-size: 16px;
+}
+
+.highlight-status {
+  font-weight: bold;
+  color: #C5705D;
+  padding: 3px 8px;
+  background-color: #f9eae6;
+  border-radius: 4px;
+  border: 1px solid #f0c7bf;
 }

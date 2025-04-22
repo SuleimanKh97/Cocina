@@ -1,4 +1,4 @@
- <!-- Hero Section -->
+<!-- Hero Section -->
 <section id="bodysection">
   <section class="booking-hero text-center">
     <div class="container">
@@ -18,17 +18,13 @@
 
             <div class=" mb-4">
               <label for="bookingDate" class="form-label">Date</label>
-              <input type="date" class="form-control" name="BookingDate"
-                     [(ngModel)]="formData.BookingDate"
-                     (change)="onDateOrChefChange()">
+              <input type="date" class="form-control" name="BookingDate" [(ngModel)]="formData.BookingDate"
+                (change)="onDateOrChefChange()">
             </div>
 
             <div class=" mb-4">
               <label for="cheif" class="form-label">Cheifs</label>
-              <select class="form-select"
-                      name="ChefId"
-                      [(ngModel)]="formData.ChefId"
-                      (change)="onDateOrChefChange()">
+              <select class="form-select" name="ChefId" [(ngModel)]="formData.ChefId" (change)="onDateOrChefChange()">
                 <option value="" disabled selected>Select a chef</option>
                 <option *ngFor="let chef of chefs" [value]="chef.id">{{ chef.fullName }}</option>
               </select>
@@ -38,7 +34,8 @@
             <div class="row mb-4">
               <div class="col-md-6 mb-3 mb-md-0">
                 <label for="service" class="form-label">Services</label>
-                <select class="form-select" id="service" name="service" [(ngModel)]="formData.ServiceId" (change)="onDateOrChefChange()">
+                <select class="form-select" id="service" name="service" [(ngModel)]="formData.ServiceId"
+                  (change)="onDateOrChefChange()">
                   <option value="" disabled selected>Select service</option>
                   <option *ngFor="let service of services" [value]="service.id">{{ service.name }}</option>
                 </select>
@@ -47,10 +44,8 @@
 
               <div class="col-md-6 mb-3 mb-md-0">
                 <label for="service" class="form-label">Categories</label>
-                <select class="form-select" id="service"
-                        name="CategoryID"
-                        [(ngModel)]="formData.CategoryID"
-                        (change)="onDateOrChefChange()">
+                <select class="form-select" id="service" name="CategoryID" [(ngModel)]="formData.CategoryID"
+                  (change)="onDateOrChefChange()">
                   <option value="" disabled selected>Select service</option>
                   <option *ngFor="let Category of Category" [value]="Category.id">{{ Category.name }}</option>
                 </select>
@@ -61,16 +56,22 @@
             <div class="row mb-4">
               <div class="col-md-6">
                 <label for="bookingTime" class="form-label">Time</label>
-                <select id="time" [(ngModel)]="formData.TimeSlot" class="form-select" name="timeSlot" (change)="onDateOrChefChange()">
+                <select id="time" [(ngModel)]="formData.TimeSlot" class="form-select" name="TimeSlot" required>
+                  <option value="" disabled selected>Select a time</option>
                   <option *ngIf="availableTimeSlots.length === 0" disabled>No available times</option>
                   <option *ngFor="let time of availableTimeSlots" [value]="time">{{ time }}</option>
                 </select>
+                <div *ngIf="availableTimeSlots.length === 0 && formData.ChefId && formData.BookingDate"
+                  class="text-warning mt-1">
+                  No time slots available for selected date and chef.
+                </div>
               </div>
 
 
               <div class="col-md-6">
                 <label for="food" class="form-label">Food</label>
-                <select id="food" [(ngModel)]="formData.FoodId" class="form-select" name="foodId" (change)="onDateOrChefChange()">
+                <select id="food" [(ngModel)]="formData.FoodId" class="form-select" name="foodId"
+                  (change)="onDateOrChefChange()">
                   <option value="" disabled selected>Select Food</option>
                   <option *ngFor="let food of foods" [value]="food.id">{{ food.name }}</option>
                 </select>
@@ -81,7 +82,8 @@
             <div class=" row mb-4">
               <div class="col-md-6">
                 <label for="location" class="form-label">Location</label>
-                <input type="text" class="form-control" id="location" placeholder="Enter your address" ngModdel>
+                <input type="text" class="form-control" id="location" placeholder="Enter your address" name="Location"
+                  [(ngModel)]="formData.Location">
               </div>
 
 
@@ -91,7 +93,8 @@
                 <label class="form-label">Number of Guests</label>
                 <div class="guests-counter d-flex align-items-center">
                   <button type="button" class="btn btn-outline-secondary" (click)="decrementGuests()">-</button>
-                  <input type="number" class="form-control text-center" name="NumberOfGuests" [(ngModel)]="formData.NumberOfGuests" min="1" max="100">
+                  <input type="number" class="form-control text-center" name="NumberOfGuests"
+                    [(ngModel)]="formData.NumberOfGuests" min="1" max="100">
                   <button type="button" class="btn btn-outline-secondary" (click)="incrementGuests()">+</button>
                 </div>
               </div>
@@ -100,7 +103,8 @@
             <!-- Special Requests -->
             <div class="mb-4">
               <label for="specialRequests" class="form-label">Special Requests</label>
-              <textarea class="form-control" id="specialRequests" rows="3" placeholder="Dietary restrictions, allergies, or special preferences"></textarea>
+              <textarea class="form-control" id="specialRequests" rows="3"
+                placeholder="Dietary restrictions, allergies, or special preferences"></textarea>
             </div>
 
 

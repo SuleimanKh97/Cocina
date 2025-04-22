@@ -17,7 +17,7 @@ namespace TasteItInYourHome.Server.DataService
         }
 
 
-        public bool AddBook(BookingReq dto)
+        public int AddBook(BookingReq dto)
         {
             var book = new Booking()
             {
@@ -27,14 +27,12 @@ namespace TasteItInYourHome.Server.DataService
                 FoodId = dto.FoodId,
                 ServiceId = dto.ServiceId,
                 NumberOfGuests = dto.NumberOfGuests,
-                Status = dto.Status,
+                Status = "Pending",
                 TimeSlot = dto.TimeSlot,
             };
             _projectContext.Add(book);
             _projectContext.SaveChanges();
-            return true;
-
-
+            return book.Id; // Return the ID of the inserted booking
         }
 
         public User getUserByID(int id)
@@ -108,7 +106,47 @@ namespace TasteItInYourHome.Server.DataService
             return new List<string>();
         }
 
+        public List<BookingDTO> GetUserBookings(int userId)
+        {
+            return _projectContext.Bookings
+                .Where(b => b.UserId == userId)
+                .Include(b => b.Chef)
+                .Include(b => b.Food)
+                .Include(b => b.Service)
+                .Include(b => b.User)
+                .Select(b => new BookingDTO
+                {
+                    Id = b.Id,
+                    BookingDate = new DateTime(b.BookingDate.Year, b.BookingDate.Month, b.BookingDate.Day),
+                    ChefId = b.ChefId ?? 0,
+                    ChefName = b.Chef.FullName,
+                    FoodId = b.FoodId ?? 0,
+                    FoodName = b.Food.Name,
+                    ServiceId = b.ServiceId ?? 0,
+                    ServiceName = b.Service.Name,
+                    UserId = b.UserId ?? 0,
+                    UserName = b.User.FullName,
+                    NumberOfGuests = b.NumberOfGuests ?? 0,
+                    Status = b.Status ?? "Unknown",
+                    TimeSlot = b.TimeSlot
+                })
+                .ToList();
+        }
 
+        public bool CancelBooking(int bookingId)
+        {
+            var booking = _projectContext.Bookings.Find(bookingId);
+            if (booking == null)
+                return false;
+
+            // Only allow cancellation of pending or confirmed bookings
+            if (booking.Status != "Pending" && booking.Status != "Confirmed")
+                return false;
+
+            booking.Status = "Cancelled";
+            _projectContext.SaveChanges();
+            return true;
+        }
     }
 }
 

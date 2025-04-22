@@ -7,10 +7,9 @@ namespace TasteItInYourHome.Server.IDataService
 {
     public interface SondosIDataService
     {
-        public bool AddFeedback( FeedbackDto dto);
+        public bool AddFeedback(FeedbackDto dto);
 
-
-        public List<Booking> BookingHistory(int UserId);
+        public List<BookingHistoryDto> BookingHistory(int UserId);
 
         public User getUserById(int id);
         public List<User> GetAll();
@@ -18,10 +17,12 @@ namespace TasteItInYourHome.Server.IDataService
         //public bool UpdateProfile(int id,  EditProfileWithImageDto Dto);
         Task<bool> UpdateProfileAsync(int id, EditProfileWithImageDto dto);
 
-        public void ChangePassword(int id,  changePassword Dto);
+        public void ChangePassword(int id, changePassword Dto);
 
         public List<BookingHistoryDto> GetUserBookingHistory(int userId);
-
-
+        
+        // الوظائف الجديدة
+        public Booking GetBookingById(int bookingId);
+        public Feedback GetFeedbackByBookingId(int bookingId);
     }
 }

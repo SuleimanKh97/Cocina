@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SallyServiceService } from '../sally-service.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -15,7 +16,7 @@ export class SignUpComponent {
   registerForm: FormGroup;
   selectedFile: File | null = null;
 
-  constructor(private fb: FormBuilder, private sallyService: SallyServiceService, private router: Router) {
+  constructor(private fb: FormBuilder, private sallyService: SallyServiceService, private router: Router, private alertService: AlertService) {
     this.registerForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.maxLength(100)]],
       email: ['', [Validators.required, Validators.email]],
@@ -54,6 +55,7 @@ export class SignUpComponent {
         }).then(() => {
           this.router.navigate(['/Login']);
         });
+        this.alertService.success('Registration successful!');
       },
       error: (error) => {
         console.error('Registration failed:', error);

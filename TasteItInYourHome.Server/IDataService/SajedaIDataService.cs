@@ -5,7 +5,7 @@ namespace TasteItInYourHome.Server.IDataService
 {
     public interface SajedaIDataService
     {
-        public bool AddBook(BookingReq dto);
+        public int AddBook(BookingReq dto);
         public User getUserByID(int id);
         public List<Chef> getAllChifs();
         public List<FoodCategory> getAllFoodCategories();
@@ -14,5 +14,7 @@ namespace TasteItInYourHome.Server.IDataService
         public Payment addPayment(PaymentRequest dto);
         public Booking getBookID(int id);
         public List<string> GetAvailability(int chefId, DateTime bookingDate);
+        public List<BookingDTO> GetUserBookings(int userId);
+        public bool CancelBooking(int bookingId);
     }
 }

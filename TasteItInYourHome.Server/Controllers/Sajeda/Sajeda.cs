@@ -22,25 +22,51 @@ namespace TasteItInYourHome.Server.Controllers.Sajeda
         {
             if (bookDTO == null)
             {
-                return BadRequest();
+                return BadRequest("Booking data is null");
             }
-            else
+            
+            try
             {
-                bool book = _data.AddBook(bookDTO);
-                if (book)
-                {
-
-                    var BookID = _data.AddBook(bookDTO);
-                    return Ok(new { bookID = BookID });
-                    //return Ok(bookDTO);
-                }
-                else
-                {
-                    return BadRequest();
-                }
+                int bookingId = _data.AddBook(bookDTO);
+                return Ok(new { bookingId = bookingId });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
 
+        [HttpGet("getUserBookings/{userId}")]
+        public IActionResult GetUserBookings(int userId)
+        {
+            try
+            {
+                var bookings = _data.GetUserBookings(userId);
+                return Ok(bookings);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpPut("cancelBooking/{bookingId}")]
+        public IActionResult CancelBooking(int bookingId)
+        {
+            try
+            {
+                bool cancelled = _data.CancelBooking(bookingId);
+                if (!cancelled)
+                {
+                    return NotFound("Booking not found or cannot be cancelled");
+                }
+                return Ok(new { success = true, message = "Booking cancelled successfully" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
 
         [HttpGet("getUser/{id}")]
         public IActionResult getUser(int id)

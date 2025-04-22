@@ -2,6 +2,7 @@
 import { ApiService } from '../api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
     selector: 'app-edit-profile',
@@ -21,7 +22,8 @@ export class EditProfileComponent {
         private api: ApiService,
         private route: ActivatedRoute,
         private router: Router,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private alertService: AlertService
     ) {
         this.userId = Number(this.route.snapshot.paramMap.get('id')) || Number(sessionStorage.getItem('userId'));
 
@@ -40,7 +42,7 @@ export class EditProfileComponent {
 
     loadUserData(): void {
         this.api.getUserById(this.userId).subscribe(
-            (data:any) => {
+            (data: any) => {
                 this.user = data;
                 this.profileForm.patchValue({
                     fullName: this.user.fullName,
@@ -51,7 +53,7 @@ export class EditProfileComponent {
                 });
                 this.imagePreview = this.user.imageUrl;
             },
-            (error : any) => {
+            (error: any) => {
                 console.error('Error loading user data:', error);
             }
         );
@@ -87,19 +89,25 @@ export class EditProfileComponent {
 
     onSubmit(profileForm: any): void {
         const formData = new FormData();
-        
+
         formData.append('FullName', profileForm.fullName);
         formData.append('Email', profileForm.email);
         formData.append('PhoneNumber', profileForm.phoneNumber);
         formData.append('Address', profileForm.address);
-        
+
         if (this.imageFile) {
             formData.append('ImageFile', this.imageFile, this.imageFile.name);
         }
 
-        this.api.updateProfile(formData, this.userId).subscribe(() => {
-            alert("Profile has been updated successfully");
-            this.loadUserData(); 
+        this.api.updateProfile(formData, this.userId).subscribe({
+            next: () => {
+                this.alertService.success("Profile has been updated successfully");
+                this.loadUserData();
+            },
+            error: (err) => {
+                this.alertService.error("Failed to update profile. Please try again.");
+                console.error('Error updating profile:', err);
+            }
         });
     }
 

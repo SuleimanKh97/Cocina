@@ -1,6 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 export interface Service {
   id: number;
   title: string;
@@ -22,10 +23,13 @@ export interface Booking {
 
 export interface Payment {
   id: number;
-  bookingId: number;
+  bookingId?: number;
   amount: number;
   paymentDate: string;
   status: string;
+  paymentMethod?: string;
+  userName?: string;
+  serviceName?: string;
 }
 
 export interface ContactMessage {

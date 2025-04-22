@@ -5,79 +5,218 @@
 }
 
 .payment-card {
-  transition: all 0.3s;
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s ease;
   cursor: pointer;
-  border: 2px solid transparent;
 }
 
-  .payment-card:hover, .payment-card.selected {
-    border-color: #0d6efd;
-    background-color: #f0f7ff;
-  }
+.payment-card:hover {
+  border-color: #007bff;
+  box-shadow: 0 0 0 1px rgba(0, 123, 255, 0.25);
+}
 
-    .payment-card.selected .select-indicator {
-      color: #0d6efd;
-    }
+.payment-card.selected {
+  border-color: #007bff;
+  background-color: rgba(0, 123, 255, 0.05);
+  box-shadow: 0 0 0 1px #007bff;
+}
 
 .select-indicator {
-  color: #dee2e6;
-}
-
-.progress-steps .step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-
-.progress-steps .step-number {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #e9ecef;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-  font-weight: bold;
-  color: #6c757d;
-}
-
-.progress-steps .step.active .step-number {
-  background-color: #0d6efd;
-  color: white;
-}
-
-.progress-steps .step.completed .step-number {
-  background-color: #198754;
-  color: white;
-}
-
-.progress-steps .step-line {
-  position: absolute;
-  height: 2px;
-  background-color: #e9ecef;
-  top: 20px;
-  left: -50%;
-  right: 50%;
-  z-index: -1;
-}
-
-.progress-steps .step:first-child .step-line {
+  color: #28a745;
   display: none;
 }
 
-.progress-steps .step.completed .step-line {
-  background-color: #198754;
+.payment-card.selected .select-indicator {
+  display: block;
 }
 
 .credit-card-icon {
-  font-size: 2rem;
-  color: #6c757d;
+  font-size: 1.2rem;
+  color: #007bff;
 }
 
 .security-badge {
   background-color: #f8f9fa;
-  border-radius: 5px;
-  padding: 15px;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  border-left: 4px solid #28a745;
+}
+
+/* Credit card type icons */
+.cc-icon {
+  font-size: 24px;
+  margin-right: 5px;
+  opacity: 0.5;
+}
+
+.cc-icon.active {
+  opacity: 1;
+}
+
+/* Form validation styling */
+.form-control.ng-touched.ng-invalid {
+  border-color: #dc3545;
+}
+
+.form-control.ng-touched.ng-valid {
+  border-color: #28a745;
+}
+
+/* Card Field Animation */
+@keyframes cardSuccess {
+  0% {
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+  }
+}
+
+.card-success {
+  animation: cardSuccess 1s ease-out;
+  border-color: #28a745 !important;
+}
+
+/* Processing Animation */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.processing {
+  animation: pulse 1.5s infinite;
+  pointer-events: none;
+}
+
+/* Card Flip Animation */
+.card-container {
+  perspective: 1000px;
+}
+
+.card-element {
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.card-element.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+/* Success animation */
+.success-checkmark {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.check-icon {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  border-radius: 50%;
+  box-sizing: content-box;
+  border: 4px solid #4CAF50;
+}
+
+.check-icon::before {
+  top: 3px;
+  left: -2px;
+  width: 30px;
+  transform-origin: 100% 50%;
+  border-radius: 100px 0 0 100px;
+}
+
+.check-icon::after {
+  top: 0;
+  left: 30px;
+  width: 60px;
+  transform-origin: 0 50%;
+  border-radius: 0 100px 100px 0;
+  animation: rotate-circle 4.25s ease-in;
+}
+
+.check-icon::before,
+.check-icon::after {
+  content: '';
+  height: 100px;
+  position: absolute;
+  background: #FFFFFF;
+  transform: rotate(-45deg);
+}
+
+.icon-line {
+  height: 5px;
+  background-color: #4CAF50;
+  display: block;
+  border-radius: 2px;
+  position: absolute;
+  z-index: 10;
+}
+
+.icon-line.line-tip {
+  top: 46px;
+  left: 14px;
+  width: 25px;
+  transform: rotate(45deg);
+  animation: icon-line-tip 0.75s;
+}
+
+.icon-line.line-long {
+  top: 38px;
+  right: 8px;
+  width: 47px;
+  transform: rotate(-45deg);
+  animation: icon-line-long 0.75s;
+}
+
+.icon-circle {
+  top: -4px;
+  left: -4px;
+  z-index: 10;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  position: absolute;
+  box-sizing: content-box;
+  border: 4px solid rgba(76, 175, 80, .5);
+}
+
+.icon-fix {
+  top: 8px;
+  width: 5px;
+  left: 26px;
+  z-index: 1;
+  height: 85px;
+  position: absolute;
+  transform: rotate(-45deg);
+  background-color: #FFFFFF;
 }

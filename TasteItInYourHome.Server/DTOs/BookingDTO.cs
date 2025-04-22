@@ -5,6 +5,10 @@ namespace TasteItInYourHome.Server.DTOs
     public class BookingDTO
     {
         public int Id { get; set; }
+        public int UserId { get; set; }
+        public int ChefId { get; set; }
+        public int FoodId { get; set; }
+        public int ServiceId { get; set; }
         public string UserName { get; set; } = null!;
         public string ChefName { get; set; } = null!;
         public string FoodName { get; set; } = null!;
@@ -15,8 +19,6 @@ namespace TasteItInYourHome.Server.DTOs
         public DateTime BookingDate { get; set; }
         public string? TimeSlot { get; set; }
         public string Status { get; set; }
-
-
     }
 }
 

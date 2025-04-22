@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UrlserviceService } from '../../Ammar/urlservice.service';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-food',
@@ -13,7 +14,7 @@ export class FoodComponent {
   allchefs: any[] = [];
   selectedFood: any = {};
 
-  constructor(private TheService: UrlserviceService) { }
+  constructor(private TheService: UrlserviceService, private alertService: AlertService) { }
 
   ngOnInit() {
     this.getAllFood();
@@ -76,12 +77,12 @@ export class FoodComponent {
 
     this.TheService.addFood(data).subscribe({
       next: () => {
-        alert("Food added successfully");
+        this.alertService.success("Food added successfully");
         this.getAllFood();
       },
       error: (err) => {
         console.error('Error adding food:', err);
-        alert(`Error adding food: ${err.message || 'Unknown error'}`);
+        this.alertService.error(`Error adding food: ${err.message || 'Unknown error'}`);
       }
     });
   }
@@ -96,30 +97,31 @@ export class FoodComponent {
 
     this.TheService.editFood(id, data).subscribe({
       next: () => {
-        alert("Food updated successfully");
+        this.alertService.success("Food updated successfully");
         this.getAllFood();
       },
       error: (err) => {
         console.error('Error updating food:', err);
-        alert(`Error updating food: ${err.message || 'Unknown error'}`);
+        this.alertService.error(`Error updating food: ${err.message || 'Unknown error'}`);
       }
     });
   }
 
   deleteFood(id: number) {
-    const confirmed = confirm('Are you sure you want to delete this food?');
-    if (confirmed) {
-      this.TheService.deleteFood(id).subscribe({
-        next: () => {
-          alert("Food deleted successfully");
-          this.getAllFood(); // Refresh the list
-        },
-        error: (err) => {
-          console.error('Error deleting food:', err);
-          alert(`Error deleting food: ${err.message || 'Unknown error'}`);
-        }
-      });
-    }
+    this.alertService.confirm("Are you sure you want to delete this food?").then(confirmed => {
+      if (confirmed) {
+        this.TheService.deleteFood(id).subscribe({
+          next: () => {
+            this.alertService.success("Food deleted successfully");
+            this.getAllFood(); // Refresh the list
+          },
+          error: (err) => {
+            console.error('Error deleting food:', err);
+            this.alertService.error(`Error deleting food: ${err.message || 'Unknown error'}`);
+          }
+        });
+      }
+    });
   }
 
   openEditFoodModal(food: any) {
