@@ -9,7 +9,7 @@
         <div class="form-group">
           <label for="fullName" class="required-field">Full Name</label>
           <input formControlName="fullName" type="text" id="fullName" placeholder="Enter your full name" required
-                 maxlength="100">
+            maxlength="100">
           <div class="error-message">Full name is required (max 100 characters)</div>
         </div>
 
@@ -23,8 +23,8 @@
       <div class="form-row">
         <div class="form-group">
           <label for="password" class="required-field">Password</label>
-          <input type="password" id="password" formControlName="password" placeholder="Create a password (min 6 characters)"
-                 required minlength="6">
+          <input type="password" id="password" formControlName="password"
+            placeholder="Create a password (min 6 characters)" required minlength="6">
           <div class="error-message">Password must be at least 6 characters</div>
         </div>
 
@@ -47,14 +47,15 @@
         <div class="form-group full-width">
           <label for="image">Profile Image</label>
           <div class="file-input-wrapper">
-            <input (change)="onFileChange($event)" type="file" id="image" name="image" class="file-input" accept="image/*">
+            <input (change)="onFileChange($event)" type="file" id="image" name="image" class="file-input"
+              accept="image/*">
             <label for="image" class="file-input-label">Choose profile image...</label>
             <div id="fileName" class="file-input-name"></div>
           </div>
         </div>
       </div>
 
-      <button type="submit" class="btn">Create Account</button>
+      <button type="submit" class="btn btn-primary" (click)="onSubmit()">Register</button>
     </form>
 
     <div class="login-link">
@@ -62,7 +63,7 @@
     </div>
   </div>
 </div>
-  <!--<script>
+<!--<script>
         // Display selected file name
         document.getElementById('image').addEventListener('change', function(e) {
             const fileName = e.target.files[0] ? e.target.files[0].name : 'No file selected';

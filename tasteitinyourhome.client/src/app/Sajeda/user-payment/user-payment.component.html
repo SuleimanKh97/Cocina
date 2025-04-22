@@ -1,186 +1,229 @@
-
- <!--Payment Process--> 
+<!--Payment Process-->
 <section class="container my-5">
-  <div class="row"> 
-<div class="col-lg-8 mb-4">
-  <div class="card">
-    <div class="card-header bg-white">
-      <h4 class="mb-0">Payment Method</h4>
-    </div>
-    <div class="card-body">
- <!--Payment Method Selection--> 
-<div class="mb-4">
-  <div class="row g-3">
-<div class="col-md-6">
-  <div class="payment-card p-3 rounded" (click)="setPaymentMethod('credit-card')" [class.selected]="selectedMethod === 'credit-card'" id="credit-card-option">
-
-    <div class="d-flex justify-content-between align-items-center mb-2">
-      <div>
-        <i class="far fa-credit-card credit-card-icon me-2"></i>
-        <span class="fw-bold">Credit Card</span>
-      </div>
-      <i class="fas fa-check-circle select-indicator"></i>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard">
-      <label class="form-check-label small text-muted" for="creditCard">
-        Pay with Visa, Mastercard, Amex, or Discover
-      </label>
-    </div>
-  </div>
-</div>
-
-
-
- <!--Cash Option-->   
-<div class="col-md-6">
-      <div class="payment-card p-3 rounded" (click)="setPaymentMethod('cash')" [class.selected]="selectedMethod === 'cash'" id="cash-option">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <div>
-            <i class="fas fa-money-bill-wave credit-card-icon me-2" style="color: #003087;"></i>
-            <span class="fw-bold">Cash</span>
+  <!-- Payment Success Message -->
+  <div class="row justify-content-center" *ngIf="paymentSuccess">
+    <div class="col-lg-8">
+      <div class="card border-success">
+        <div class="card-body text-center py-5">
+          <div class="mb-3">
+            <i class="fas fa-check-circle text-success" style="font-size: 5rem;"></i>
           </div>
-          <i class="fas fa-check-circle select-indicator"></i>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="paymentMethod" id="cash" checked>
-          <label class="form-check-label small text-muted" for="cash">
-            <!--Pay with cash upon service-->
-          </label>
+          <h2 class="card-title">Payment Successful!</h2>
+          <p class="lead">Your booking has been confirmed. Redirecting you to the homepage...</p>
         </div>
       </div>
     </div>
   </div>
-</div>
- <!--Credit Card Form (shown by default)--> 
-<div id="credit-card-form">
-  <form #paymentForm="ngForm" (ngSubmit)="onSubmit(paymentForm)">
 
-    <div class="mb-3">
-      <label for="cardNumber" class="form-label">Card Number</label>
-      <div class="input-group">
-        <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456">
-        <span class="input-group-text"><i class="far fa-credit-card"></i></span>
-      </div>
-    </div>
+  <div class="row" *ngIf="!paymentSuccess">
+    <div class="col-lg-8 mb-4">
+      <div class="card">
+        <div class="card-header bg-white">
+          <h4 class="mb-0">Payment Method</h4>
+        </div>
+        <div class="card-body">
+          <!--Payment Method Selection-->
+          <div class="mb-4">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="payment-card p-3 rounded" (click)="setPaymentMethod('credit-card')"
+                  [class.selected]="selectedMethod === 'credit-card'" id="credit-card-option">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div>
+                      <i class="far fa-credit-card credit-card-icon me-2"></i>
+                      <span class="fw-bold">Credit Card</span>
+                    </div>
+                    <i class="fas fa-check-circle select-indicator" *ngIf="selectedMethod === 'credit-card'"></i>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard"
+                      [checked]="selectedMethod === 'credit-card'">
+                    <label class="form-check-label small text-muted" for="creditCard">
+                      Pay with Visa, Mastercard, Amex, or Discover
+                    </label>
+                  </div>
+                </div>
+              </div>
 
-    <div class="row g-3 mb-3">
-      <div class="col-md-6">
-        <label for="cardName" class="form-label">Name on Card</label>
-        <input type="text" class="form-control" id="cardName" placeholder="John Smith">
-      </div>
-      <div class="col-md-3">
-        <label for="expiryDate" class="form-label">Expiry Date</label>
-        <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY">
-      </div>
-      <div class="col-md-3">
-        <label for="cvv" class="form-label">CVV</label>
-        <div class="input-group">
-          <input type="text" class="form-control" id="cvv" placeholder="123">
-          <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" title="3-digit code on back of card">
-            <i class="fas fa-question-circle"></i>
-          </span>
+              <!--Cash Option-->
+              <div class="col-md-6">
+                <div class="payment-card p-3 rounded" (click)="setPaymentMethod('cash')"
+                  [class.selected]="selectedMethod === 'cash'" id="cash-option">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div>
+                      <i class="fas fa-money-bill-wave credit-card-icon me-2" style="color: #003087;"></i>
+                      <span class="fw-bold">Cash</span>
+                    </div>
+                    <i class="fas fa-check-circle select-indicator" *ngIf="selectedMethod === 'cash'"></i>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="cash"
+                      [checked]="selectedMethod === 'cash'">
+                    <label class="form-check-label small text-muted" for="cash">
+                      Pay with cash upon delivery
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Error Message -->
+          <div class="alert alert-danger mb-4" *ngIf="paymentError">
+            <i class="fas fa-exclamation-circle me-2"></i>
+            {{ paymentError }}
+          </div>
+
+          <!-- Credit Card Form -->
+          <div id="credit-card-form" *ngIf="selectedMethod === 'credit-card'">
+            <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label for="cardNumber" class="form-label">Card Number</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="cardNumber" formControlName="cardNumber"
+                    placeholder="1234 5678 9012 3456" maxlength="19" (input)="formatCardNumber($event)">
+                  <span class="input-group-text">
+                    <i class="fab fa-cc-visa" *ngIf="detectedCardType === 'visa'"></i>
+                    <i class="fab fa-cc-mastercard" *ngIf="detectedCardType === 'mastercard'"></i>
+                    <i class="fab fa-cc-amex" *ngIf="detectedCardType === 'amex'"></i>
+                    <i class="fab fa-cc-discover" *ngIf="detectedCardType === 'discover'"></i>
+                    <i class="far fa-credit-card" *ngIf="!detectedCardType"></i>
+                  </span>
+                </div>
+                <div class="form-text text-danger"
+                  *ngIf="paymentForm.get('cardNumber')?.invalid && paymentForm.get('cardNumber')?.touched">
+                  Please enter a valid card number
+                </div>
+              </div>
+
+              <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                  <label for="cardName" class="form-label">Name on Card</label>
+                  <input type="text" class="form-control" id="cardName" formControlName="cardName"
+                    placeholder="John Smith">
+                  <div class="form-text text-danger"
+                    *ngIf="paymentForm.get('cardName')?.invalid && paymentForm.get('cardName')?.touched">
+                    Please enter the name as it appears on the card
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">Expiry Date</label>
+                  <div class="d-flex">
+                    <select class="form-select me-2" formControlName="expiryMonth">
+                      <option value="" disabled>MM</option>
+                      <option value="01">01</option>
+                      <option value="02">02</option>
+                      <option value="03">03</option>
+                      <option value="04">04</option>
+                      <option value="05">05</option>
+                      <option value="06">06</option>
+                      <option value="07">07</option>
+                      <option value="08">08</option>
+                      <option value="09">09</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                    </select>
+                    <select class="form-select" formControlName="expiryYear">
+                      <option value="" disabled>YY</option>
+                      <option value="23">23</option>
+                      <option value="24">24</option>
+                      <option value="25">25</option>
+                      <option value="26">26</option>
+                      <option value="27">27</option>
+                      <option value="28">28</option>
+                      <option value="29">29</option>
+                      <option value="30">30</option>
+                    </select>
+                  </div>
+                  <div class="form-text text-danger"
+                    *ngIf="(paymentForm.get('expiryMonth')?.invalid && paymentForm.get('expiryMonth')?.touched) || 
+                                                           (paymentForm.get('expiryYear')?.invalid && paymentForm.get('expiryYear')?.touched)">
+                    Valid expiry date required
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <label for="cvv" class="form-label">CVV</label>
+                  <div class="input-group">
+                    <input type="password" class="form-control" id="cvv" formControlName="cvv" placeholder="•••"
+                      maxlength="4">
+                    <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top"
+                      title="3-digit code on back of card">
+                      <i class="fas fa-question-circle"></i>
+                    </span>
+                  </div>
+                  <div class="form-text text-danger"
+                    *ngIf="paymentForm.get('cvv')?.invalid && paymentForm.get('cvv')?.touched">
+                    Valid security code required
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" id="saveCard" formControlName="saveCard">
+                <label class="form-check-label" for="saveCard">
+                  Save card information for future purchases
+                </label>
+              </div>
+
+              <div class="security-badge mb-4">
+                <div class="d-flex">
+                  <i class="fas fa-lock text-success me-3" style="font-size: 2rem;"></i>
+                  <div>
+                    <h6 class="mb-1">Secure Payment</h6>
+                    <p class="small text-muted mb-0">Your payment information is encrypted and processed securely. We do
+                      not store your credit card details.</p>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg w-100" [disabled]="isProcessing">
+                <span *ngIf="isProcessing">
+                  <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  Processing...
+                </span>
+                <span *ngIf="!isProcessing">
+                  Complete Booking - {{ booking.amount }} JOD
+                </span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Cash Form -->
+          <div id="cash-form" *ngIf="selectedMethod === 'cash'">
+            <div class="text-center py-4">
+              <p class="lead mb-4">You've selected to pay with cash upon delivery</p>
+              <button class="btn btn-primary btn-lg w-100 mb-3" (click)="onSubmit()">
+                <i class="fas fa-money-bill-wave me-2"></i> Confirm Order (Pay Later)
+              </button>
+              <p class="small text-muted">By clicking this button, you agree to our Terms of Service and Privacy Policy
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-
-    <div class="security-badge mb-4">
-      <div class="d-flex">
-        <i class="fas fa-lock text-success me-3" style="font-size: 2rem;"></i>
-        <div>
-          <h6 class="mb-1">Secure Payment</h6>
-          <p class="small text-muted mb-0">Your payment information is encrypted and processed securely. We do not store your credit card details.</p>
-        </div>
-      </div>
-    </div>
-<!--<button type="submit" class="btn btn-primary btn-lg w-100">Complete Booking - $748.00</button>-->
-    <button type="submit" class="btn btn-primary btn-lg w-100">
-      Complete Booking -
-      <span>{{ booking.amount }}JOD</span>
-    </button>
-
-  </form>
-</div>
- <!--PayPal Form (hidden by default)--> 
-<div id="paypal-form" class="d-none">
-      <div class="text-center py-4">
-        <p class="lead mb-4">You'll be redirected to PayPal to complete your payment</p>
-        <button class="btn btn-primary btn-lg w-100 mb-3" style="background-color: #003087; border-color: #003087;">
-          <i class="fab fa-paypal me-2"></i> Pay with PayPal
-        </button>
-        <p class="small text-muted">By clicking this button, you agree to our Terms of Service and Privacy Policy</p>
-      </div>
-    </div>
-  </div>
-</div>
- <!--Billing Address--> 
-<div class="card mt-4">
-    <!--<div class="card-header bg-white">
-      <h4 class="mb-0">Billing Address</h4>
-    </div>-->
-    <!--<div class="card-body">-->
-      <!--<div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" id="sameAsBooking" checked>
-        <label class="form-check-label" for="sameAsBooking">
-          Same as booking address
-        </label>
-      </div>-->
-
-      <!--<div id="billingAddressForm" class="d-none">-->
-        <!--<div class="row g-3">
-          <div class="col-md-6">
-            <label for="billingFirstName" class="form-label">First Name</label>
-            <input type="text" class="form-control" id="billingFirstName">
-          </div>
-          <div class="col-md-6">
-            <label for="billingLastName" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="billingLastName">
-          </div>
-          <div class="col-12">
-            <label for="billingAddress" class="form-label">Address</label>
-            <input type="text" class="form-control" id="billingAddress">
-          </div>
-          <div class="col-md-6">
-            <label for="billingCity" class="form-label">City</label>
-            <input type="text" class="form-control" id="billingCity">
-          </div>
-          <div class="col-md-4">
-            <label for="billingState" class="form-label">State</label>
-            <select class="form-select" id="billingState">
-              <option selected>Choose...</option>
-              <option>...</option>
-            </select>
-          </div>
-          <div class="col-md-2">
-            <label for="billingZip" class="form-label">Zip</label>
-            <input type="text" class="form-control" id="billingZip">
-          </div>
-        </div>-->
-      <!--</div>-->
-    <!--</div>-->
-  </div>
-</div>
- <!--Right Column - Booking Summary--> 
-<div class="col-lg-4">
+    <!--Right Column - Booking Summary-->
+    <div class="col-lg-4" *ngIf="!paymentSuccess">
       <div style="top: 20px;">
         <div class="card mb-4">
           <div class="card-header bg-white">
             <h4 class="mb-0">Booking Summary</h4>
           </div>
           <div class="card-body">
-            <div class="d-flex align-items-center mb-4">
-              <!--<img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" class="rounded-circle me-3" width="60" height="60" alt="Chef Maria">-->
-            </div>
-
             <ul class="list-group list-group-flush mb-4" *ngIf="booking">
               <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                 <span>Date & Time</span>
-                <span>{{ booking.date }} </span>
+                <span>{{ booking.date }} at {{ booking.time }}</span>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                 <span>Guests</span>
                 <span>{{ booking.guests }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                <span>Location</span>
+                <span>{{ booking.location }}</span>
               </li>
             </ul>
 
@@ -189,7 +232,7 @@
             <ul class="list-group list-group-flush">
               <li class="list-group-item d-flex justify-content-between align-items-center px-0 fw-bold">
                 <span>Total</span>
-                <span>${{ booking.amount?.toFixed(2) }} JOD</span>
+                <span>{{ booking.amount }} JOD</span>
               </li>
             </ul>
           </div>
@@ -200,80 +243,11 @@
             <h4 class="mb-0">Cancellation Policy</h4>
           </div>
           <div class="card-body">
-            <div class="alert alert-warning">
-              <i class="fas fa-exclamation-circle me-2"></i> Free cancellation up to 7 days before the event
-            </div>
-            <p class="small">Cancellations within 7 days of the event will be charged 50% of the total booking fee. Cancellations within 48 hours are non-refundable.</p>
-            <a href="#" class="small" data-bs-toggle="modal" data-bs-target="#policyModal">View full policy details</a>
+            <p class="small text-muted">Free cancellation up to 24 hours before your booking. After that, a 50%
+              cancellation fee will apply.</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
- <!--Payment Confirmation Modal (would appear after successful payment)--> 
-<div class="modal fade" id="paymentConfirmationModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body text-center p-5">
-        <div class="mb-4">
-          <i class="fas fa-check-circle text-success" style="font-size: 5rem;"></i>
-        </div>
-        <h2 class="mb-3">Payment Successful!</h2>
-        <p class="lead mb-4">Your booking with Chef Maria is confirmed for June 10, 2023.</p>
-
-        <div class="card mb-4 text-start">
-          <div class="card-body">
-            <h5 class="card-title">Booking Details</h5>
-            <ul class="list-unstyled">
-              <li><strong>Confirmation #:</strong> CB28374592</li>
-              <li><strong>Date:</strong> June 10, 2023 at 6:30 PM</li>
-              <li><strong>Amount Paid:</strong> $748.00</li>
-              <li><strong>Payment Method:</strong> Visa ending in 4242</li>
-            </ul>
-          </div>
-        </div>
-
-        <p class="mb-4">Chef Maria will contact you within 24 hours to discuss any special requests and finalize menu details.</p>
-
-        <div class="d-flex justify-content-center gap-3">
-          <a href="#" class="btn btn-primary">View Booking</a>
-          <a href="#" class="btn btn-outline-secondary">Back to Home</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
- <!--Policy Details Modal--> 
-<div class="modal fade" id="policyModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Cancellation & Refund Policy</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <h6>Cancellation by Client</h6>
-        <ul>
-          <li>More than 7 days before event: Full refund</li>
-          <li>Between 7 days and 48 hours before event: 50% refund</li>
-          <li>Less than 48 hours before event: No refund</li>
-        </ul>
-
-        <h6 class="mt-4">Cancellation by Chef</h6>
-        <p>In the rare event that your chef needs to cancel, we will:</p>
-        <ul>
-          <li>Notify you immediately</li>
-          <li>Help you find a replacement chef of equal quality</li>
-          <li>Offer a full refund if no suitable replacement is found</li>
-        </ul>
-
-        <h6 class="mt-4">Rescheduling</h6>
-        <p>Rescheduling is subject to chef availability and must be requested at least 72 hours before the event. Additional fees may apply if ingredients have already been purchased.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>

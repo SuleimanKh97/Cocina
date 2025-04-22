@@ -1,43 +1,158 @@
-     <!-- Payments Tab -->
-<div  id="payments">
+<!-- Payments Tab -->
+<div id="payments">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 style="color: var(--color-accent);">Payments</h2>
+    <button class="btn btn-sm btn-primary" (click)="refreshData()">
+      <i class="bi bi-arrow-repeat"></i> Refresh
+    </button>
   </div>
 
-  <div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
-      <span>Payment List</span>
+  <div class="card shadow-sm">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+      <span class="fw-bold">Payment List</span>
+      <div class="input-group" style="max-width: 300px;">
+        <input type="text" class="form-control form-control-sm" placeholder="Search payments..."
+          [(ngModel)]="searchTerm" (keyup)="filterPayments()">
+        <button class="btn btn-outline-secondary btn-sm" type="button">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-hover">
-          <thead>
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
             <tr>
-
+              <th>ID</th>
+              <th>Customer</th>
               <th>Service</th>
               <th>Amount</th>
+              <th>Method</th>
               <th>Date</th>
               <th>Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let payment of payments">
-
-              <td>{{ payment.serviceName  }}</td>
-              <td>${{ payment.amount }}</td>
+            <tr *ngFor="let payment of filteredPayments">
+              <td>#{{ payment.id }}</td>
+              <td>{{ payment.userName || 'N/A' }}</td>
+              <td>{{ payment.serviceName || 'N/A' }}</td>
+              <td>{{ payment.amount | currency:'JOD':'symbol':'1.2-2' }}</td>
+              <td>
+                <span class="badge" [ngClass]="{
+                  'bg-info': payment.paymentMethod === 'Credit Card',
+                  'bg-secondary': payment.paymentMethod === 'Cash',
+                  'bg-primary': payment.paymentMethod !== 'Credit Card' && payment.paymentMethod !== 'Cash'
+                }">
+                  <i class="bi" [ngClass]="{
+                    'bi-credit-card': payment.paymentMethod === 'Credit Card',
+                    'bi-cash': payment.paymentMethod === 'Cash',
+                    'bi-wallet2': payment.paymentMethod !== 'Credit Card' && payment.paymentMethod !== 'Cash'
+                  }"></i>
+                  {{ payment.paymentMethod || 'Unknown' }}
+                </span>
+              </td>
               <td>{{ payment.paymentDate | date:'short' }}</td>
               <td>
-                <span [ngClass]="{
-                       'status-pending': payment.status === 'Pending',
-                       'status-accepted': payment.status === 'Completed',
-                       'status-rejected': payment.status === 'Failed'
-                     }">{{ payment.status }}</span>
+                <span class="badge" [ngClass]="{
+                  'bg-warning': payment.status === 'Pending',
+                  'bg-success': payment.status === 'Completed',
+                  'bg-danger': payment.status === 'Failed',
+                  'bg-secondary': !payment.status
+                }">{{ payment.status || 'Unknown' }}</span>
+              </td>
+              <td>
+                <button class="btn btn-sm btn-outline-secondary me-1" title="View Details"
+                  (click)="viewPaymentDetails(payment)">
+                  <i class="bi bi-eye"></i>
+                </button>
+                <button *ngIf="payment.status === 'Pending'" class="btn btn-sm btn-outline-success"
+                  title="Approve Payment" (click)="approvePayment(payment.id)">
+                  <i class="bi bi-check-circle"></i>
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="filteredPayments.length === 0">
+              <td colspan="8" class="text-center py-4">
+                <div class="d-flex flex-column align-items-center">
+                  <i class="bi bi-inbox text-muted mb-2" style="font-size: 2rem;"></i>
+                  <p class="text-muted mb-0">No payments found</p>
+                  <small *ngIf="searchTerm" class="text-muted">Try clearing your search or refreshing the page</small>
+                </div>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
+    <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+      <span class="text-muted small">Showing {{ filteredPayments.length }} of {{ payments.length }} payments</span>
+      <div class="btn-group btn-group-sm">
+        <button type="button" class="btn btn-outline-secondary" (click)="exportPaymentsCSV()">
+          <i class="bi bi-file-earmark-spreadsheet me-1"></i> Export
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
+<!-- Payment Detail Modal -->
+<div class="modal fade" id="paymentDetailModal" tabindex="-1" aria-labelledby="paymentDetailModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" *ngIf="selectedPayment">
+      <div class="modal-header">
+        <h5 class="modal-title" id="paymentDetailModalLabel">Payment #{{ selectedPayment.id }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row mb-3">
+          <div class="col-12 mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="fw-bold">Status</span>
+              <span class="badge" [ngClass]="{
+                'bg-warning': selectedPayment.status === 'Pending',
+                'bg-success': selectedPayment.status === 'Completed',
+                'bg-danger': selectedPayment.status === 'Failed',
+                'bg-secondary': !selectedPayment.status
+              }">{{ selectedPayment.status || 'Unknown' }}</span>
+            </div>
+            <hr>
+          </div>
+          <div class="col-6 mb-3">
+            <span class="text-muted">Customer</span>
+            <p class="mb-0 fw-medium">{{ selectedPayment.userName || 'N/A' }}</p>
+          </div>
+          <div class="col-6 mb-3">
+            <span class="text-muted">Service</span>
+            <p class="mb-0 fw-medium">{{ selectedPayment.serviceName || 'N/A' }}</p>
+          </div>
+          <div class="col-6 mb-3">
+            <span class="text-muted">Amount</span>
+            <p class="mb-0 fw-medium">{{ selectedPayment.amount | currency:'JOD':'symbol':'1.2-2' }}</p>
+          </div>
+          <div class="col-6 mb-3">
+            <span class="text-muted">Payment Method</span>
+            <p class="mb-0 fw-medium">{{ selectedPayment.paymentMethod || 'Unknown' }}</p>
+          </div>
+          <div class="col-6 mb-3">
+            <span class="text-muted">Payment Date</span>
+            <p class="mb-0 fw-medium">{{ selectedPayment.paymentDate | date:'medium' }}</p>
+          </div>
+          <div class="col-6 mb-3">
+            <span class="text-muted">Payment ID</span>
+            <p class="mb-0 fw-medium">#{{ selectedPayment.id }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button *ngIf="selectedPayment.status === 'Pending'" type="button" class="btn btn-success"
+          (click)="approvePayment(selectedPayment.id)" data-bs-dismiss="modal">
+          <i class="bi bi-check-circle me-1"></i> Approve Payment
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

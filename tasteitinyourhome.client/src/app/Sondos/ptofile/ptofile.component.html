@@ -3,14 +3,14 @@
     <div class="profile-header">
         <div class="profile-image" (click)="navigateToEdit()">
             <!--<img [src]="user.imageUrl || 'assets/images/default-profile.jpg'" alt="User Image">-->
-            <img [src]="'http://localhost:5261/assets/images/' + user.imageUrl" alt="User profile photo">
+            <img [src]="'https://localhost:7132/assets/images/' + user.imageUrl" alt="User profile photo">
         </div>
         <div class="profile-info">
             <h2>{{ user.fullName }}</h2>
             <p><i class="fa fa-envelope"></i> {{ user.email }}</p>
             <p><i class="fa fa-phone"></i> {{ user.phoneNumber }}</p>
             <p><i class="fa fa-map-marker"></i> {{ user.address }}</p>
-        
+
             <div class="profile-actions">
                 <button class="book-btn" [routerLink]="['/edit-profile', user.id]">Edit Profile</button>
                 <button class="book-btn" (click)="toggleChangePasswordForm()">
@@ -54,6 +54,11 @@
         </div>
 
         <div class="booking-history-content" [ngClass]="{'visible': showBookingHistory}">
+            <div class="alert alert-info mb-3">
+                <i class="fa fa-info-circle"></i> You can submit feedback for orders with status "Completed" or
+                "Accepted" only.
+            </div>
+
             <div *ngIf="bookingHistory.length === 0" class="alert alert-info">
                 <i class="fa fa-info-circle"></i> No previous bookings found.
             </div>
@@ -61,25 +66,40 @@
             <div *ngIf="bookingHistory.length > 0" class="booking-cards">
                 <div *ngFor="let booking of bookingHistory" class="booking-card">
                     <div class="card-header">
-                        <span>{{ booking.bookingDate }}</span>
-                        <span class="badge" 
-                              [ngClass]="{
-                                'badge-completed': booking.status === 'Completed',
-                                'badge-pending': booking.status === 'Pending',
-                                'badge-cancelled': booking.status === 'Cancelled'
+                        <div class="booking-date">
+                            <i class="fa fa-calendar"></i>
+                            <!-- Try to use Angular date pipe, fall back to formatted date if date pipe fails -->
+                            <span>{{ (booking.bookingDate | date:'dd MMM yyyy') || booking.formattedDate }}</span>
+                        </div>
+                        <span class="badge" [ngClass]="{
+                                'badge-completed': booking.normalizedStatus === 'completed',
+                                'badge-pending': booking.normalizedStatus === 'pending',
+                                'badge-cancelled': booking.normalizedStatus === 'cancelled'
                               }">
                             {{ booking.status }}
                         </span>
                     </div>
                     <div class="booking-info">
+                        <p><strong>Date:</strong> {{ (booking.bookingDate | date:'dd MMMM yyyy') ||
+                            booking.formattedDate }}</p>
                         <p><strong>Chef:</strong> {{ booking.chefName }}</p>
                         <p><strong>Food:</strong> {{ booking.foodName }}</p>
                         <p><strong>Service:</strong> {{ booking.serviceName }}</p>
                         <p><strong>Number of Guests:</strong> {{ booking.numberOfGuests }}</p>
                         <p><strong>Time Slot:</strong> {{ booking.timeSlot }}</p>
+                        <p><strong>Status:</strong> <span class="highlight-status">{{ booking.status }}</span></p>
                     </div>
-                    <div *ngIf="booking.status === 'Completed'" class="text-end mt-3">
-                        <button class="book-btn" (click)="submitFeedback(booking)">Submit Feedback</button>
+                    <div class="card-actions mt-3">
+                        <!-- عرض زر الملاحظات فقط للطلبات المكتملة أو المقبولة -->
+                        <button *ngIf="booking.status === 'Completed' || booking.status === 'Accepted' || 
+                                  booking.normalizedStatus === 'completed' || booking.normalizedStatus === 'accepted'"
+                            class="book-btn feedback-btn" (click)="submitFeedback(booking)">
+                            <i class="fa fa-star"></i> Submit Feedback
+                        </button>
+                        <button *ngIf="booking.normalizedStatus === 'pending'" class="btn btn-danger"
+                            (click)="cancelBooking(booking.id)">
+                            <i class="fa fa-times-circle"></i> Cancel Booking
+                        </button>
                     </div>
                 </div>
             </div>
@@ -95,23 +115,24 @@
             </div>
             <div class="modal-body">
                 <p *ngIf="selectedBooking" class="booking-info-text">
-                    Your feedback for <strong>{{ selectedBooking.chefName }}</strong> 
+                    Your feedback for <strong>{{ selectedBooking.chefName }}</strong>
                     on <strong>{{ selectedBooking.bookingDate }}</strong>
                 </p>
-                
+
                 <div class="form-group">
                     <label for="rating">Rating (1 to 5 stars):</label>
-                    <input type="number" id="rating" [(ngModel)]="feedbackData.rating" min="1" max="5" class="form-control" />
+                    <input type="number" id="rating" [(ngModel)]="feedbackData.rating" min="1" max="5"
+                        class="form-control" />
                     <div class="rating-display">
-                        <i class="fa fa-star" *ngFor="let star of [1,2,3,4,5]" 
-                           [ngClass]="{'active': star <= feedbackData.rating}"></i>
+                        <i class="fa fa-star" *ngFor="let star of [1,2,3,4,5]"
+                            [ngClass]="{'active': star <= feedbackData.rating}"></i>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="comment">Your Comments:</label>
-                    <textarea id="comment" [(ngModel)]="feedbackData.comment" rows="3" class="form-control" 
-                              placeholder="Please share your experience..."></textarea>
+                    <textarea id="comment" [(ngModel)]="feedbackData.comment" rows="3" class="form-control"
+                        placeholder="Please share your experience..."></textarea>
                 </div>
             </div>
             <div class="modal-footer">

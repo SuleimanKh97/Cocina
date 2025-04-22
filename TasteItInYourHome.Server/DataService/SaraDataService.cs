@@ -118,6 +118,14 @@ namespace TasteItInYourHome.Server.DataService
             if (booking == null) return false;
 
             booking.Status = "Accepted";
+            
+            // Also update the payment status for this booking
+            var payment = _db.Payments.FirstOrDefault(p => p.BookingId == bookingId);
+            if (payment != null)
+            {
+                payment.PaymentStatus = "Completed";
+            }
+            
             _db.SaveChanges();
             return true;
         }

@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class ApiService {
-    private apiUrl = 'http://localhost:5261/api/Sondos';
+    private apiUrl = 'https://localhost:7132/api/Sondos';
+    private sajedaApiUrl = 'https://localhost:7132/api/Sajeda';
 
     constructor(private http: HttpClient) { }
 
@@ -19,19 +20,34 @@ export class ApiService {
     getUserById(id: number) {
         return this.http.get<any>(`${this.apiUrl}/GetProfile/${id}`);
     }
-   
+
     submitFeedback(feedback: any) {
-        return this.http.post(`${this.apiUrl}/AddFeedback`, feedback);
+        const completeData = {
+            ...feedback,
+            submittedAt: new Date().toISOString(),
+            userName: "string",
+            chefName: "string",
+            foodName: "string"
+        };
+
+        console.log('Sending feedback request with data:', completeData);
+
+        return this.http.post(`${this.apiUrl}/AddFeedback`, completeData);
     }
-  
-  
+
+    // Check if feedback exists for a booking
+    checkFeedbackExists(bookingId: number): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/CheckFeedbackExists/${bookingId}`);
+    }
+
+
 
     //updateProfile(user: any, id: number): Observable<any> {
     //    return this.http.put(`${this.apiUrl}/UpdateProfile/${id}`, user);
     //}
 
     updateProfile(formData: FormData, id: number): Observable<any> {
-       
+
 
         return this.http.put(`${this.apiUrl}/UpdateProfile/${id}`, formData);
     }
@@ -45,5 +61,9 @@ export class ApiService {
 
     getUserBookingHistory(UserId: number) {
         return this.http.get<any>(`${this.apiUrl}/BookingHistory/${UserId}`);
+    }
+
+    cancelBooking(bookingId: number): Observable<any> {
+        return this.http.put(`${this.sajedaApiUrl}/cancelBooking/${bookingId}`, {});
     }
 }

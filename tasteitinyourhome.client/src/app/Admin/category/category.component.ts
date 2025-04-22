@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UrlserviceService } from '../../Ammar/urlservice.service';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-category',
@@ -9,7 +10,10 @@ import { UrlserviceService } from '../../Ammar/urlservice.service';
 })
 export class CategoryComponent {
 
-  constructor(private TheService: UrlserviceService) { }
+  constructor(
+    private TheService: UrlserviceService,
+    private alertService: AlertService
+  ) { }
 
   selectedCategory: any = {}; // ✅ Add this line
 
@@ -28,30 +32,26 @@ export class CategoryComponent {
   }
   addCategory(data: any) {
     this.TheService.addCategory(data).subscribe(() => {
-      alert("Category added successfully");
+      this.alertService.success("Category added successfully");
       this.getAllCategories();
     })
   }
   editCategory(id: number, data: any) {
     this.TheService.editCategory(id, data).subscribe(() => {
-      alert("Category updated successfully");
+      this.alertService.success("Category updated successfully");
       this.getAllCategories();
     })
   }
 
   deleteCategory(id: number) {
-    const confirmed = confirm('Are you sure you want to delete this category?');
-    if (confirmed) {
-      this.TheService.deleteCategory(id).subscribe({
-        next: () => {
-          alert("Category deleted successfully");
-          this.getAllCategories(); // Refresh the list
-        },
-        error: (err) => {
-          console.error('Error deleting category:', err);
-        }
-      });
-    }
+    this.alertService.confirm("Are you sure you want to delete this category?").then(confirmed => {
+      if (confirmed) {
+        this.TheService.deleteCategory(id).subscribe(() => {
+          this.alertService.success("Category deleted successfully");
+          this.getAllCategories();
+        });
+      }
+    });
   }
 
   selectCategory(category: any) {
